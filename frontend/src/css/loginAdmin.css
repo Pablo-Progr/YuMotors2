@@ -1,0 +1,43 @@
+.background-login {
+  justify-content: center;
+  align-items: center;
+  background-color:#013632 
+}
+
+.login-container {
+  width: 900px;
+  height: 600px;
+  padding: 30px;
+  background-color: #000000b8; /* fallback */
+  border: #cded00 1px solid;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.628);
+
+}
+
+.input-custom {
+  width: 100%;
+  color: aliceblue;
+  background: #333;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;   
+  box-sizing: border-box;
+  display: block;   
+}
+
+.boton-inicio-sesion {
+  background-color: #00665e !important;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: bold;
+  color: #ffffff !important;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton-inicio-sesion:hover {
+  background-color: #cded00 !important;
+  color: #000 !important;
+}

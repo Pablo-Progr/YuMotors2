@@ -1,0 +1,22 @@
+.modal{
+    background-color: #00000097;
+}
+
+.modal-header {
+    color: white;
+    background-color: #00665e;
+    border-bottom: none;
+}
+
+.modal-body {
+    color: aliceblue;
+}
+
+.btn-dark {
+    background-color: #00665e;
+}
+
+.btn-dark:hover {
+    background-color: #cde8e5;
+    
+}
