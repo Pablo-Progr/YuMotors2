@@ -1,6 +1,7 @@
 const dotenv = require('dotenv');
 const app = require('./src/app');
-const db = require('./src/config/config');  
+const db = require('./src/config/config');
+const loginRoutes = require('./src/routes/login.routes');
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ db.connect((error) => {
   }
 });
 
+// Rutas
+app.use('/api/auth', loginRoutes);
 
 app.get("/", (req, res) => {
     res.send("Conexion funcionando correctamente.");
