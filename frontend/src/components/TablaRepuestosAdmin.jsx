@@ -1,43 +1,27 @@
-const repuestos = [
-  {
-    id: 18,
-    name: 'Llantas de Aleación 18"',
-    marca: "LLT",
-    numeroParte: "LLT-001",
-    price: "$850.00",
-    stock: 25,
-    descripcion: "Juego de llantas de aleación de 18 pulgadas",
-  },
-  {
-    id: 18,
-    name: 'Llantas de Aleación 18"',
-    marca: "LLT",
-    numeroParte: "LLT-001",
-    price: "$850.00",
-    stock: 25,
-    descripcion: "Juego de llantas de aleación de 18 pulgadas",
-  },
-  {
-    id: 18,
-    name: 'Llantas de Aleación 18"',
-    marca: "LLT",
-    numeroParte: "LLT-001",
-    price: "$850.00",
-    stock: 25,
-    descripcion: "Juego de llantas de aleación de 18 pulgadas",
-  },
-  {
-    id: 18,
-    name: 'Llantas de Aleación 18"',
-    marca: "LLT",
-    numeroParte: "LLT-001",
-    price: "$850.00",
-    stock: 25,
-    descripcion: "Juego de llantas de aleación de 18 pulgadas",
-  },
-];
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'; 
 
-const TablaRepuestosAdmin = () => (
+
+
+
+const TablaRepuestosAdmin = () => {
+
+  const [repuestos, setRepuestos] = useState([]);
+
+  useEffect(() => {
+    const fetchRepuestos = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/repuestos/repuestos");
+        setRepuestos(response.data);
+      } catch (error) {
+        console.error("Error fetching repuestos:", error);
+      }
+    };
+
+    fetchRepuestos();
+  }, []);
+
+return (
   <div className="table-responsive p-3 rounded">
     <table className="table table-dark table-hover align-middle">
       <thead>
@@ -53,15 +37,15 @@ const TablaRepuestosAdmin = () => (
         </tr>
       </thead>
       <tbody>
-        {repuestos.map(({ id, name, marca, numeroParte, price, stock, descripcion }) => (
-          <tr key={id}>
-            <td>{id}</td>
-            <td>{name}</td>
-            <td>{marca}</td>
-            <td>{numeroParte}</td>
-            <td>{price}</td>
-            <td>{stock}</td>
-            <td>{descripcion}</td>
+        {repuestos.map((repuestos) => (
+          <tr key={repuestos.idRepuesto}>
+            <td>{repuestos.idRepuesto}</td>
+            <td>{repuestos.nombre}</td>
+            <td>{repuestos.marca}</td>
+            <td>{repuestos.numeroParte}</td>
+            <td>${repuestos.precio}</td>
+            <td>{repuestos.stock}</td>
+            <td>{repuestos.descripcion}</td>
             <td className="text-end">
               <button className="btn btn-sm btn-outline-light me-2">
                 <i className="bi bi-pencil"></i>
@@ -76,5 +60,6 @@ const TablaRepuestosAdmin = () => (
     </table>
   </div>
 );
+}
 
 export default TablaRepuestosAdmin;
