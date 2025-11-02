@@ -1,0 +1,39 @@
+/* Nav container */
+.navbar-container {
+  font-family: oswald, sans-serif;
+  background-color: #000;  
+  width: 100%;             
+  padding: 1rem;           
+  display: flex;           
+  justify-content: space-between;
+  align-items: center;     
+  position: relative;      
+}
+
+/* Nav links: color fijo y efecto de escala */
+.navbar-container .nav-link,
+.navbar-container .nav-link:visited,
+.navbar-container .nav-link:focus,
+.navbar-container .nav-link:active {
+  color: #fff;                   /* siempre blanco */
+  text-decoration: none;
+  margin: 0 1rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Hover: solo escala, mantiene color */
+.navbar-container .nav-link:hover {
+  color: #fff;                   /* refuerza que no cambie */
+  transform: scale(1.1);
+}
+
+/* Logo */
+.nav-logo {
+  height: 70px;
+}
+
+/* Reset body */
+body {
+  padding: 0;
+  margin: 0;
+}

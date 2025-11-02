@@ -1,0 +1,36 @@
+/* Footer con fondo negro y texto claro */
+.footer-container {
+  background-color: #000000;
+  color: #FFFFFF;
+  text-align: center;
+  padding-bottom: 30px;
+  padding-top: 10px;
+}
+
+footer {
+  background-color: black;
+}
+
+.footer-img {
+    
+    height: 180px;
+    display: block;
+    margin: auto;
+    padding: 50px;
+}
+
+/* Iconos sociales en blanco */
+.footer-social .footer-icon {
+  color: #FFFFFF;
+}
+
+/* Links en blanco y subrayado suave al pasar */
+.footer-container a {
+  color: #FFFFFF;
+}
+
+
+.footer-instagram {
+  font-size: 50px;
+  
+}
