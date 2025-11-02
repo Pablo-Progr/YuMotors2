@@ -1,7 +1,72 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "../store/authStore";
+import Swal from "sweetalert2";
 import "../css/LoginAdmin.css"; // Estilos personalizados
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const LoginAdmin = () => {
+  const [nombre, setNombre] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ nombre, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        // Guardar datos del usuario en Zustand
+        login(data.data);
+
+        // Mostrar mensaje de éxito
+        Swal.fire({
+          icon: "success",
+          title: "Login exitoso",
+          text: `Bienvenido ${data.data.nombre}`,
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+        // Redireccionar según el rol
+        if (data.data.idRol === 1) {
+          navigate("/admin/vehiculos");
+        } else {
+          navigate("/");
+        }
+      } else {
+        // Mostrar error
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: data.message || "Credenciales inválidas",
+        });
+      }
+    } catch (error) {
+      console.error("Error en login:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error al conectar con el servidor",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="background-login d-flex justify-content-center align-items-center vh-100">
       <div className="login-container d-flex flex-column justify-content-center align-items-center ">
@@ -11,19 +76,31 @@ const LoginAdmin = () => {
             Inicia sesión para gestionar el concesionario.
           </p>
         </div>
-        <div className="w-50 mb-3">
+        <form onSubmit={handleSubmit} className="w-50 mb-3">
           <input
             type="text"
             className="mb-3 input-custom"
             placeholder="Nombre de Usuario"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            required
           />
           <input
             type="password"
             className="mb-3 input-custom"
             placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
-          <button className="boton-inicio-sesion btn w-100 mb-2">Iniciar Sesión</button>
-        </div>
+          <button
+            type="submit"
+            className="boton-inicio-sesion btn w-100 mb-2"
+            disabled={loading}
+          >
+            {loading ? "Iniciando..." : "Iniciar Sesión"}
+          </button>
+        </form>
 
         <a href="#" className="text-info">
           Olvidé mi contraseña
