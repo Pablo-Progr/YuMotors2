@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/modalAdmin.css";
 
 const TablaConsultasAdmin = () => {
+  const [consultas, setConsultas] = useState([]);
   const [consultaSeleccionada, setConsultaSeleccionada] = useState(null);
   const [mostrarModal, setMostrarModal] = useState(false);
 
-  const abrirModal = (consulta) => {
-    setConsultaSeleccionada(consulta);
+  const abrirModal = (consultas) => {
+    setConsultaSeleccionada(consultas);
     setMostrarModal(true);
   };
 
@@ -16,35 +17,21 @@ const TablaConsultasAdmin = () => {
     setMostrarModal(false);
   };
 
-  const consultas = [
-    {
-      nombre: "Chiqui Tapia",
-      email: "chiqui.tapia@example.com",
-      telefono: "123-456-7890",
-      titulo: "Toyota Gr Yaris",
-      mensaje:
-        "Hola bunas tardes, quisiera saber mas sobre el Toyota Gr Yaris 2023",
-      active: true,
-    },
-    {
-      nombre: "Chiqui Tapia",
-      email: "chiqui.tapia@example.com",
-      telefono: "123-456-7890",
-      titulo: "Consulta sobre Toyota Gr Yaris",
-      mensaje:
-        "Hola bunas tardes, quisiera saber mas sobre el Toyota Gr Yaris 2023",
-      active: true,
-    },
-    {
-      nombre: "Chiqui Tapia",
-      email: "chiqui.tapia@example.com",
-      telefono: "123-456-7890",
-      titulo: "Consulta sobre Toyota Gr Yaris",
-      mensaje:
-        "Hola bunas tardes, quisiera saber mas sobre el Toyota Gr Yaris 2023",
-      active: true,
-    },
-  ];
+  useEffect(() => {
+    const fetchConsultas = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/api/consultas/consultas"
+        );
+        const data = await response.json();
+        setConsultas(data);
+      } catch (error) {
+        console.error("Error al obtener consultas:", error);
+      }
+    };
+
+    fetchConsultas();
+  }, []);
 
   return (
     <>
@@ -61,26 +48,26 @@ const TablaConsultasAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {consultas.map((consulta, index) => (
-              <tr key={index}>
-                <td>{consulta.nombre}</td>
-                <td>{consulta.email}</td>
-                <td>{consulta.telefono}</td>
-                <td>{consulta.titulo}</td>
+            {consultas.map((consultas) => (
+              <tr key={consultas.idConsulta}>
+                <td>{consultas.nombre}</td>
+                <td>{consultas.email}</td>
+                <td>{consultas.telefono}</td>
+                <td>{consultas.asunto}</td>
                 <td>
                   <span
                     className={`badge ${
-                      consulta.active ? "bg-success" : "bg-danger"
+                      consultas.active ? "bg-success" : "bg-danger"
                     }`}
                   >
-                    {consulta.active ? "Pendiente" : "Contactado"}
+                    {consultas.active ? "Pendiente" : "Contactado"}
                   </span>
                 </td>
                 <td className="text-end">
                   <button className="btn btn-sm btn-outline-light me-2">
                     <i
                       className="bi bi-pencil"
-                      onClick={() => abrirModal(consulta)}
+                      onClick={() => abrirModal(consultas)}
                     ></i>
                   </button>
                   <button className="btn btn-sm btn-outline-danger">
@@ -103,7 +90,7 @@ const TablaConsultasAdmin = () => {
                 <h5 className="modal-title">
                   Consulta de {consultaSeleccionada.nombre}
                   {" - "}
-                  {consultaSeleccionada.titulo}
+                  {consultaSeleccionada.asunto}
                 </h5>
                 <button
                   type="button"
