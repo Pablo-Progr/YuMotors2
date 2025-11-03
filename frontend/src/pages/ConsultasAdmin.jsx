@@ -10,9 +10,6 @@ const ConsultasAdmin = () => {
       <main className="flex-grow-1 p-4">
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h1 className="fw-bold fs-2">Gestión de Consultas</h1>
-          <button className="botones btn  d-flex align-items-center gap-2">
-            <i className="bi bi-plus-lg"></i> Agregar Consulta
-          </button>
         </div>
         <TablaConsultasAdmin />
       </main>
