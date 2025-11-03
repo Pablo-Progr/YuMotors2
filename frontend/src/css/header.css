@@ -10,26 +10,42 @@
   position: relative;      
 }
 
-/* Nav links: color fijo y efecto de escala */
+/* If your links are wrapped in a container, ensure they sit together */
+.navbar-container .nav-links {
+  display: flex;
+  gap: 0.5rem; /* reduce space between items */
+  align-items: center;
+}
+
+/* Nav links: color fijo y efecto de escala, mismos tamaños */
 .navbar-container .nav-link,
 .navbar-container .nav-link:visited,
 .navbar-container .nav-link:focus,
 .navbar-container .nav-link:active {
   color: #fff;                   /* siempre blanco */
   text-decoration: none;
-  margin: 0 1rem;
+  margin: 0;                     /* control spacing via .nav-links gap */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;       /* control visual size */
+  min-width: 110px;             /* garantiza ancho uniforme */
+  height: 40px;                 /* altura uniforme */
+  box-sizing: border-box;
+  font-size: 16px;
   transition: transform 0.3s ease, color 0.3s ease;
+  border-radius: 4px;           /* opcional: para mejor aspecto */
 }
 
 /* Hover: solo escala, mantiene color */
 .navbar-container .nav-link:hover {
   color: #fff;                   /* refuerza que no cambie */
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 /* Logo */
 .nav-logo {
-  height: 70px;
+  height: 30px;
 }
 
 /* Reset body */

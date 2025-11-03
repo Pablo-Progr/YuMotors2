@@ -1,7 +1,7 @@
 import React from 'react'
 import '../css/footer.css'
 import { FiInstagram } from "react-icons/fi";
-import logo from '../img/yu-motors-blanco.png'
+import logo from '../img/yumotors-rojo-blanco.png'
 
 const Footer = () => {
     return (

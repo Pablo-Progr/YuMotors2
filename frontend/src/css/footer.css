@@ -4,7 +4,7 @@
   color: #FFFFFF;
   text-align: center;
   padding-bottom: 30px;
-  padding-top: 10px;
+  padding-top: 30px;
 }
 
 footer {
@@ -12,12 +12,14 @@ footer {
 }
 
 .footer-img {
-    
-    height: 180px;
-    display: block;
-    margin: auto;
-    padding: 50px;
+  height: 50px;
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
+  object-fit: contain;
 }
+
+
 
 /* Iconos sociales en blanco */
 .footer-social .footer-icon {
@@ -31,6 +33,6 @@ footer {
 
 
 .footer-instagram {
-  font-size: 50px;
+  font-size: 40px;
   
 }
