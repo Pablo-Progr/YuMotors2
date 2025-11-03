@@ -1,0 +1,17 @@
+const db = require('../config/config');
+
+// Controlador para obtener todos los accesorios
+const traerAccesorios = (req, res) => {
+    const query = 'SELECT * FROM accesorios';
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching accesorios:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }  
+        res.json(results);
+    });
+};
+
+module.exports = {
+    traerAccesorios,
+};

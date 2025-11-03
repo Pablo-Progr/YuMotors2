@@ -30,7 +30,7 @@ const loginUser = async (req, res) => {
       if (results.length === 0) {
         return res.status(401).json({
           success: false,
-          message: 'Credenciales inválidas'
+          message: 'Usuario no encontrado'
         });
       }
 
