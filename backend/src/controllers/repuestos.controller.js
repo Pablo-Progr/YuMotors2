@@ -35,8 +35,23 @@ const eliminarRepuesto = (req, res) => {
   });
 };
 
+const editarRepuesto = (req, res) => {
+  const { id } = req.params;
+  const { nombre, marca, numeroParte, descripcion, precio, stock } = req.body;
+
+  const query = 'UPDATE repuestos SET nombre = ?, marca = ?, numeroParte = ?, descripcion = ?, precio = ?, stock = ? WHERE idRepuesto = ?';
+  db.query(query, [nombre, marca, numeroParte, descripcion, precio, stock, id], (err, results) => {
+    if (err) {
+      console.error('Error updating repuesto:', err);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+    res.json({ id, nombre, marca, numeroParte, descripcion, precio, stock });
+  });
+};
+
 module.exports = {
   traerRepuestos,
   agregarRepuesto,
   eliminarRepuesto,
+  editarRepuesto,
 };
