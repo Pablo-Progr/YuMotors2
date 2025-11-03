@@ -12,13 +12,6 @@ const TablaRepuestosAdmin = () => {
         const response = await axios.get("http://localhost:3000/api/repuestos/repuestos");
         setRepuestos(response.data);
 
-        if (response) {
-          Swal.fire({
-            icon: "success",
-            title: "Repuestos cargados",
-          });
-        }
-
       } catch (error) {
         console.error("Error fetching repuestos:", error);
       }
