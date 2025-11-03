@@ -23,7 +23,20 @@ const agregarRepuesto = (req, res) => {
   });
 };
 
+const eliminarRepuesto = (req, res) => {
+  const { id } = req.params;
+  const query = 'DELETE FROM repuestos WHERE idRepuesto = ?';
+  db.query(query, [id], (err, results) => {
+    if (err) {
+      console.error('Error deleting repuesto:', err);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+    res.status(204).send();
+  });
+};
+
 module.exports = {
   traerRepuestos,
   agregarRepuesto,
+  eliminarRepuesto,
 };
