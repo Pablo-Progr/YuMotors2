@@ -11,6 +11,19 @@ const traerRepuestos = (req, res) => {
   });
 };
 
+const agregarRepuesto = (req, res) => {
+  const { nombre, marca, numeroParte, descripcion, precio, stock } = req.body;
+  const query = 'INSERT INTO repuestos (nombre, marca, numeroParte, descripcion, precio, stock) VALUES (?, ?, ?, ?, ?, ?)';
+  db.query(query, [nombre, marca, numeroParte, descripcion, precio, stock], (err, results) => {
+    if (err) {
+      console.error('Error adding repuesto:', err);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+    res.status(201).json({ id: results.insertId, nombre, marca, numeroParte, descripcion, precio, stock });
+  });
+};
+
 module.exports = {
   traerRepuestos,
+  agregarRepuesto,
 };
