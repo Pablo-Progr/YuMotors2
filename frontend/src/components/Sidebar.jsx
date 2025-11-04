@@ -34,28 +34,53 @@ const Sidebar = () => {
       </div>
       <nav className="nav flex-column">
         <Link
+          to="/admin"
+          className="BotonesSidebar nav-link text-white text-opacity-75"
+        >
+          <i className="bi bi-house-door-fill me-2"></i>
+          Dashboard
+        </Link>
+        <Link
           to="/admin/vehiculos"
           className="BotonesSidebar nav-link text-white text-opacity-75"
         >
-          Vehiculos
+          <i className="bi bi-car-front-fill me-2"></i>
+          Vehículos
         </Link>
         <Link
           to="/admin/repuestos"
           className="BotonesSidebar nav-link text-white text-opacity-75"
         >
+          <i className="bi bi-gear-fill me-2"></i>
           Repuestos
         </Link>
         <Link
           to="/admin/accesorios"
           className="BotonesSidebar nav-link text-white text-opacity-75"
         >
+          <i className="bi bi-bag-fill me-2"></i>
           Accesorios
         </Link>
         <Link
           to="/admin/consultas"
           className="BotonesSidebar nav-link text-white text-opacity-75"
         >
+          <i className="bi bi-chat-dots-fill me-2"></i>
           Consultas
+        </Link>
+        <Link
+          to="/admin/metricas"
+          className="BotonesSidebar nav-link text-white text-opacity-75"
+        >
+          <i className="bi bi-graph-up-arrow me-2"></i>
+          Métricas
+        </Link>
+        <Link
+          to="/admin/post-venta"
+          className="BotonesSidebar nav-link text-white text-opacity-75"
+        >
+          <i className="bi bi-headset me-2"></i>
+          Post-Venta
         </Link>
       </nav>
     </aside>

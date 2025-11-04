@@ -33,7 +33,7 @@ const LoginAdmin = () => {
         login(data.data);
 
         // Mostrar mensaje de éxito
-        Swal.fire({
+        await Swal.fire({
           icon: "success",
           title: "Login exitoso",
           text: `Bienvenido ${data.data.nombre}`,
@@ -43,7 +43,7 @@ const LoginAdmin = () => {
 
         // Redireccionar según el rol
         if (data.data.idRol === 1) {
-          navigate("/admin/vehiculos");
+          navigate("/admin");
         } else {
           navigate("/");
         }

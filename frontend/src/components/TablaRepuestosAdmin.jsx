@@ -31,6 +31,8 @@ const TablaRepuestosAdmin = () => {
       Swal.fire({
         icon: "success",
         title: "Repuesto eliminado",
+        timer: 1500,
+        showConfirmButton: false,
       });
     } catch (error) {
       console.error("Error deleting repuesto:", error);
