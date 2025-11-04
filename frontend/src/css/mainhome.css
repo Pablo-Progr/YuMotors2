@@ -50,11 +50,17 @@ html, body {
 
 /* --- SECCIÓN DE CARDS --- */
 .card-container {
-  padding: 4rem 2rem;
-  background: linear-gradient(135deg, #e9ecef, #f8f9fa);
+  background-color: rgb(235,10,30);
+  width: 100%;
+  min-height: 100vh; /* ocupa como mínimo toda la altura de la pantalla */
+  margin: 0;         /* quita márgenes que puedan dejar bordes blancos */
+  padding: 2rem 0;   /* espacio interior, ajustable */
+  box-sizing: border-box;
+  position: relative;
+  left: 0;
+  right: 0;
+  overflow: hidden;
 }
-
-
 
 .album {
   padding: 3rem 0;
@@ -62,10 +68,11 @@ html, body {
 
 .container {
   max-width: 1200px;
-  margin: 0 auto;
-  background-color: rgb(235,10,30);
-  padding: 30px;
+  margin: 0 auto;                /* centra el contenido sin dejar bordes blancos */
+  background-color: transparent; /* evita duplicar el fondo rojo con márgenes */
+  padding: 2rem;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .row {
@@ -83,6 +90,7 @@ html, body {
   border-radius: 14px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
 }
 
 /* Hover */
@@ -102,11 +110,13 @@ html, body {
 
 /* Contenido */
 .card-body {
-  background-color: #fff;
+  background-color: #2a2a2a;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+  text-align: center;
 }
 
 /* Texto */
@@ -118,16 +128,27 @@ html, body {
 }
 
 /* Botones */
+.btn-group {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .btn-group .btn {
-  border-radius: 20px;
-  padding: 0.4rem 0.9rem;
-  font-size: 0.8rem;
-  transition: all 0.2s ease;
+  margin: 0.5rem auto;
+  background-color: rgb(235,10,30);
+  border: none;
+  color: #1b1b1b;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .btn-outline-secondary:hover {
-  background-color: #6c757d;
-  color: #fff;
+  background-color: #1b1b1b;
+  color: rgb(235, 10, 30);
 }
 
 /* Tiempo o texto secundario */
@@ -135,3 +156,75 @@ html, body {
   font-size: 0.8rem;
   color: #adb5bd;
 }
+
+/* Contenedor general */
+.servicios-wrapper {
+  background-color: #1b1b1b;
+  padding: 2rem;
+}
+
+/* Título */
+.servicios-titulo {
+  color: #ffffff;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+/* Contenedor de las cards */
+.servicios-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* Card individual */
+.servicio {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  max-width: 300px;
+  padding: 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+}
+
+.servicio:hover {
+  transform: translateY(-5px);
+}
+
+/* Íconos */
+.servicio-icono {
+  font-size: 2.5rem;
+  color: rgb(235,10,30);
+  margin-bottom: 1rem;
+}
+
+/* Botón */
+.btn-primary {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: rgb(235,10,30);
+  border: none;
+  color: #1b1b1b;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #1b1b1b;
+  color: rgb(235, 10, 30);
+}
+
+/* Texto descriptivo */
+.servicio p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+

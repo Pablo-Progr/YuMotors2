@@ -1,10 +1,14 @@
-import wall2 from "../img/wall2.jpg";
-import wall4 from "../img/wall4.jpg";
-import wall5 from "../img/wall5.jpg";
-import wall6 from "../img/wall6.jpg";
+import wall2 from "../img/hilux.jpg";
+import wall4 from "../img/camry-tc-2024.jpg";
+import wall5 from "../img/Supras.png";
+import wall6 from "../img/gr-yaris-wrc.jpg";
 import wall8 from "../img/wall8.jpg";
 import wall10 from "../img/wall10.jpg";
+
 import "../css/mainhome.css";
+import { MdAttachMoney } from "react-icons/md";
+import { GiCarKey } from "react-icons/gi";
+import { BiSolidCheckShield } from "react-icons/bi";
 
 const MainHome = () => {
   return (
@@ -160,7 +164,7 @@ const MainHome = () => {
                   alt="Auto"
                 />
                 <div className="card-body">
-                  <p className="card-text">Toyota Corolla 2022</p>
+                  <p>Toyota Corolla 2022</p>
                   <div className="d-flex justify-content-between align-items-center">
                     <div className="btn-group">
                       <button
@@ -182,7 +186,7 @@ const MainHome = () => {
                   alt="Auto"
                 />
                 <div className="card-body">
-                  <p className="card-text">Recién llegado - GR Yaris 2025</p>
+                  <p>Recién llegado - GR Yaris 2025</p>
                   <div className="d-flex justify-content-between align-items-center">
                     <div className="btn-group">
                       <button
@@ -204,7 +208,7 @@ const MainHome = () => {
                   alt="Auto"
                 />
                 <div className="card-body">
-                  <p className="card-text">Lexus</p>
+                  <p>Lexus</p>
                   <div className="d-flex justify-content-between align-items-center">
                     <div className="btn-group">
                       <button
@@ -224,9 +228,38 @@ const MainHome = () => {
         {/* Sobre Nosotos */}
 
 
-        <div className="container">
-          
+        {/* Servicios */}
+      
+      <div className="servicios-wrapper">
+      <h3 className="servicios-titulo">Nuestros Servicios</h3>
+
+      <div className="servicios-container">
+        <div className="servicio">
+          <MdAttachMoney className="servicio-icono" />
+          <button className="btn btn-primary">Financiamiento</button>
+          <p>
+            Ofrecemos planes de financiamiento flexibles para ayudarte a comprar el auto de tus sueños.
+          </p>
         </div>
+
+        <div className="servicio">
+          <GiCarKey className="servicio-icono" />
+          <button className="btn btn-primary">Mantenimiento</button>
+          <p>
+            Nuestro taller cuenta con técnicos certificados para mantener tu vehículo en óptimas condiciones.
+          </p>
+        </div>
+
+<div className="servicio">
+          <BiSolidCheckShield className="servicio-icono" />
+          <button className="btn btn-primary">Garantía extendida</button>
+          <p>
+            Protege tu inversión con nuestras opciones de garantía extendida para tu tranquilidad.
+          </p>
+        </div>
+
+      </div>
+    </div>
       
     </div>
   );
