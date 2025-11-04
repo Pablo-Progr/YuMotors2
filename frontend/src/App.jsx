@@ -7,6 +7,7 @@ import VehiculosAdmin from "./pages/VehiculosAdmin";
 import ConsultasAdmin from "./pages/ConsultasAdmin";
 import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminHome from "./pages/AdminHome";
 
 function App() {
   return (
@@ -17,6 +18,14 @@ function App() {
           <Route path="/login" element={<AdminLogin />} />
 
           {/* Rutas protegidas para administradores */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <AdminHome />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/admin/accesorios"
             element={
@@ -46,6 +55,26 @@ function App() {
             element={
               <ProtectedRoute requireAdmin={true}>
                 <ConsultasAdmin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/metricas"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <div className="d-flex bg-dark text-white min-vh-100 justify-content-center align-items-center">
+                  <h1>Página de Métricas - En construcción</h1>
+                </div>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/post-venta"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <div className="d-flex bg-dark text-white min-vh-100 justify-content-center align-items-center">
+                  <h1>Página de Post-Venta - En construcción</h1>
+                </div>
               </ProtectedRoute>
             }
           />
