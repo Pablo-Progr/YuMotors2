@@ -101,10 +101,6 @@ const LoginAdmin = () => {
             {loading ? "Iniciando..." : "Iniciar Sesión"}
           </button>
         </form>
-
-        <a href="#" className="text-info">
-          Olvidé mi contraseña
-        </a>
       </div>
     </div>
   );

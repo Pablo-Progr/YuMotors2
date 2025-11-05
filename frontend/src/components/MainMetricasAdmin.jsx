@@ -149,10 +149,14 @@ const MainMetricasAdmin = () => {
     plugins: {
       legend: {
         position: "top",
+        labels: {
+          color: "white",
+        },
       },
       title: {
         display: true,
         text: "Evolución de Ventas (Últimos 12 Meses)",
+        color: "white",
         font: {
           size: 16,
           weight: "bold",
@@ -160,8 +164,22 @@ const MainMetricasAdmin = () => {
       },
     },
     scales: {
+      x: {
+        ticks: {
+          color: "white",
+        },
+        grid: {
+          color: "rgba(255, 255, 255, 0.1)",
+        },
+      },
       y: {
         beginAtZero: true,
+        ticks: {
+          color: "white",
+        },
+        grid: {
+          color: "rgba(255, 255, 255, 0.1)",
+        },
       },
     },
   };
@@ -176,6 +194,7 @@ const MainMetricasAdmin = () => {
       title: {
         display: true,
         text: "Top 10 Productos Más Vendidos",
+        color: "white",
         font: {
           size: 16,
           weight: "bold",
@@ -183,8 +202,22 @@ const MainMetricasAdmin = () => {
       },
     },
     scales: {
+      x: {
+        ticks: {
+          color: "white",
+        },
+        grid: {
+          color: "rgba(255, 255, 255, 0.1)",
+        },
+      },
       y: {
         beginAtZero: true,
+        ticks: {
+          color: "white",
+        },
+        grid: {
+          color: "rgba(255, 255, 255, 0.1)",
+        },
       },
     },
   };
@@ -283,7 +316,7 @@ const MainMetricasAdmin = () => {
                 <th>Ingresos Totales</th>
               </tr>
             </thead>
-            <tbody className="tabla-metricas">
+            <tbody>
               {productosMasVendidos.map((producto, index) => (
                 <tr key={producto.idAccesorio}>
                   <td>{index + 1}</td>

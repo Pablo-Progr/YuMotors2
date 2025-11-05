@@ -56,19 +56,21 @@
 }
 
 .card-resumen {
-  background: white;
+  background: #2d3238;
   border-radius: 12px;
   padding: 1.5rem;
   display: flex;
   align-items: center;
   gap: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
+  border: 1px solid #3a3f47;
 }
 
 .card-resumen:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  border-color: #4a5058;
 }
 
 .card-resumen i {
@@ -96,12 +98,12 @@
   font-size: 2rem;
   font-weight: 700;
   margin: 0;
-  color: #1f2937;
+  color: #ffffff;
 }
 
 .card-content p {
   margin: 0;
-  color: #6b7280;
+  color: #adb5bd;
   font-size: 0.9rem;
 }
 
@@ -114,11 +116,16 @@
 }
 
 .grafico-card {
-  background: white;
+  background: #2d3238;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   border: 1px solid #3a3f47;
+  color: white;
+}
+
+.grafico-card canvas {
+  color: white !important;
 }
 
 .grafico-grande {
@@ -131,7 +138,7 @@
 
 /* Tabla de productos */
 .tabla-productos-container {
-  background: white;
+  background: #2d3238;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
@@ -139,7 +146,7 @@
 }
 
 .tabla-productos-container h3 {
-  color: #070707;
+  color: #ffffff;
   font-weight: 700;
   margin-bottom: 1rem;
   display: flex;
@@ -149,6 +156,8 @@
 .tabla-productos-container .table {
   margin-bottom: 0;
   color: #ffffff;
+  --bs-table-bg: transparent;
+  --bs-table-hover-bg: #3a3f47;
 }
 
 .tabla-productos-container thead {
@@ -158,23 +167,21 @@
 
 .tabla-productos-container thead th {
   border-color: #3a3f47;
+  color: #ffffff !important;
 }
 
 .tabla-productos-container tbody td {
   border-color: #3a3f47;
-  color: #e9ecef;
+  color: #e9ecef !important;
 }
 
 .tabla-productos-container tbody tr {
   transition: background 0.2s ease;
+  background-color: transparent;
 }
 
 .tabla-productos-container tbody tr:hover {
-  background: #3a3f47;
-}
-
-td{
-  color: #050505 !important;
+  background: #3a3f47 !important;
 }
 
 /* Loading */
