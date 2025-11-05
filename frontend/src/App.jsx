@@ -5,6 +5,7 @@ import AccesoriosAdmin from "./pages/AccesoriosAdmin";
 import RepuestosAdmin from "./pages/RepuestosAdmin";
 import VehiculosAdmin from "./pages/VehiculosAdmin";
 import ConsultasAdmin from "./pages/ConsultasAdmin";
+import MetricasAdmin from "./pages/MetricasAdmin";
 import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminHome from "./pages/AdminHome";
@@ -62,9 +63,7 @@ function App() {
             path="/admin/metricas"
             element={
               <ProtectedRoute requireAdmin={true}>
-                <div className="d-flex bg-dark text-white min-vh-100 justify-content-center align-items-center">
-                  <h1>Página de Métricas - En construcción</h1>
-                </div>
+                <MetricasAdmin />
               </ProtectedRoute>
             }
           />
