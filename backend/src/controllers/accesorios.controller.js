@@ -25,9 +25,9 @@ const eliminarAccesorio = (req, res) => {
 };
 
 const crearAccesorio = (req, res) => {
-    const { nombre, marca, descripcion, precio, stock } = req.body;
-    const query = 'INSERT INTO accesorios (nombre, marca, descripcion, precio, stock) VALUES (?, ?, ?, ?, ?)';
-    db.query(query, [nombre, marca, descripcion, precio, stock], (err, results) => {
+    const { nombre, marca, descripcion, precio, stock, imagen } = req.body;
+    const query = 'INSERT INTO accesorios (nombre, marca, descripcion, precio, stock, imagen) VALUES (?, ?, ?, ?, ?, ?)';
+    db.query(query, [nombre, marca, descripcion, precio, stock, imagen], (err, results) => {
         if (err) {
             console.error('Error creating accesorio:', err);
             return res.status(500).json({ error: 'Internal server error' });
@@ -38,9 +38,9 @@ const crearAccesorio = (req, res) => {
 
 const editarAccesorio = (req, res) => {
     const { id } = req.params;
-    const { nombre, marca, descripcion, precio, stock } = req.body;
-    const query = 'UPDATE accesorios SET nombre = ?, marca = ?, descripcion = ?, precio = ?, stock = ? WHERE idAccesorio = ?';
-    db.query(query, [nombre, marca, descripcion, precio, stock, id], (err, results) => {
+    const { nombre, marca, descripcion, precio, stock, imagen } = req.body;
+    const query = 'UPDATE accesorios SET nombre = ?, marca = ?, descripcion = ?, precio = ?, stock = ?, imagen = ? WHERE idAccesorio = ?';
+    db.query(query, [nombre, marca, descripcion, precio, stock, imagen, id], (err, results) => {
         if (err) {
             console.error('Error editing accesorio:', err);
             return res.status(500).json({ error: 'Internal server error' });

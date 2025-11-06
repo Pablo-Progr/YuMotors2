@@ -12,9 +12,9 @@ const traerRepuestos = (req, res) => {
 };
 
 const agregarRepuesto = (req, res) => {
-  const { nombre, marca, numeroParte, descripcion, precio, stock } = req.body;
-  const query = 'INSERT INTO repuestos (nombre, marca, numeroParte, descripcion, precio, stock) VALUES (?, ?, ?, ?, ?, ?)';
-  db.query(query, [nombre, marca, numeroParte, descripcion, precio, stock], (err, results) => {
+  const { nombre, marca, numeroParte, descripcion, precio, stock, imagen } = req.body;
+  const query = 'INSERT INTO repuestos (nombre, marca, numeroParte, descripcion, precio, stock, imagen) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  db.query(query, [nombre, marca, numeroParte, descripcion, precio, stock, imagen], (err, results) => {
     if (err) {
       console.error('Error adding repuesto:', err);
       return res.status(500).json({ error: 'Internal server error' });
@@ -37,15 +37,15 @@ const eliminarRepuesto = (req, res) => {
 
 const editarRepuesto = (req, res) => {
   const { id } = req.params;
-  const { nombre, marca, numeroParte, descripcion, precio, stock } = req.body;
+  const { nombre, marca, numeroParte, descripcion, precio, stock, imagen } = req.body;
 
-  const query = 'UPDATE repuestos SET nombre = ?, marca = ?, numeroParte = ?, descripcion = ?, precio = ?, stock = ? WHERE idRepuesto = ?';
-  db.query(query, [nombre, marca, numeroParte, descripcion, precio, stock, id], (err, results) => {
+  const query = 'UPDATE repuestos SET nombre = ?, marca = ?, numeroParte = ?, descripcion = ?, precio = ?, stock = ?, imagen = ? WHERE idRepuesto = ?';
+  db.query(query, [nombre, marca, numeroParte, descripcion, precio, stock, imagen, id], (err, results) => {
     if (err) {
       console.error('Error updating repuesto:', err);
       return res.status(500).json({ error: 'Internal server error' });
     }
-    res.json({ id, nombre, marca, numeroParte, descripcion, precio, stock });
+    res.json({ id, nombre, marca, numeroParte, descripcion, precio, stock, imagen });
   });
 };
 
