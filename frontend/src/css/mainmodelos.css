@@ -1,3 +1,4 @@
+
 /* ================================
   Sección: Títulos de categoría
   ================================ */
@@ -12,12 +13,13 @@ h2 {
   Contenedor de tarjetas
   ================================ */
 .card-container {
+  background-color: #1b1b1b;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: stretch;
   gap: 1.5rem;
-  padding: 0 1rem 2rem;
+  padding: 30px;
 }
 
 /* ================================
@@ -90,8 +92,8 @@ h2 {
 }
 
 .btn-primary:hover {
-  background-color: #323232;
-  transform: translateY(-2px);
+  background-color: #1b1b1b;
+  color: rgb(235, 10, 30);
 }
 
 /* ================================

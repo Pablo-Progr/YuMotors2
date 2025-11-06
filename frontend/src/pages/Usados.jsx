@@ -1,15 +1,15 @@
 import React from 'react'
 import Header from '../components/Header'
-import MainModelos from '../components/MainModelos'
+import MainUsados from '../components/MainUsados'
 import Footer from '../components/Footer'
-const Modelos = () => {
+const Usados = () => {
   return (
     <div>
         <Header />
-        <MainModelos />
+        <MainUsados />
         <Footer />
     </div>
   )
 }
 
-export default Modelos
+export default Usados
