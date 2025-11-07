@@ -8,6 +8,9 @@ import ConsultasAdmin from "./pages/ConsultasAdmin";
 import Home from "./pages/Home";
 import Usados from "./pages/Usados";
 import Concesionario from "./pages/Concesionario";
+import GazooRacing from "./pages/GazooRacing";
+import Marcas from "./pages/Marcas";
+import Yaris from "./pages/Yaris";
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/usados" element={<Usados />} />
           <Route path="/concesionario" element={<Concesionario />} />
+          <Route path="/marcas/gr" element={<GazooRacing />} />
+          <Route path="/marcas" element={<Marcas />} />
+          <Route path="/marcas/gr/yaris" element={<Yaris />} />
           <Route path="/login" element={<AdminLogin />} />
           <Route path="/admin/accesorios" element={<AccesoriosAdmin />} />
           <Route path="/admin/repuestos" element={<RepuestosAdmin />} />
