@@ -20,11 +20,20 @@ const Header = () => {
                 </a>
               </li>
               <li className="nav-item">
+                <a className="nav-link" href="/usados">
+                  Usados
+                </a>
+              </li>
+              <li className="nav-item">
                 <a className="nav-link" href="/concesionario">
                   Concesionario
                 </a>
               </li>
-              
+              <li className="nav-item">
+                <a className="nav-link" href="/toyota">
+                  Toyota
+                </a>
+              </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">
                   Post Venta

@@ -9,6 +9,9 @@ import MetricasAdmin from "./pages/MetricasAdmin";
 import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminHome from "./pages/AdminHome";
+import Usados from "./pages/Usados";
+import Concesionario from "./pages/Concesionario";
+
 
 function App() {
   return (
@@ -16,6 +19,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/usados" element={<Usados />} />
+          <Route path="/concesionario" element={<Concesionario />} />
           <Route path="/login" element={<AdminLogin />} />
 
           {/* Rutas protegidas para administradores */}
