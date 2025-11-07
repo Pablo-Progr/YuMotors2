@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/modalAdmin.css";
+import Swal from "sweetalert2";
 
 const TablaConsultasAdmin = () => {
   const [consultas, setConsultas] = useState([]);
@@ -20,9 +21,7 @@ const TablaConsultasAdmin = () => {
   useEffect(() => {
     const fetchConsultas = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/consultas/consultas"
-        );
+        const response = await fetch("http://localhost:3000/api/consultas");
         const data = await response.json();
         setConsultas(data);
       } catch (error) {
@@ -33,6 +32,113 @@ const TablaConsultasAdmin = () => {
     fetchConsultas();
   }, []);
 
+  const refresh = () => {
+    // simple refresh helper
+    const fetchConsultas = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/consultas");
+        const data = await response.json();
+        setConsultas(data);
+      } catch (error) {
+        console.error("Error al obtener consultas:", error);
+      }
+    };
+    fetchConsultas();
+  };
+
+  const cambiarEstadoConsulta = async (consulta) => {
+    try {
+      // Convertir a número para evitar problemas de tipo
+      const estadoActual = Number(consulta.estado);
+      const nuevoEstado = estadoActual === 1 ? 0 : 1; // toggle
+
+      const res = await fetch("http://localhost:3000/api/consultas/estado", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          idConsulta: consulta.idConsulta,
+          estado: nuevoEstado,
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Error updating estado");
+      }
+
+      // update local state for immediate feedback
+      setConsultas((prev) =>
+        prev.map((c) =>
+          c.idConsulta === consulta.idConsulta
+            ? { ...c, estado: nuevoEstado }
+            : c
+        )
+      );
+
+      Swal.fire({
+        icon: "success",
+        title: "Estado actualizado",
+        text: `La consulta ahora está marcada como ${
+          nuevoEstado === 1 ? "Atendida" : "Pendiente"
+        }`,
+        timer: 2000,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      console.error("Error al cambiar estado:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo cambiar el estado de la consulta",
+      });
+    }
+  };
+
+  const handleEliminarConsulta = async (idConsulta) => {
+    // Mostrar confirmación con SweetAlert2
+    const result = await Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      const res = await fetch(
+        `http://localhost:3000/api/consultas/eliminar/${idConsulta}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!res.ok) throw new Error("Error eliminando consulta");
+
+      // remove from local state
+      setConsultas((prev) => prev.filter((c) => c.idConsulta !== idConsulta));
+
+      Swal.fire({
+        icon: "success",
+        title: "Eliminada",
+        text: "La consulta ha sido eliminada exitosamente",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      console.error("Error eliminando consulta:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo eliminar la consulta",
+      });
+    }
+  };
+
   return (
     <>
       <div className="table-responsive p-3 rounded">
@@ -42,7 +148,8 @@ const TablaConsultasAdmin = () => {
               <th>Nombre</th>
               <th>Email</th>
               <th>Teléfono</th>
-              <th>Título</th>
+              <th>Asunto</th>
+              <th>Preferencia</th>
               <th>Estado</th>
               <th className="text-end">Acciones</th>
             </tr>
@@ -54,23 +161,38 @@ const TablaConsultasAdmin = () => {
                 <td>{consultas.email}</td>
                 <td>{consultas.telefono}</td>
                 <td>{consultas.asunto}</td>
+                <td>{consultas.preferencia}</td>
                 <td>
                   <span
                     className={`badge ${
-                      consultas.active ? "bg-success" : "bg-danger"
+                      Number(consultas.estado) === 1 ? "bg-success" : "bg-danger"
                     }`}
                   >
-                    {consultas.active ? "Pendiente" : "Contactado"}
+                    {Number(consultas.estado) === 1 ? "Atendida" : "Pendiente"}
                   </span>
                 </td>
                 <td className="text-end">
-                  <button className="btn btn-sm btn-outline-light me-2">
-                    <i
-                      className="bi bi-pencil"
-                      onClick={() => abrirModal(consultas)}
-                    ></i>
+                  <button
+                    className="btn btn-sm btn-outline-light me-2"
+                    title="Marcar como contactado"
+                    onClick={() => cambiarEstadoConsulta(consultas)}
+                  >
+                    <i className="bi bi-check-lg"></i>
                   </button>
-                  <button className="btn btn-sm btn-outline-danger">
+
+                  <button
+                    className="btn btn-sm btn-outline-light me-2"
+                    title="Ver detalle"
+                    onClick={() => abrirModal(consultas)}
+                  >
+                    <i className="bi bi-eye"></i>
+                  </button>
+
+                  <button
+                    className="btn btn-sm btn-outline-danger"
+                    title="Eliminar"
+                    onClick={() => handleEliminarConsulta(consultas.idConsulta)}
+                  >
                     <i className="bi bi-trash"></i>
                   </button>
                 </td>
@@ -83,9 +205,7 @@ const TablaConsultasAdmin = () => {
       {mostrarModal && consultaSeleccionada && (
         <div className="modal fade show d-block" tabIndex="-1">
           <div className="modal-dialog modal-lg modal-dialog-centered">
-            <div
-              className="modal-content text-white"
-            >
+            <div className="modal-content text-white">
               <div className="modal-header">
                 <h5 className="modal-title">
                   Consulta de {consultaSeleccionada.nombre}
@@ -98,19 +218,10 @@ const TablaConsultasAdmin = () => {
                   onClick={cerrarModal}
                 ></button>
               </div>
-              <div className="modal-body bg-dark d-box flex-wrap gap-3 justify-content-center">
+              <div className="modal-body bg-dark d-box flex-wrap gap-3 justify-content-center p-4">
                 <div>
-                  <h2>Mensaje</h2>
-                  <p className="">{consultaSeleccionada.mensaje}</p>
-                </div>
-                <div>
-                  <label>Responder Consulta:</label>
-                  <textarea className="form-control" rows="4"></textarea>
-                </div>
-                <div className="my-3 d-flex justify-content-center">
-                  <button className="btn btn-dark" onClick={cerrarModal}>
-                    Enviar Respuesta
-                  </button>
+                  <h4 className="mb-4">Mensaje</h4>
+                  <h6 className="">{consultaSeleccionada.mensaje}</h6>
                 </div>
               </div>
             </div>
