@@ -8,6 +8,7 @@ const TablaRepuestosAdmin = () => {
   const [repuestoSeleccionado, setRepuestoSeleccionado] = useState(null);
   const [mostrarModal, setMostrarModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [mostrarModalImagen, setMostrarModalImagen] = useState(false);
 
   const fetchRepuestos = async () => {
     try {
@@ -90,6 +91,18 @@ const TablaRepuestosAdmin = () => {
     }));
   };
 
+      const abrirModalImagen = (repuesto) => {
+        setRepuestoSeleccionado(repuesto);
+        setMostrarModalImagen(true);
+      };
+
+      const cerrarModalImagen = () => {
+        setRepuestoSeleccionado(null);
+        setMostrarModalImagen(false);
+      };  
+
+
+
   return (
     <>
       <div className="table-responsive p-3 rounded">
@@ -118,6 +131,13 @@ const TablaRepuestosAdmin = () => {
                 <td>{repuesto.descripcion}</td>
                 <td className="text-end">
                   <button
+                    className="btn btn-sm btn-outline-info me-2"
+                    onClick={() => abrirModalImagen(repuesto)}
+                    title="Ver imagen"
+                  >
+                    <i className="bi bi-eye"></i>
+                  </button>
+                  <button
                     className="btn btn-sm btn-outline-light me-2"
                     onClick={() => abrirModal(repuesto)}
                   >
@@ -135,6 +155,47 @@ const TablaRepuestosAdmin = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Modal de imagen */}
+      {mostrarModalImagen && repuestoSeleccionado && (
+        <Modal
+          show={mostrarModalImagen}
+          onHide={cerrarModalImagen}
+          centered
+          size="lg"
+        >
+          <Modal.Header closeButton className="bg-dark text-white">
+            <Modal.Title>
+              <i className="bi bi-image me-2"></i>
+              Imagen de {repuestoSeleccionado.marca}{" "}
+              {repuestoSeleccionado.modelo}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="bg-dark text-center">
+            {repuestoSeleccionado.imagen ? (
+              <img
+                src={repuestoSeleccionado.imagen}
+                alt={`${repuestoSeleccionado.nombre} ${repuestoSeleccionado.marca}`}
+                className="img-fluid rounded"
+                style={{ maxHeight: "500px" }}
+              />
+            ) : (
+              <div className="text-white py-5">
+                <i
+                  className="bi bi-image-fill"
+                  style={{ fontSize: "4rem" }}
+                ></i>
+                <p className="mt-3">No hay imagen disponible</p>
+              </div>
+            )}
+          </Modal.Body>
+          <Modal.Footer className="bg-dark">
+            <Button variant="secondary" onClick={cerrarModalImagen}>
+              <i className="bi bi-x-circle me-2"></i>Cerrar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
 
       {/* Modal de edición */}
       {mostrarModal && repuestoSeleccionado && (
@@ -203,6 +264,15 @@ const TablaRepuestosAdmin = () => {
                   rows={3}
                   name="descripcion"
                   value={repuestoSeleccionado.descripcion}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Imagen</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="imagen"
+                  value={repuestoSeleccionado.imagen}
                   onChange={handleChange}
                 />
               </Form.Group>

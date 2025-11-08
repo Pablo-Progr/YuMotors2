@@ -9,6 +9,7 @@ const TablaAccesoriosAdmin = () => {
   const [accesorioSeleccionado, setAccesorioSeleccionado] = useState(null);
   const [mostrarModal, setMostrarModal] = useState(false);
   const [loading, setLoading] = useState(false);
+    const [mostrarModalImagen, setMostrarModalImagen] = useState(false);
 
     const fetchAccesorios = async () => {
       try {
@@ -46,7 +47,17 @@ const TablaAccesoriosAdmin = () => {
     const cerrarModal = () => {
       setAccesorioSeleccionado(null);
       setMostrarModal(false);
-    };
+  };
+
+      const abrirModalImagen = (accesorio) => {
+        setAccesorioSeleccionado(accesorio);
+        setMostrarModalImagen(true);
+      };
+
+      const cerrarModalImagen = () => {
+        setAccesorioSeleccionado(null);
+        setMostrarModalImagen(false);
+      };
 
   const handleUpdateAccesorio = async (e) => {
     e.preventDefault();
@@ -116,6 +127,13 @@ const TablaAccesoriosAdmin = () => {
                 <td>{accesorios.stock}</td>
                 <td className="text-end">
                   <button
+                    className="btn btn-sm btn-outline-info me-2"
+                    onClick={() => abrirModalImagen(accesorios)}
+                    title="Ver imagen"
+                  >
+                    <i className="bi bi-eye"></i>
+                  </button>
+                  <button
                     className="btn btn-sm btn-outline-light me-2"
                     onClick={() => abrirModal(accesorios)}
                   >
@@ -123,7 +141,9 @@ const TablaAccesoriosAdmin = () => {
                   </button>
                   <button
                     className="btn btn-sm btn-outline-danger"
-                    onClick={() => handleEliminarAccesorio(accesorios.idAccesorio)}
+                    onClick={() =>
+                      handleEliminarAccesorio(accesorios.idAccesorio)
+                    }
                   >
                     <i className="bi bi-trash"></i>
                   </button>
@@ -133,6 +153,47 @@ const TablaAccesoriosAdmin = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Modal de imagen */}
+      {mostrarModalImagen && accesorioSeleccionado && (
+        <Modal
+          show={mostrarModalImagen}
+          onHide={cerrarModalImagen}
+          centered
+          size="lg"
+        >
+          <Modal.Header closeButton className="bg-dark text-white">
+            <Modal.Title>
+              <i className="bi bi-image me-2"></i>
+              Imagen de {accesorioSeleccionado.nombre}{" "}
+              {accesorioSeleccionado.marca}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="bg-dark text-center">
+            {accesorioSeleccionado.imagen ? (
+              <img
+                src={accesorioSeleccionado.imagen}
+                alt={`${accesorioSeleccionado.nombre} ${accesorioSeleccionado.marca}`}
+                className="img-fluid rounded"
+                style={{ maxHeight: "500px" }}
+              />
+            ) : (
+              <div className="text-white py-5">
+                <i
+                  className="bi bi-image-fill"
+                  style={{ fontSize: "4rem" }}
+                ></i>
+                <p className="mt-3">No hay imagen disponible</p>
+              </div>
+            )}
+          </Modal.Body>
+          <Modal.Footer className="bg-dark">
+            <Button variant="secondary" onClick={cerrarModalImagen}>
+              <i className="bi bi-x-circle me-2"></i>Cerrar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
 
       {/* Modal de edición */}
       {mostrarModal && accesorioSeleccionado && (
@@ -190,6 +251,16 @@ const TablaAccesoriosAdmin = () => {
                   type="number"
                   name="stock"
                   value={accesorioSeleccionado.stock}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Imagen</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="imagen"
+                  value={accesorioSeleccionado.imagen}
                   onChange={handleChange}
                   required
                 />
