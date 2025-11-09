@@ -1,0 +1,114 @@
+
+/* ================================
+  Sección: Títulos de categoría
+  ================================ */
+h2 {
+  text-align: center;
+  margin: 2rem 0 1rem;
+  font-size: 2rem;
+  color: #333;
+}
+
+/* ================================
+  Contenedor de tarjetas
+  ================================ */
+.card-container {
+  background-color: #1b1b1b;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1.5rem;
+  padding: 30px;
+}
+
+/* ================================
+  Tarjeta individual (responsiva)
+  ================================ */
+/* Uso de flex para que las cards crezcan/encogan según el espacio.
+  min/max-width garantizan límites razonables; clamp en caso de querer usar width fluid. */
+.card {
+  flex: 1 1 18rem;          /* permite crecer/encoger; base ~18rem */
+  min-width: 14rem;         /* no se haga demasiado pequeña */
+  max-width: 22rem;         /* no se haga demasiado ancha */
+  border: none;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* ================================
+  Imagen de la tarjeta (proporción controlada)
+  ================================ */
+.card-img-top {
+  width: 100%;
+  aspect-ratio: 16/9;       /* mantiene proporción en lugar de altura fija */
+  object-fit: cover;
+  display: block;
+}
+
+/* ================================
+  Cuerpo de la tarjeta
+  ================================ */
+.card-body {
+  text-align: center;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.card-title {
+  font-size: clamp(1rem, 1.6vw, 1.25rem); /* tamaño responsivo */
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.card-text {
+  font-size: clamp(1rem, 1.6vw, 1.1rem);
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 1rem;
+}
+
+/* ================================
+  Botón “Más información”
+  ================================ */
+.btn-primary {
+  background-color: #000000;
+  border: none;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  align-self: center; /* mantener botón centrado en el layout flexible */
+}
+
+.btn-primary:hover {
+  background-color: #1b1b1b;
+  color: rgb(235, 10, 30);
+}
+
+/* ================================
+  Ajustes para pantallas pequeñas
+  ================================ */
+@media (max-width: 640px) {
+  .card-container {
+   gap: 1rem;
+  }
+  .card {
+   flex: 1 1 100%;
+   min-width: 0;
+   max-width: 100%;
+  }
+  .card-img-top {
+   aspect-ratio: 4/3; /* más alto en móviles si lo prefieres */
+  }
+}

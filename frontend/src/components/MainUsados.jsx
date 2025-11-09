@@ -1,6 +1,6 @@
 import yaris from "../img/gr-yaris-wrc.jpg";
 import kia from "../img/kia-wallpaper1.jpg";
-import '../css/mainmodelos.css'
+import '../css/mainusados.css'
 
 const MainUsados = () => {
   return (

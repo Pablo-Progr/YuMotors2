@@ -12,8 +12,8 @@ const MainConcesionario = () => {
             </div>
             <div className='concesionario-info'>
                 <h2>Concesionario Yu Motors</h2>
-                <p>Dirección: Av. Siempre Viva 123, Ciudad Autónoma de Buenos Aires</p>
-                <p>Teléfono: +54 11 1234-5678</p>
+                <p>Av. Siempre Viva 123, San Miguel de Tucumán</p>
+                <p>+54 9 381 217-3556</p>
             </div>
 
         </div>

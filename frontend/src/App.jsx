@@ -11,6 +11,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminHome from "./pages/AdminHome";
 import Usados from "./pages/Usados";
 import Concesionario from "./pages/Concesionario";
+import GazooRacing from "./pages/GazooRacing";
+import Marcas from "./pages/Marcas";
+import Yaris from "./pages/Yaris";
 
 
 function App() {
@@ -21,6 +24,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/usados" element={<Usados />} />
           <Route path="/concesionario" element={<Concesionario />} />
+          <Route path="/marcas/gr" element={<GazooRacing />} />
+          <Route path="/marcas" element={<Marcas />} />
+          <Route path="/marcas/gr/yaris" element={<Yaris />} />
           <Route path="/login" element={<AdminLogin />} />
 
           {/* Rutas protegidas para administradores */}
