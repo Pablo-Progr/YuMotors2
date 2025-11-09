@@ -53,115 +53,179 @@ html, body {
 
 
 /* --- SECCIÓN DE CARDS --- */
-.card-container {
-  background-color: rgb(235,10,30);
-  width: 100%;
-  min-height: 100vh; /* ocupa como mínimo toda la altura de la pantalla */
-  margin: 0;         /* quita márgenes que puedan dejar bordes blancos */
-  padding: 2rem 0;   /* espacio interior, ajustable */
-  box-sizing: border-box;
-  position: relative;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-}
 
-.album {
-  padding: 3rem 0;
-}
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;                /* centra el contenido sin dejar bordes blancos */
-  background-color: transparent; /* evita duplicar el fondo rojo con márgenes */
-  padding: 2rem;
-  text-align: center;
-  box-sizing: border-box;
-}
 
-.row {
+
+
+
+
+
+/* CONTENEDOR PRINCIPAL */
+.main-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
-}
-
-/* Cada card */
-.card {
-  flex: 1 1 300px;
-  max-width: 350px;
-  border: none;
-  border-radius: 14px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;
- 
-}
-
-/* Hover */
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-}
-
-/* Imagen de la card */
-.card img,
-.bd-placeholder-img {
   width: 100%;
-  height: 225px;
-  object-fit: cover;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ---- LADO IZQUIERDO ---- */
+.image-section {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  overflow: hidden;
+  color: white;
+}
+
+/* Imagen interna: ocupa toda la mitad izquierda */
+.image-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* mantiene proporciones y recorta la imagen */
+  object-position: center; /* centra el recorte */
   display: block;
 }
 
-/* Contenido */
-.card-body {
-  background-color: #1b1b1b;
+/* Texto sobre la imagen */
+.promo-text {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+}
+
+.promo-text h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
   color: white;
-  padding: 1.5rem;
+}
+
+.promo-text a {
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .image-section {
+    height: 40vh;
+  }
+
+  .image-section img {
+    height: 100%;
+  }
+
+  .promo-text {
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.75rem 1rem;
+  }
+}
+
+
+/* ---- LADO DERECHO ---- */
+.menu-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.menu-item {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-}
-
-/* Texto */
-.card-text {
-  font-size: 0.95rem;
-  color: #ffffff;
-  line-height: 1.5;
-  margin-bottom: 1rem;
-}
-
-/* Botones */
-.btn-group {
-  display: flex;
   justify-content: center;
-  width: 100%;
-}
-
-.btn-group .btn {
-  margin: 0.5rem auto;
-  background-color: rgb(0, 0, 0);
-  border: none;
-  color: #ffffff;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+  align-items: center;
+  color: white;
+  gap: 0.5rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.btn-outline-secondary:hover {
-  background-color: #2a2a2a;
-  color: rgb(235, 10, 30);
+.icono-menu-container{
+   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Tiempo o texto secundario */
-.text-body-secondary {
-  font-size: 0.8rem;
-  color: #adb5bd;
+.icono-menu-container:hover {
+  transform: scale(1.05);
 }
+
+/* Colores de cada cuadrante */
+.menu-item.dark {
+  background-color: #1a1a1a; /* Negro carbón - corporativo Toyota */
+}
+
+.menu-item.medium {
+  background-color: #c8102e; /* Rojo Toyota principal */
+}
+
+.menu-item.light {
+  background-color: #d5d5d5; /* Gris claro para equilibrio */
+  color: #000000;
+}
+
+.menu-item.lighter {
+  background-color: #ffffff; /* Blanco puro para contraste */
+  color: #c8102e; /* texto e ícono en rojo Toyota */
+}
+
+
+.menu-item p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .image-section {
+    height: 40vh;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- SECCIÓN DE SERVICIOS --- */
+
 
 /* Contenedor general */
 .servicios-wrapper {

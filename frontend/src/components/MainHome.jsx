@@ -4,11 +4,17 @@ import wall5 from "../img/Supras.png";
 import wall6 from "../img/gr-yaris-wrc.jpg";
 import wall8 from "../img/wall8.jpg";
 import wall10 from "../img/wall10.jpg";
-
+import home from "../img/toyota-main-home.jpg";
 import "../css/mainhome.css";
 import { MdAttachMoney } from "react-icons/md";
 import { GiCarKey } from "react-icons/gi";
 import { BiSolidCheckShield } from "react-icons/bi";
+import {
+  FaMapMarkerAlt,
+  FaCalendarAlt,
+  FaTools,
+  FaAward,
+} from "react-icons/fa";
 
 const MainHome = () => {
   return (
@@ -151,116 +157,80 @@ const MainHome = () => {
           <span className="visually-hidden">Next</span>
         </button>
       </div>
-
-      {/* Cards */}
-
-      
-        <div className="container">
-          <div className="row">
-            <div className="col">
-              <div className="card shadow-sm">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Moscow%2C_Toyota_Corolla_Sport_hatchback%2C_Sept_2025_02.jpg"
-                  alt="Auto"
-                />
-                <div className="card-body">
-                  <p>Toyota Corolla 2022</p>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div className="btn-group">
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-outline-secondary"
-                      >
-                        Autos usados
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col">
-              <div className="card shadow-sm">
-                <img
-                  src="https://media.toyota.com.ar/696e5ffd-4c88-4b05-8f3c-c720a5941da8.jpeg"
-                  alt="Auto"
-                />
-                <div className="card-body">
-                  <p>Recién llegado - GR Yaris 2025</p>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div className="btn-group">
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-outline-secondary"
-                      >
-                        Más información
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col">
-              <div className="card shadow-sm">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/4/42/Lexus-cars-logo-emblem.jpg"
-                  alt="Auto"
-                />
-                <div className="card-body">
-                  <p>Lexus</p>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div className="btn-group">
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-outline-secondary"
-                      >
-                        Ver autos
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      /* Cards */
+      <div className="main-container">
+        {/* Sección izquierda con imagen */}
+        <div className="image-section">
+          <img src={home} alt="Promociones" />
+          <div className="promo-text">
+            <h2>Promociones</h2>
+            <a href="#">+ Saber más</a>
           </div>
         </div>
 
-        {/* Sobre Nosotos */}
+        {/* Sección derecha con 4 bloques */}
+        <div className="menu-grid">
+          <div className="menu-item dark">
+            <div className="icono-menu-container">
+              <FaMapMarkerAlt size={40} />
+              <p>Concesionarios</p>
+            </div>
+          </div>
+          <div className="menu-item medium">
+            <div className="icono-menu-container">
+              <FaCalendarAlt size={40} />
+              <p>Turno Online</p>
+            </div>
+          </div>
+          <div className="menu-item light">
+            <div className="icono-menu-container">
+              <FaTools size={40} />
+              <p>Post Venta</p>
+            </div>
+          </div>
 
-
-        {/* Servicios */}
-      
-      <div className="servicios-wrapper">
-      <h3 className="servicios-titulo">Nuestros Servicios</h3>
-
-      <div className="servicios-container">
-        <div className="servicio">
-          <MdAttachMoney className="servicio-icono" />
-          <button className="btn btn-primary">Financiamiento</button>
-          <p>
-            Ofrecemos planes de financiamiento flexibles para ayudarte a comprar el auto de tus sueños.
-          </p>
+          <div className="menu-item lighter">
+            <div className="icono-menu-container">
+              <FaAward size={40} className="icono-menu" />
+              <p>Garantía</p>
+            </div>
+          </div>
         </div>
-
-        <div className="servicio">
-          <GiCarKey className="servicio-icono" />
-          <button className="btn btn-primary">Mantenimiento</button>
-          <p>
-            Nuestro taller cuenta con técnicos certificados para mantener tu vehículo en óptimas condiciones.
-          </p>
-        </div>
-
-<div className="servicio">
-          <BiSolidCheckShield className="servicio-icono" />
-          <button className="btn btn-primary">Garantía extendida</button>
-          <p>
-            Protege tu inversión con nuestras opciones de garantía extendida para tu tranquilidad.
-          </p>
-        </div>
-
       </div>
-    </div>
-      
+      {/* Sobre Nosotos */}
+      {/* Servicios */}
+      <div className="servicios-wrapper">
+        <h3 className="servicios-titulo">Nuestros Servicios</h3>
+
+        <div className="servicios-container">
+          <div className="servicio">
+            <MdAttachMoney className="servicio-icono" />
+            <button className="btn btn-primary">Financiamiento</button>
+            <p>
+              Ofrecemos planes de financiamiento flexibles para ayudarte a
+              comprar el auto de tus sueños.
+            </p>
+          </div>
+
+          <div className="servicio">
+            <GiCarKey className="servicio-icono" />
+            <button className="btn btn-primary">Mantenimiento</button>
+            <p>
+              Nuestro taller cuenta con técnicos certificados para mantener tu
+              vehículo en óptimas condiciones.
+            </p>
+          </div>
+
+          <div className="servicio">
+            <BiSolidCheckShield className="servicio-icono" />
+            <button className="btn btn-primary">Garantía extendida</button>
+            <p>
+              Protege tu inversión con nuestras opciones de garantía extendida
+              para tu tranquilidad.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
