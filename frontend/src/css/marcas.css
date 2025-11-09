@@ -1,0 +1,48 @@
+.MainMarcas{
+    background-color: #2a2a2a;
+}
+
+.card-container-marcas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 10rem 2rem 2rem; /* más espacio solo arriba */
+    flex-wrap: wrap;
+}
+
+.card-marcas {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.card-marcas:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-marcas img {
+    max-width: 200px;
+    height: auto;
+    display: block;
+}
+
+.btn-volver-container {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 8rem;
+}
+
+.btn-volver{
+    text-decoration: none;
+    background-color: #000000;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
