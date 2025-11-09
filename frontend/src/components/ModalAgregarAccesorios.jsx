@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const ModalAgregarAccesorios = ({ show, onHide, onAccesorioAgregado }) => {
   const [nuevoAccesorio, setNuevoAccesorio] = useState({
@@ -61,26 +62,31 @@ const ModalAgregarAccesorios = ({ show, onHide, onAccesorioAgregado }) => {
       </Modal.Header>
       <Modal.Body className="bg-dark text-white">
         <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label>Nombre</Form.Label>
-            <Form.Control
-              type="text"
-              name="nombre"
-              value={nuevoAccesorio.nombre}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Marca</Form.Label>
-            <Form.Control
-              type="text"
-              name="marca"
-              value={nuevoAccesorio.marca}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
+          <div className="row">
+            <div className="col-md-12 d-flex gap-3">
+              <Form.Group className="mb-3 w-50">
+                <Form.Label>Nombre</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="nombre"
+                  value={nuevoAccesorio.nombre}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3 w-50">
+                <Form.Label>Marca</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="marca"
+                  value={nuevoAccesorio.marca}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </div>
+          </div>
+
           <Form.Group className="mb-3">
             <Form.Label>Descripción</Form.Label>
             <Form.Control
@@ -91,27 +97,41 @@ const ModalAgregarAccesorios = ({ show, onHide, onAccesorioAgregado }) => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Precio</Form.Label>
-            <Form.Control
-              type="number"
-              name="precio"
-              value={nuevoAccesorio.precio}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Stock</Form.Label>
-            <Form.Control
-              type="number"
-              name="stock"
-              value={nuevoAccesorio.stock}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
 
+          <div className="row">
+            <div className="col-md-12 d-flex gap-3">
+              <Form.Group className="mb-3 w-50">
+                <Form.Label>Precio</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="precio"
+                  value={nuevoAccesorio.precio}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3 w-50">
+                <Form.Label>Stock</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="stock"
+                  value={nuevoAccesorio.stock}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </div>
+          </div>
+          <Form.Group className="mb-3">
+            <Form.Label>Imagen</Form.Label>
+            <Form.Control
+              type="text"
+              name="imagen"
+              value={nuevoAccesorio.imagen}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
           <div className="d-grid">
             <Button variant="primary" type="submit" disabled={loading}>
               {loading ? "Agregando..." : "Agregar Accesorio"}

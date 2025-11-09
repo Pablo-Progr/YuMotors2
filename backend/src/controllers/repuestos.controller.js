@@ -25,13 +25,25 @@ const agregarRepuesto = (req, res) => {
 
 const eliminarRepuesto = (req, res) => {
   const { id } = req.params;
-  const query = 'DELETE FROM repuestos WHERE idRepuesto = ?';
-  db.query(query, [id], (err, results) => {
+  
+  // Primero eliminar los detalles de ventas relacionados
+  const deleteDetailsQuery = 'DELETE FROM detalleVentasRepuestos WHERE idRepuesto = ?';
+  
+  db.query(deleteDetailsQuery, [id], (err, results) => {
     if (err) {
-      console.error('Error deleting repuesto:', err);
+      console.error('Error deleting related sales details:', err);
       return res.status(500).json({ error: 'Internal server error' });
     }
-    res.status(204).send();
+    
+    // Ahora eliminar el repuesto
+    const deleteRepuestoQuery = 'DELETE FROM repuestos WHERE idRepuesto = ?';
+    db.query(deleteRepuestoQuery, [id], (err, results) => {
+      if (err) {
+        console.error('Error deleting repuesto:', err);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+      res.status(204).send();
+    });
   });
 };
 

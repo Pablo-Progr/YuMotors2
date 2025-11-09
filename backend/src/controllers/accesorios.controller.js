@@ -14,13 +14,25 @@ const traerAccesorios = (req, res) => {
 
 const eliminarAccesorio = (req, res) => {
     const { id } = req.params;
-    const query = 'DELETE FROM accesorios WHERE idAccesorio = ?';
-    db.query(query, [id], (err, results) => {
+    
+    // Primero eliminar los detalles de ventas relacionados
+    const deleteDetailsQuery = 'DELETE FROM detalleVentasAccesorios WHERE idAccesorio = ?';
+    
+    db.query(deleteDetailsQuery, [id], (err, results) => {
         if (err) {
-            console.error('Error deleting accesorio:', err);
+            console.error('Error deleting related sales details:', err);
             return res.status(500).json({ error: 'Internal server error' });
         }
-        res.json({ message: 'Accesorio eliminado exitosamente' });
+        
+        // Ahora eliminar el accesorio
+        const deleteAccesorioQuery = 'DELETE FROM accesorios WHERE idAccesorio = ?';
+        db.query(deleteAccesorioQuery, [id], (err, results) => {
+            if (err) {
+                console.error('Error deleting accesorio:', err);
+                return res.status(500).json({ error: 'Internal server error' });
+            }
+            res.json({ message: 'Accesorio eliminado exitosamente' });
+        });
     });
 };
 
