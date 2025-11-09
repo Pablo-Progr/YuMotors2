@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 const app = require('./src/app');
-const db = require('./src/config/config');  
+const db = require('./src/config/config');
 
 dotenv.config();
 
@@ -14,7 +14,6 @@ db.connect((error) => {
     console.log("Conexión a la base de datos exitosa.");
   }
 });
-
 
 app.get("/", (req, res) => {
     res.send("Conexion funcionando correctamente.");

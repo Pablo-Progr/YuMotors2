@@ -5,12 +5,16 @@ import AccesoriosAdmin from "./pages/AccesoriosAdmin";
 import RepuestosAdmin from "./pages/RepuestosAdmin";
 import VehiculosAdmin from "./pages/VehiculosAdmin";
 import ConsultasAdmin from "./pages/ConsultasAdmin";
+import MetricasAdmin from "./pages/MetricasAdmin";
 import Home from "./pages/Home";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminHome from "./pages/AdminHome";
 import Usados from "./pages/Usados";
 import Concesionario from "./pages/Concesionario";
 import GazooRacing from "./pages/GazooRacing";
 import Marcas from "./pages/Marcas";
 import Yaris from "./pages/Yaris";
+
 
 function App() {
   return (
@@ -24,10 +28,66 @@ function App() {
           <Route path="/marcas" element={<Marcas />} />
           <Route path="/marcas/gr/yaris" element={<Yaris />} />
           <Route path="/login" element={<AdminLogin />} />
-          <Route path="/admin/accesorios" element={<AccesoriosAdmin />} />
-          <Route path="/admin/repuestos" element={<RepuestosAdmin />} />
-          <Route path="/admin/vehiculos" element={<VehiculosAdmin />} />
-          <Route path="/admin/consultas" element={<ConsultasAdmin />} />
+
+          {/* Rutas protegidas para administradores */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <AdminHome />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/accesorios"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <AccesoriosAdmin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/repuestos"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <RepuestosAdmin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/vehiculos"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <VehiculosAdmin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/consultas"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <ConsultasAdmin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/metricas"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <MetricasAdmin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/post-venta"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <div className="d-flex bg-dark text-white min-vh-100 justify-content-center align-items-center">
+                  <h1>Página de Post-Venta - En construcción</h1>
+                </div>
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </>
