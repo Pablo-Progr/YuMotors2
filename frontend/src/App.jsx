@@ -9,6 +9,8 @@ import MetricasAdmin from "./pages/MetricasAdmin";
 import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminHome from "./pages/AdminHome";
+import VehPostVentaAdmin from "./pages/VehPostVentaAdmin";
+import RegistroPosventa from "./pages/RegistroPosventa.jsx";
 import Usados from "./pages/Usados";
 import Concesionario from "./pages/Concesionario";
 import Toyota from "./pages/Toyota";
@@ -84,9 +86,15 @@ function App() {
             path="/admin/post-venta"
             element={
               <ProtectedRoute requireAdmin={true}>
-                <div className="d-flex bg-dark text-white min-vh-100 justify-content-center align-items-center">
-                  <h1>Página de Post-Venta - En construcción</h1>
-                </div>
+                <VehPostVentaAdmin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/registro-posventa/:id"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <RegistroPosventa />
               </ProtectedRoute>
             }
           />
