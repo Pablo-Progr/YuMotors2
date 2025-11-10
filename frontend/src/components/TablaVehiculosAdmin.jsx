@@ -9,6 +9,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
   const [vehiculoSeleccionado, setVehiculoSeleccionado] = useState(null);
   const [mostrarModalEditar, setMostrarModalEditar] = useState(false);
   const [mostrarModalImagen, setMostrarModalImagen] = useState(false);
+  const [mostrarModalDescripcion, setMostrarModalDescripcion] = useState(false);
   const [loading, setLoading] = useState(false);
   const [filtro, setFiltro] = useState("");
 
@@ -80,6 +81,16 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
   const cerrarModalImagen = () => {
     setVehiculoSeleccionado(null);
     setMostrarModalImagen(false);
+  };
+
+  const abrirModalDescripcion = (vehiculo) => {
+    setVehiculoSeleccionado(vehiculo);
+    setMostrarModalDescripcion(true);
+  };
+
+  const cerrarModalDescripcion = () => {
+    setVehiculoSeleccionado(null);
+    setMostrarModalDescripcion(false);
   };
 
   const handleUpdateVehiculo = async (e) => {
@@ -198,12 +209,18 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                 <td>{vehiculo.modelo}</td>
                 <td>{vehiculo.anio}</td>
                 <td>{vehiculo.kilometraje} km</td>
-                <td>
-                  {vehiculo.descripcion
-                    ? vehiculo.descripcion.length > 50
-                      ? vehiculo.descripcion.substring(0, 50) + "..."
-                      : vehiculo.descripcion
-                    : "Sin descripción"}
+                <td className="text-center">
+                  {vehiculo.descripcion ? (
+                    <button
+                      className="btn btn-sm btn-outline-info"
+                      onClick={() => abrirModalDescripcion(vehiculo)}
+                      title="Ver descripción completa"
+                    >
+                      <i className="bi bi-eye"></i>
+                    </button>
+                  ) : (
+                    <span className="text-muted">N/A</span>
+                  )}
                 </td>
                 {/* --- PRECIO FORMATEADO --- */}
                 <td>
@@ -240,6 +257,34 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
           </tbody>
         </table>
       </div>
+
+      {/* Modal de descripción */}
+      {mostrarModalDescripcion && vehiculoSeleccionado && (
+        <Modal
+          show={mostrarModalDescripcion}
+          onHide={cerrarModalDescripcion}
+          centered
+          size="md"
+        >
+          <Modal.Header closeButton className="bg-dark text-white">
+            <Modal.Title>
+              <i className="bi bi-card-text me-2"></i>
+              Descripción de {vehiculoSeleccionado.marca}{" "}
+              {vehiculoSeleccionado.modelo}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="bg-dark text-white">
+            <p style={{ whiteSpace: "pre-wrap" }}>
+              {vehiculoSeleccionado.descripcion || "Sin descripción disponible"}
+            </p>
+          </Modal.Body>
+          <Modal.Footer className="bg-dark">
+            <Button variant="secondary" onClick={cerrarModalDescripcion}>
+              <i className="bi bi-x-circle me-2"></i>Cerrar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
 
       {/* Modal de imagen */}
       {mostrarModalImagen && vehiculoSeleccionado && (

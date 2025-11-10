@@ -11,6 +11,7 @@ const TablaRepuestosAdmin = () => {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [mostrarModalImagen, setMostrarModalImagen] = useState(false);
+  const [mostrarModalDescripcion, setMostrarModalDescripcion] = useState(false);
 
   // --- ESTADO PARA FILTRO ÚNICO ---
   const [filtro, setFiltro] = useState("");
@@ -136,6 +137,16 @@ const TablaRepuestosAdmin = () => {
     setMostrarModalImagen(false);
   };
 
+  const abrirModalDescripcion = (repuesto) => {
+    setRepuestoSeleccionado(repuesto);
+    setMostrarModalDescripcion(true);
+  };
+
+  const cerrarModalDescripcion = () => {
+    setRepuestoSeleccionado(null);
+    setMostrarModalDescripcion(false);
+  };
+
   // --- LÓGICA DE FILTRADO ---
   const repuestosFiltrados = repuestos.filter((repuesto) => {
     const filtroLower = filtro.toLowerCase();
@@ -220,13 +231,18 @@ const TablaRepuestosAdmin = () => {
                 {/* --- PRECIO FORMATEADO --- */}
                 <td>{currencyFormatter.format(parseFloat(repuesto.precio))}</td>
                 <td>{repuesto.stock}</td>
-                <td>
-                  {/* Acortar descripción si es muy larga */}
-                  {repuesto.descripcion
-                    ? repuesto.descripcion.length > 40
-                      ? repuesto.descripcion.substring(0, 40) + "..."
-                      : repuesto.descripcion
-                    : "N/A"}
+                <td className="text-center">
+                  {repuesto.descripcion ? (
+                    <button
+                      className="btn btn-sm btn-outline-info"
+                      onClick={() => abrirModalDescripcion(repuesto)}
+                      title="Ver descripción completa"
+                    >
+                      <i className="bi bi-eye"></i>
+                    </button>
+                  ) : (
+                    <span className="text-muted">N/A</span>
+                  )}
                 </td>
                 <td className="text-end">
                   <button
@@ -256,6 +272,33 @@ const TablaRepuestosAdmin = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Modal de descripción */}
+      {mostrarModalDescripcion && repuestoSeleccionado && (
+        <Modal
+          show={mostrarModalDescripcion}
+          onHide={cerrarModalDescripcion}
+          centered
+          size="md"
+        >
+          <Modal.Header closeButton className="bg-dark text-white">
+            <Modal.Title>
+              <i className="bi bi-card-text me-2"></i>
+              Descripción de {repuestoSeleccionado.nombre}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="bg-dark text-white">
+            <p style={{ whiteSpace: "pre-wrap" }}>
+              {repuestoSeleccionado.descripcion || "Sin descripción disponible"}
+            </p>
+          </Modal.Body>
+          <Modal.Footer className="bg-dark">
+            <Button variant="secondary" onClick={cerrarModalDescripcion}>
+              <i className="bi bi-x-circle me-2"></i>Cerrar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
 
       {/* Modal de imagen */}
       {mostrarModalImagen && repuestoSeleccionado && (
