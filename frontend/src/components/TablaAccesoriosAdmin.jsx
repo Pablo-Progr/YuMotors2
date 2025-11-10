@@ -11,6 +11,7 @@ const TablaAccesoriosAdmin = () => {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [mostrarModalImagen, setMostrarModalImagen] = useState(false);
+  const [mostrarModalDescripcion, setMostrarModalDescripcion] = useState(false);
 
   // --- ESTADO PARA FILTRO ÚNICO ---
   const [filtro, setFiltro] = useState("");
@@ -93,6 +94,16 @@ const TablaAccesoriosAdmin = () => {
   const cerrarModalImagen = () => {
     setAccesorioSeleccionado(null);
     setMostrarModalImagen(false);
+  };
+
+  const abrirModalDescripcion = (accesorio) => {
+    setAccesorioSeleccionado(accesorio);
+    setMostrarModalDescripcion(true);
+  };
+
+  const cerrarModalDescripcion = () => {
+    setAccesorioSeleccionado(null);
+    setMostrarModalDescripcion(false);
   };
 
   const handleUpdateAccesorio = async (e) => {
@@ -213,13 +224,18 @@ const TablaAccesoriosAdmin = () => {
                 {/* ----------------------------- */}
                 <td>{accesorio.nombre}</td>
                 <td>{accesorio.marca}</td>
-                <td>
-                  {/* Acortar descripción */}
-                  {accesorio.descripcion
-                    ? accesorio.descripcion.length > 40
-                      ? accesorio.descripcion.substring(0, 40) + "..."
-                      : accesorio.descripcion
-                    : "N/A"}
+                <td className="text-center">
+                  {accesorio.descripcion ? (
+                    <button
+                      className="btn btn-sm btn-outline-info"
+                      onClick={() => abrirModalDescripcion(accesorio)}
+                      title="Ver descripción completa"
+                    >
+                      <i className="bi bi-eye"></i>
+                    </button>
+                  ) : (
+                    <span className="text-muted">N/A</span>
+                  )}
                 </td>
                 {/* --- PRECIO FORMATEADO --- */}
                 <td>
@@ -256,6 +272,33 @@ const TablaAccesoriosAdmin = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Modal de descripción */}
+      {mostrarModalDescripcion && accesorioSeleccionado && (
+        <Modal
+          show={mostrarModalDescripcion}
+          onHide={cerrarModalDescripcion}
+          centered
+          size="md"
+        >
+          <Modal.Header closeButton className="bg-dark text-white">
+            <Modal.Title>
+              <i className="bi bi-card-text me-2"></i>
+              Descripción de {accesorioSeleccionado.nombre}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="bg-dark text-white">
+            <p style={{ whiteSpace: "pre-wrap" }}>
+              {accesorioSeleccionado.descripcion || "Sin descripción disponible"}
+            </p>
+          </Modal.Body>
+          <Modal.Footer className="bg-dark">
+            <Button variant="secondary" onClick={cerrarModalDescripcion}>
+              <i className="bi bi-x-circle me-2"></i>Cerrar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
 
       {/* Modal de imagen */}
       {mostrarModalImagen && accesorioSeleccionado && (
