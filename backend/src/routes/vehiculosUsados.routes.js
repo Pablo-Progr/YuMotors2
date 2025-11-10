@@ -8,3 +8,4 @@ router.delete('/eliminar/:id', eliminarVehiculoUsado);
 router.put('/editar/:id', editarVehiculoUsado);
 
 module.exports = router;
+
