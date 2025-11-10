@@ -1,230 +1,409 @@
-
-
 /* Reset global */
-html, body {
+html, body, main-home {
+
+  overflow-x: hidden; /* por si acaso sobra algo en el eje X */
+  height: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* por si acaso sobra algo en el eje X */
 }
 
-/* Carrusel full-width */
+.main-home {
+  background-color: #2a2a2a;
+}
+
+.titulo-carousel {
+  color: white;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.subtitulo-carousel {
+  color: white;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+/* ===== CARRUSEL FULL-WIDTH ===== */
 .carousel {
   width: 100%;
   margin: 0;
   overflow: hidden;
 }
 
-/* Área de slides: altura fija */
+/* Área de slides con altura base */
 .carousel-inner {
   width: 100%;
-  height: 500px;     /* ajusta esta altura según tu diseño */
+  height: 600px; /* Increased from 500px */
 }
 
-/* Cada slide llena el área */
 .carousel-item {
   width: 100%;
-  height: 500px;     /* igual que .carousel-inner */
+  height: 600px; /* Increased from 500px */
 }
 
-/* Mantener tamaño en las fases de transición */
 .carousel-item-next,
 .carousel-item-prev,
 .carousel-item.active {
   width: 100%;
-  height: 500px;
+  height: 600px; /* Increased from 500px */
 }
 
-/* Imágenes responsivas y “facheras” */
+/* Imágenes fluidas y estéticas */
 .carousel-item img {
-  display: block;    /* quita espacios inline que provocan saltos */
-  width: 100%;       /* ocupa todo el ancho disponible */
-  height: 100%;      /* iguala la altura del slide */
-  object-fit: cover; /* recorta para llenar sin deformar */
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   transition: none !important;
   transform: none !important;
 }
 
+/* ===== RESPONSIVE ===== */
 
+/* Pantallas medianas (tablets) */
+@media (max-width: 992px) {
+  .carousel-inner,
+  .carousel-item,
+  .carousel-item-next,
+  .carousel-item-prev,
+  .carousel-item.active {
+    height: 400px; /* un poco más bajo */
+  }
 
+  .carousel-item img {
+    object-position: center top; /* muestra más parte superior */
+  }
+}
+
+/* Pantallas pequeñas (smartphones) */
+@media (max-width: 768px) {
+  .carousel-inner,
+  .carousel-item,
+  .carousel-item-next,
+  .carousel-item-prev,
+  .carousel-item.active {
+    height: 300px;
+  }
+
+  .carousel-caption h2 {
+    font-size: 1.3rem;
+  }
+
+  .carousel-caption p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Pantallas muy pequeñas (teléfonos chicos) */
+@media (max-width: 480px) {
+  .carousel-inner,
+  .carousel-item,
+  .carousel-item-next,
+  .carousel-item-prev,
+  .carousel-item.active {
+    height: 220px;
+  }
+
+  .carousel-caption {
+    bottom: 0.5rem;
+  }
+
+  .carousel-caption h2 {
+    font-size: 1.1rem;
+  }
+
+  .carousel-caption p {
+    font-size: 0.8rem;
+  }
+}
 
 
 /* --- SECCIÓN DE CARDS --- */
-.card-container {
-  background-color: rgb(235,10,30);
-  width: 100%;
-  min-height: 100vh; /* ocupa como mínimo toda la altura de la pantalla */
-  margin: 0;         /* quita márgenes que puedan dejar bordes blancos */
-  padding: 2rem 0;   /* espacio interior, ajustable */
-  box-sizing: border-box;
-  position: relative;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-}
 
-.album {
-  padding: 3rem 0;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;                /* centra el contenido sin dejar bordes blancos */
-  background-color: transparent; /* evita duplicar el fondo rojo con márgenes */
-  padding: 2rem;
-  text-align: center;
-  box-sizing: border-box;
-}
-
-.row {
+/* ---- CONTENEDOR PRINCIPAL ---- */
+.main-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
-}
-
-/* Cada card */
-.card {
-  flex: 1 1 300px;
-  max-width: 350px;
-  border: none;
-  border-radius: 14px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;
-}
-
-/* Hover */
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-}
-
-/* Imagen de la card */
-.card img,
-.bd-placeholder-img {
   width: 100%;
-  height: 225px;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  margin-top: 0;
+}
+
+/* ---- LADO IZQUIERDO ---- */
+.image-section {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  overflow: hidden;
+  color: white;
+}
+
+.image-section img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 
-/* Contenido */
-.card-body {
-  background-color: #2a2a2a;
-  padding: 1.5rem;
+.promo-text {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+}
+
+.promo-text h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.promo-text a {
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+/* ---- LADO DERECHO ---- */
+.menu-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
+  height: 100%;
+  border-left: 0; /* sin borde divisorio */
+}
+
+.menu-item {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  margin: 0;
+  padding: 0;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: "Roboto", sans-serif;
   text-align: center;
+}
+
+/* Elimina todo el espacio entre los cuadrados */
+.menu-grid > .menu-item {
+  border: none;
+  margin: 0;
+}
+
+.menu-grid {
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.icono-menu-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.icono-menu-container:hover {
+  transform: scale(1.1) ;
+}
+
+
+
+/* ---- COLORES TOYOTA ---- */
+.menu-item.dark {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.menu-item.medium {
+  background-color: #c8102e;
+  color: #ffffff;
+}
+
+.menu-item.light {
+  background-color: #d5d5d5;
+  color: #000000;
+}
+
+.menu-item.lighter {
+  background-color: #ffffff;
+  color: #c8102e;
 }
 
 /* Texto */
-.card-text {
-  font-size: 0.95rem;
-  color: #495057;
-  line-height: 1.5;
-  margin-bottom: 1rem;
+.menu-item p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
-/* Botones */
-.btn-group {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .image-section {
+    height: 40vh;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    height: auto;
+  }
+
+  .menu-item {
+    padding: 2rem 0;
+  }
 }
 
-.btn-group .btn {
-  margin: 0.5rem auto;
-  background-color: rgb(235,10,30);
-  border: none;
-  color: #1b1b1b;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/* === AISLAMIENTO VISUAL DE LA SECCIÓN === */
+.main-container {
+  display: flex !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  gap: 0 !important;
 }
 
-.btn-outline-secondary:hover {
-  background-color: #1b1b1b;
-  color: rgb(235, 10, 30);
+.image-section,
+.menu-grid {
+  flex: 1 1 50% !important;
+  height: 100% !important;
 }
 
-/* Tiempo o texto secundario */
-.text-body-secondary {
-  font-size: 0.8rem;
-  color: #adb5bd;
+.menu-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  grid-template-rows: repeat(2, 1fr) !important;
+  gap: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
 }
 
-/* Contenedor general */
+.menu-item {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-direction: column !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.image-section img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+
+/* ====== SECCIÓN SERVICIOS ====== */
 .servicios-wrapper {
-  background-color: #1b1b1b;
-  padding: 2rem;
-}
-
-/* Título */
-.servicios-titulo {
-  color: #ffffff;
+  background-color: #f5f5f5; /* gris claro Toyota */
   text-align: center;
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
+  padding: 5rem 2rem;
+  color: #1a1a1a;
 }
 
-/* Contenedor de las cards */
+.servicios-titulo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #c8102e; /* rojo Toyota */
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* === CONTENEDOR DE LAS TARJETAS === */
 .servicios-container {
   display: flex;
   justify-content: center;
+  align-items: stretch;
   gap: 2rem;
   flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-/* Card individual */
+/* === CADA SERVICIO === */
 .servicio {
-  background-color: #2a2a2a;
-  color: #ffffff;
-  max-width: 300px;
-  padding: 1.5rem;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease;
+  background-color: #f5f5f5;
+  flex: 1 1 300px;
+  padding: 2rem 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.servicio:hover {
-  transform: translateY(-5px);
-}
 
-/* Íconos */
+
+/* === ÍCONO === */
 .servicio-icono {
-  font-size: 2.5rem;
-  color: rgb(235,10,30);
+  font-size: 3rem;
+  color: #c8102e;
   margin-bottom: 1rem;
 }
 
-/* Botón */
-.btn-primary {
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-  background-color: rgb(235,10,30);
+/* === BOTÓN === */
+.btn-servicios {
+  background-color: #c8102e;
+  color: white;
   border: none;
-  color: #1b1b1b;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: background 0.3s ease;
 }
 
-.btn-primary:hover {
-  background-color: #1b1b1b;
-  color: rgb(235, 10, 30);
-}
 
-/* Texto descriptivo */
+
+/* === TEXTO === */
 .servicio p {
   font-size: 0.95rem;
-  line-height: 1.4;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
 }
 
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .servicios-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .servicio {
+    width: 100%;
+  }
+
+  .servicio-icono {
+    font-size: 2.5rem;
+  }
+}

@@ -1,0 +1,83 @@
+/* ===== GENERAL ===== */
+.info-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f7f7;
+  padding: 4rem 2rem;
+  gap: 3rem;
+  font-family: 'Oswald', 'Helvetica Neue', sans-serif;
+  color: #111;
+}
+
+/* ===== CONCESIONARIO INFO ===== */
+.concesionario-info {
+  flex: 1 1 400px;
+  max-width: 600px;
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+/* ===== IMAGEN ===== */
+.concesionario-info img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  object-fit: cover;
+}
+
+/* ===== TEXTOS ===== */
+.concesionario-info h2 {
+  font-size: 2.2rem;
+  color: #e60012;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.concesionario-info p {
+  font-size: 1.1rem;
+  color: #333;
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .info-container {
+    flex-direction: column;
+    padding: 3rem 1rem;
+  }
+
+  .concesionario-info {
+    max-width: 90%;
+    padding: 2rem 1.5rem;
+  }
+
+  .concesionario-info h2 {
+    font-size: 2rem;
+  }
+
+  .concesionario-info p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .concesionario-info img {
+    max-width: 100%;
+  }
+
+  .concesionario-info h2 {
+    font-size: 1.8rem;
+  }
+
+  .concesionario-info p {
+    font-size: 0.95rem;
+  }
+}

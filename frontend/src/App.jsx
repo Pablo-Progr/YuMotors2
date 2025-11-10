@@ -11,6 +11,13 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminHome from "./pages/AdminHome";
 import VehPostVentaAdmin from "./pages/VehPostVentaAdmin";
 import RegistroPosventa from "./pages/RegistroPosventa.jsx";
+import Usados from "./pages/Usados";
+import Concesionario from "./pages/Concesionario";
+import Toyota from "./pages/Toyota";
+import GazooRacing from "./pages/GazooRacing";
+import Marcas from "./pages/Marcas";
+import Yaris from "./pages/Yaris";
+
 
 function App() {
   return (
@@ -18,6 +25,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/usados" element={<Usados />} />
+          <Route path="/concesionario" element={<Concesionario />} />
+          <Route path="/toyota" element={<Toyota />} />
+          <Route path="/marcas/gr" element={<GazooRacing />} />
+          <Route path="/marcas" element={<Marcas />} />
+          <Route path="/marcas/gr/yaris" element={<Yaris />} />
           <Route path="/login" element={<AdminLogin />} />
 
           {/* Rutas protegidas para administradores */}
