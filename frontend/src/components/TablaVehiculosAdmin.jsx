@@ -10,6 +10,14 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
   const [mostrarModalEditar, setMostrarModalEditar] = useState(false);
   const [mostrarModalImagen, setMostrarModalImagen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [filtro, setFiltro] = useState("");
+
+  // --- FORMATEADOR DE MONEDA ---
+  const currencyFormatter = new Intl.NumberFormat("es-AR", {
+    style: "currency",
+    currency: "ARS",
+  });
+  // -----------------------------
 
   const fetchVehiculos = async () => {
     try {
@@ -115,12 +123,44 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
     }));
   };
 
+  // Lógica de filtrado único
+  const vehiculosFiltrados = vehiculos.filter((vehiculo) => {
+    const marca = vehiculo.marca || "";
+    const modelo = vehiculo.modelo || "";
+    const filtroLower = filtro.toLowerCase();
+
+    const marcaMatch = marca.toLowerCase().includes(filtroLower);
+    const modeloMatch = modelo.toLowerCase().includes(filtroLower);
+
+    return marcaMatch || modeloMatch; // Busca en marca O en modelo
+  });
+
   return (
     <>
       <div className="table-responsive p-3 rounded">
+        {/* Input de filtro único */}
+        <div className="row mb-3">
+          <div className="col-md-6">
+            <Form.Group>
+              <Form.Label className="text-white">
+                <i className="bi bi-search me-2"></i>Buscar por Marca o Modelo
+              </Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Escribe una marca o modelo..."
+                value={filtro}
+                onChange={(e) => setFiltro(e.target.value)}
+                className="bg-secondary text-white border-secondary"
+              />
+            </Form.Group>
+          </div>
+        </div>
+
         <table className="table table-dark table-hover align-middle">
           <thead>
             <tr>
+              {/* --- COLUMNA DE IMAGEN AÑADIDA --- */}
+              <th className="text-center">Imagen</th>
               <th>Marca</th>
               <th>Modelo</th>
               <th>Año</th>
@@ -131,8 +171,29 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
             </tr>
           </thead>
           <tbody>
-            {vehiculos.map((vehiculo) => (
+            {vehiculosFiltrados.map((vehiculo) => (
               <tr key={vehiculo.idVehiculoUsado}>
+                {/* --- CELDA DE IMAGEN AÑADIDA --- */}
+                <td className="text-center align-middle">
+                  <img
+                    // Si vehiculo.imagen existe, úsalo. Si no, usa un string inválido para forzar el 'onError'
+                    src={vehiculo.imagen || 'invalid-url'}
+                    alt={`${vehiculo.marca} ${vehiculo.modelo}`}
+                    className="rounded"
+                    style={{
+                      width: '80px',
+                      height: '60px',
+                      objectFit: 'cover',
+                      border: '1px solid #495057'
+                    }}
+                    // 'onError' se dispara si la URL es nula, vacía, o es un enlace roto
+                    onError={(e) => {
+                      e.currentTarget.src = 'https://placehold.co/80x60/495057/dee2e6?text=Sin+Foto';
+                      e.currentTarget.onerror = null; // Previene bucles infinitos si el placeholder también falla
+                    }}
+                  />
+                </td>
+                {/* ------------------------------- */}
                 <td>{vehiculo.marca}</td>
                 <td>{vehiculo.modelo}</td>
                 <td>{vehiculo.anio}</td>
@@ -144,7 +205,11 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                       : vehiculo.descripcion
                     : "Sin descripción"}
                 </td>
-                <td>${parseFloat(vehiculo.precio).toFixed(2)}</td>
+                {/* --- PRECIO FORMATEADO --- */}
+                <td>
+                  {currencyFormatter.format(parseFloat(vehiculo.precio))}
+                </td>
+                {/* ------------------------- */}
                 <td className="text-end">
                   <button
                     className="btn btn-sm btn-outline-info me-2"
@@ -198,6 +263,12 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                 alt={`${vehiculoSeleccionado.marca} ${vehiculoSeleccionado.modelo}`}
                 className="img-fluid rounded"
                 style={{ maxHeight: "500px" }}
+                // Placeholder por si falla la imagen grande en el modal
+                onError={(e) => {
+                  e.currentTarget.src = 'https://placehold.co/600x400/495057/dee2e6?text=Imagen+no+disponible';
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.style.maxHeight = '400px';
+                }}
               />
             ) : (
               <div className="text-white py-5">
@@ -209,11 +280,6 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
               </div>
             )}
           </Modal.Body>
-          <Modal.Footer className="bg-dark">
-            <Button variant="secondary" onClick={cerrarModalImagen}>
-              <i className="bi bi-x-circle me-2"></i>Cerrar
-            </Button>
-          </Modal.Footer>
         </Modal>
       )}
 
@@ -235,7 +301,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
           <Modal.Body className="bg-dark text-white">
             <Form onSubmit={handleUpdateVehiculo}>
               <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-5">
                   <Form.Group className="mb-3">
                     <Form.Label>
                       <i className="bi bi-tag me-2"></i>Marca
@@ -251,7 +317,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                   </Form.Group>
                 </div>
 
-                <div className="col-md-6">
+                <div className="col-md-5">
                   <Form.Group className="mb-3">
                     <Form.Label>
                       <i className="bi bi-car-front-fill me-2"></i>Modelo
@@ -269,7 +335,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
               </div>
 
               <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-5">
                   <Form.Group className="mb-3">
                     <Form.Label>
                       <i className="bi bi-calendar3 me-2"></i>Año
@@ -285,7 +351,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                   </Form.Group>
                 </div>
 
-                <div className="col-md-6">
+                <div className="col-md-5">
                   <Form.Group className="mb-3">
                     <Form.Label>
                       <i className="bi bi-speedometer2 me-2"></i>Kilometraje
@@ -301,23 +367,25 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                   </Form.Group>
                 </div>
               </div>
-
-              <Form.Group className="mb-3">
-                <Form.Label>
-                  <i className="bi bi-card-text me-2"></i>Descripción
-                </Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  name="descripcion"
-                  value={vehiculoSeleccionado.descripcion || ""}
-                  onChange={handleChange}
-                  className="bg-secondary text-white border-secondary"
-                />
-              </Form.Group>
-
               <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-10">
+                  <Form.Group className="mb-3 ">
+                    <Form.Label>
+                      <i className="bi bi-card-text me-2"></i>Descripción
+                    </Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      name="descripcion"
+                      value={vehiculoSeleccionado.descripcion || ""}
+                      onChange={handleChange}
+                      className="bg-secondary text-white border-secondary"
+                    />
+                  </Form.Group>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-5">
                   <Form.Group className="mb-3">
                     <Form.Label>
                       <i className="bi bi-currency-dollar me-2"></i>Precio
@@ -334,7 +402,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                   </Form.Group>
                 </div>
 
-                <div className="col-md-6">
+                <div className="col-md-5">
                   <Form.Group className="mb-3">
                     <Form.Label>
                       <i className="bi bi-image me-2"></i>URL de Imagen

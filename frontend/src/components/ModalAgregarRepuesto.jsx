@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const ModalAgregarRepuesto = ({ show, onHide, onRepuestoAgregado }) => {
   const [nuevoRepuesto, setNuevoRepuesto] = useState({
@@ -62,66 +63,93 @@ const ModalAgregarRepuesto = ({ show, onHide, onRepuestoAgregado }) => {
       </Modal.Header>
       <Modal.Body className="bg-dark text-white">
         <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label>Nombre</Form.Label>
-            <Form.Control
-              type="text"
-              name="nombre"
-              value={nuevoRepuesto.nombre}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Marca</Form.Label>
-            <Form.Control
-              type="text"
-              name="marca"
-              value={nuevoRepuesto.marca}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Número de Parte</Form.Label>
-            <Form.Control
-              type="text"
-              name="numeroParte"
-              value={nuevoRepuesto.numeroParte}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Precio</Form.Label>
-            <Form.Control
-              type="number"
-              name="precio"
-              value={nuevoRepuesto.precio}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Stock</Form.Label>
-            <Form.Control
-              type="number"
-              name="stock"
-              value={nuevoRepuesto.stock}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Descripción</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              name="descripcion"
-              value={nuevoRepuesto.descripcion}
-              onChange={handleChange}
-            />
-          </Form.Group>
+          <div className="row">
+            <div className="col-md-12 d-flex gap-3">
+              <Form.Group className="mb-3 w-50">
+                <Form.Label>Nombre</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="nombre"
+                  value={nuevoRepuesto.nombre}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3 w-50">
+                <Form.Label>Marca</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="marca"
+                  value={nuevoRepuesto.marca}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </div>
+          </div>
+          <div className="row ">
+            <div className="col-12 d-flex gap-3">
+              <Form.Group className="mb-3 w-50">
+                <Form.Label>Número de Parte</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="numeroParte"
+                  value={nuevoRepuesto.numeroParte}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3 w-50">
+                <Form.Label>Precio</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="precio"
+                  value={nuevoRepuesto.precio}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-12">
+              <Form.Group className="mb-3">
+                <Form.Label>Descripción</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  name="descripcion"
+                  value={nuevoRepuesto.descripcion}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-12 d-flex gap-3">
+              <Form.Group className="mb-3 w-50">
+                <Form.Label>Stock</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="stock"
+                  value={nuevoRepuesto.stock}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3 w-50">
+                <Form.Label>Imagen</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="imagen"
+                  value={nuevoRepuesto.imagen}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </div>
+          </div>
           <div className="d-grid">
             <Button variant="primary" type="submit" disabled={loading}>
               {loading ? "Agregando..." : "Agregar Repuesto"}
