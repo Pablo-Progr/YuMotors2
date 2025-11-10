@@ -1,72 +1,138 @@
-
-
 /* Reset global */
-html, body {
+html, body, main-home {
+
+  overflow-x: hidden; /* por si acaso sobra algo en el eje X */
+  height: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* por si acaso sobra algo en el eje X */
 }
 
-.main-home{
+.main-home {
   background-color: #2a2a2a;
 }
 
-/* Carrusel full-width */
+.titulo-carousel {
+  color: white;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.subtitulo-carousel {
+  color: white;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+/* ===== CARRUSEL FULL-WIDTH ===== */
 .carousel {
   width: 100%;
   margin: 0;
   overflow: hidden;
 }
 
-/* Área de slides: altura fija */
+/* Área de slides con altura base */
 .carousel-inner {
   width: 100%;
-  height: 500px;     /* ajusta esta altura según tu diseño */
+  height: 600px; /* Increased from 500px */
 }
 
-/* Cada slide llena el área */
 .carousel-item {
   width: 100%;
-  height: 500px;     /* igual que .carousel-inner */
+  height: 600px; /* Increased from 500px */
 }
 
-/* Mantener tamaño en las fases de transición */
 .carousel-item-next,
 .carousel-item-prev,
 .carousel-item.active {
   width: 100%;
-  height: 500px;
+  height: 600px; /* Increased from 500px */
 }
 
-/* Imágenes responsivas y “facheras” */
+/* Imágenes fluidas y estéticas */
 .carousel-item img {
-  display: block;    /* quita espacios inline que provocan saltos */
-  width: 100%;       /* ocupa todo el ancho disponible */
-  height: 100%;      /* iguala la altura del slide */
-  object-fit: cover; /* recorta para llenar sin deformar */
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   transition: none !important;
   transform: none !important;
 }
 
+/* ===== RESPONSIVE ===== */
 
+/* Pantallas medianas (tablets) */
+@media (max-width: 992px) {
+  .carousel-inner,
+  .carousel-item,
+  .carousel-item-next,
+  .carousel-item-prev,
+  .carousel-item.active {
+    height: 400px; /* un poco más bajo */
+  }
 
+  .carousel-item img {
+    object-position: center top; /* muestra más parte superior */
+  }
+}
+
+/* Pantallas pequeñas (smartphones) */
+@media (max-width: 768px) {
+  .carousel-inner,
+  .carousel-item,
+  .carousel-item-next,
+  .carousel-item-prev,
+  .carousel-item.active {
+    height: 300px;
+  }
+
+  .carousel-caption h2 {
+    font-size: 1.3rem;
+  }
+
+  .carousel-caption p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Pantallas muy pequeñas (teléfonos chicos) */
+@media (max-width: 480px) {
+  .carousel-inner,
+  .carousel-item,
+  .carousel-item-next,
+  .carousel-item-prev,
+  .carousel-item.active {
+    height: 220px;
+  }
+
+  .carousel-caption {
+    bottom: 0.5rem;
+  }
+
+  .carousel-caption h2 {
+    font-size: 1.1rem;
+  }
+
+  .carousel-caption p {
+    font-size: 0.8rem;
+  }
+}
 
 
 /* --- SECCIÓN DE CARDS --- */
 
-
-
-
-
-
-
-
-/* CONTENEDOR PRINCIPAL */
+/* ---- CONTENEDOR PRINCIPAL ---- */
 .main-container {
   display: flex;
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
+  margin-top: 0;
 }
 
 /* ---- LADO IZQUIERDO ---- */
@@ -80,16 +146,14 @@ html, body {
   color: white;
 }
 
-/* Imagen interna: ocupa toda la mitad izquierda */
 .image-section img {
   width: 100%;
   height: 100%;
-  object-fit: cover;       /* mantiene proporciones y recorta la imagen */
-  object-position: center; /* centra el recorte */
+  object-fit: cover;
+  object-position: center;
   display: block;
 }
 
-/* Texto sobre la imagen */
 .promo-text {
   position: absolute;
   bottom: 2rem;
@@ -113,6 +177,83 @@ html, body {
   font-size: 0.9rem;
 }
 
+/* ---- LADO DERECHO ---- */
+.menu-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
+  height: 100%;
+  border-left: 0; /* sin borde divisorio */
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+}
+
+/* Elimina todo el espacio entre los cuadrados */
+.menu-grid > .menu-item {
+  border: none;
+  margin: 0;
+}
+
+.menu-grid {
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.icono-menu-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.icono-menu-container:hover {
+  transform: scale(1.1) ;
+}
+
+
+
+/* ---- COLORES TOYOTA ---- */
+.menu-item.dark {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.menu-item.medium {
+  background-color: #c8102e;
+  color: #ffffff;
+}
+
+.menu-item.light {
+  background-color: #d5d5d5;
+  color: #000000;
+}
+
+.menu-item.lighter {
+  background-color: #ffffff;
+  color: #c8102e;
+}
+
+/* Texto */
+.menu-item p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
 /* ---- RESPONSIVE ---- */
 @media (max-width: 768px) {
   .main-container {
@@ -124,177 +265,145 @@ html, body {
     height: 40vh;
   }
 
-  .image-section img {
-    height: 100%;
-  }
-
-  .promo-text {
-    bottom: 1rem;
-    left: 1rem;
-    padding: 0.75rem 1rem;
-  }
-}
-
-
-/* ---- LADO DERECHO ---- */
-.menu-grid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-}
-
-.menu-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  gap: 0.5rem;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.icono-menu-container{
-   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.icono-menu-container:hover {
-  transform: scale(1.05);
-}
-
-/* Colores de cada cuadrante */
-.menu-item.dark {
-  background-color: #1a1a1a; /* Negro carbón - corporativo Toyota */
-}
-
-.menu-item.medium {
-  background-color: #c8102e; /* Rojo Toyota principal */
-}
-
-.menu-item.light {
-  background-color: #d5d5d5; /* Gris claro para equilibrio */
-  color: #000000;
-}
-
-.menu-item.lighter {
-  background-color: #ffffff; /* Blanco puro para contraste */
-  color: #c8102e; /* texto e ícono en rojo Toyota */
-}
-
-
-.menu-item p {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-/* ---- RESPONSIVE ---- */
-@media (max-width: 768px) {
-  .main-container {
-    flex-direction: column;
-  }
-
-  .image-section {
-    height: 40vh;
-  }
-
   .menu-grid {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, 1fr);
+    height: auto;
+  }
+
+  .menu-item {
+    padding: 2rem 0;
   }
 }
 
+/* === AISLAMIENTO VISUAL DE LA SECCIÓN === */
+.main-container {
+  display: flex !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  gap: 0 !important;
+}
+
+.image-section,
+.menu-grid {
+  flex: 1 1 50% !important;
+  height: 100% !important;
+}
+
+.menu-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  grid-template-rows: repeat(2, 1fr) !important;
+  gap: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+}
+
+.menu-item {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-direction: column !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.image-section img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* --- SECCIÓN DE SERVICIOS --- */
-
-
-/* Contenedor general */
+/* ====== SECCIÓN SERVICIOS ====== */
 .servicios-wrapper {
-  background-color: #1b1b1b;
-  padding: 2rem;
-}
-
-/* Título */
-.servicios-titulo {
-  color: #ffffff;
+  background-color: #f5f5f5; /* gris claro Toyota */
   text-align: center;
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
+  padding: 5rem 2rem;
+  color: #1a1a1a;
 }
 
-/* Contenedor de las cards */
+.servicios-titulo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #c8102e; /* rojo Toyota */
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* === CONTENEDOR DE LAS TARJETAS === */
 .servicios-container {
   display: flex;
   justify-content: center;
+  align-items: stretch;
   gap: 2rem;
   flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-/* Card individual */
+/* === CADA SERVICIO === */
 .servicio {
-  background-color: #2a2a2a;
-  color: #ffffff;
-  max-width: 300px;
-  padding: 1.5rem;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease;
+  background-color: #f5f5f5;
+  flex: 1 1 300px;
+  padding: 2rem 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.servicio:hover {
-  transform: translateY(-5px);
-}
 
-/* Íconos */
+
+/* === ÍCONO === */
 .servicio-icono {
-  font-size: 2.5rem;
-  color: rgb(235,10,30);
+  font-size: 3rem;
+  color: #c8102e;
   margin-bottom: 1rem;
 }
 
-/* Botón */
-.btn-primary {
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-  background-color: rgb(0, 0, 0);
+/* === BOTÓN === */
+.btn-servicios {
+  background-color: #c8102e;
+  color: white;
   border: none;
-  color: #ffffff;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: background 0.3s ease;
 }
 
-.btn-primary:hover {
-  background-color: #000000;
-  color: rgb(235, 10, 30);
-}
 
-/* Texto descriptivo */
+
+/* === TEXTO === */
 .servicio p {
   font-size: 0.95rem;
-  line-height: 1.4;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
 }
 
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .servicios-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .servicio {
+    width: 100%;
+  }
+
+  .servicio-icono {
+    font-size: 2.5rem;
+  }
+}

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import lexus from "../img/lexus-logo.png";
 import gr from "../img/grlogo.png";
-import toyota from "../img/toyota.png";
+import toyota from "../img/toyota-logo.png";
 import "../css/marcas.css";
 
 const MainMarcas = () => {

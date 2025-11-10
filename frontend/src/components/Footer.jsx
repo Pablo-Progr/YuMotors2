@@ -1,19 +1,33 @@
-import React from 'react'
-import '../css/footer.css'
-import { FiInstagram } from "react-icons/fi";
-import logo from '../img/yumotors-rojo-blanco.png'
+import React from "react";
+import "../css/footer.css";
+import logo from "../img/yumotors-rojo-blanco.png";
+import { FiInstagram, FiFacebook, FiYoutube, FiLinkedin } from "react-icons/fi";
 
 const Footer = () => {
-    return (
-        <div className='footer-container'>
-            <footer className="footer-content">
-                <img className="footer-img" src={logo} alt="kia" />
-                <a className="footer-instagram" aria-label="Instagram">
-                    <FiInstagram />
-                </a>
-            </footer>
+  return (
+    <footer className="footer-container">
+      <div className="footer-top">
+        <div className="footer-logo">
+          <img src={logo} alt="Yu Motors" />
         </div>
-    )
-}
 
-export default Footer
+        <div className="footer-links">
+          
+        </div>
+
+        <div className="footer-social">
+          <a href="https://instagram.com" aria-label="Instagram"><FiInstagram /></a>
+          <a href="https://facebook.com" aria-label="Facebook"><FiFacebook /></a>
+          <a href="https://youtube.com" aria-label="YouTube"><FiYoutube /></a>
+          <a href="https://linkedin.com" aria-label="LinkedIn"><FiLinkedin /></a>
+        </div>
+      </div>
+
+      <div className="footer-bottom">
+        <p>©2025 Yu Motors. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
