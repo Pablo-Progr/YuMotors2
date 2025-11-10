@@ -77,15 +77,20 @@ const loginUser = async (req, res) => {
 
 // Controlador para registro de usuarios (opcional)
 const registerUser = async (req, res) => {
+  console.log('Body recibido:', req.body); // Debug: ver qué llega
+  
   const { nombre, password, idRol } = req.body;
 
   // Validar campos requeridos
   if (!nombre || !password || !idRol) {
+    console.log('Campos faltantes - nombre:', nombre, 'password:', password ? 'presente' : 'ausente', 'idRol:', idRol);
     return res.status(400).json({
       success: false,
       message: 'Nombre, contraseña e idRol son requeridos'
     });
   }
+
+  console.log('Datos a registrar:', { nombre, idRol }); // No mostrar password
 
   try {
     // Verificar si el nombre ya existe
@@ -101,6 +106,7 @@ const registerUser = async (req, res) => {
       }
 
       if (results.length > 0) {
+        console.log('Usuario ya existe:', nombre);
         return res.status(400).json({
           success: false,
           message: 'El nombre de usuario ya está registrado'
@@ -117,17 +123,25 @@ const registerUser = async (req, res) => {
           });
         }
 
+        console.log('Password hasheado correctamente');
+
         // Insertar nuevo usuario con contraseña hasheada
         const insertQuery = 'INSERT INTO usuarios (nombre, pass, idRol) VALUES (?, ?, ?)';
+
+        console.log('Ejecutando INSERT con idRol:', idRol);
 
         db.query(insertQuery, [nombre, hashedPassword, idRol], (error, result) => {
           if (error) {
             console.error('Error registrando usuario:', error);
+            console.error('SQL State:', error.sqlState);
+            console.error('SQL Message:', error.sqlMessage);
             return res.status(500).json({
               success: false,
-              message: 'Error al registrar usuario'
+              message: 'Error al registrar usuario: ' + error.sqlMessage
             });
           }
+
+          console.log('Usuario registrado exitosamente:', result.insertId);
 
           res.status(201).json({
             success: true,
