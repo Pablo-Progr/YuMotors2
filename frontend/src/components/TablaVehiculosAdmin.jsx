@@ -186,6 +186,9 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
               <tr key={vehiculo.idVehiculoUsado}>
                 {/* --- CELDA DE IMAGEN AÑADIDA --- */}
                 <td className="text-center align-middle">
+                  <button                     className="btn btn-sm me-2"
+                    onClick={() => abrirModalImagen(vehiculo)}
+                    title="Ver imagen">
                   <img
                     // Si vehiculo.imagen existe, úsalo. Si no, usa un string inválido para forzar el 'onError'
                     src={vehiculo.imagen || 'invalid-url'}
@@ -203,6 +206,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                       e.currentTarget.onerror = null; // Previene bucles infinitos si el placeholder también falla
                     }}
                   />
+                  </button>
                 </td>
                 {/* ------------------------------- */}
                 <td>{vehiculo.marca}</td>
@@ -212,7 +216,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                 <td className="text-center">
                   {vehiculo.descripcion ? (
                     <button
-                      className="btn btn-sm btn-outline-info"
+                      className="btn btn-sm btn-outline-light"
                       onClick={() => abrirModalDescripcion(vehiculo)}
                       title="Ver descripción completa"
                     >
@@ -228,13 +232,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                 </td>
                 {/* ------------------------- */}
                 <td className="text-end">
-                  <button
-                    className="btn btn-sm btn-outline-info me-2"
-                    onClick={() => abrirModalImagen(vehiculo)}
-                    title="Ver imagen"
-                  >
-                    <i className="bi bi-eye"></i>
-                  </button>
+
                   <button
                     className="btn btn-sm btn-outline-warning me-2"
                     onClick={() => abrirModalEditar(vehiculo)}
@@ -268,8 +266,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
         >
           <Modal.Header closeButton className="bg-dark text-white">
             <Modal.Title>
-              <i className="bi bi-card-text me-2"></i>
-              Descripción de {vehiculoSeleccionado.marca}{" "}
+              {vehiculoSeleccionado.marca}{" "}
               {vehiculoSeleccionado.modelo}
             </Modal.Title>
           </Modal.Header>
@@ -278,11 +275,6 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
               {vehiculoSeleccionado.descripcion || "Sin descripción disponible"}
             </p>
           </Modal.Body>
-          <Modal.Footer className="bg-dark">
-            <Button variant="secondary" onClick={cerrarModalDescripcion}>
-              <i className="bi bi-x-circle me-2"></i>Cerrar
-            </Button>
-          </Modal.Footer>
         </Modal>
       )}
 
