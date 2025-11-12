@@ -148,8 +148,6 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
 
   return (
     <>
-      <div className="table-responsive p-3 rounded">
-        {/* Input de filtro único */}
         <div className="row mb-3">
           <div className="col-md-6">
             <Form.Group>
@@ -166,7 +164,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
             </Form.Group>
           </div>
         </div>
-
+      <div className="table-responsive p-3 rounded">
         <table className="table table-dark table-hover align-middle">
           <thead>
             <tr>
