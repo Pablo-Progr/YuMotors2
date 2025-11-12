@@ -1,114 +1,121 @@
-
-/* ================================
-  Sección: Títulos de categoría
-  ================================ */
-h2 {
-  text-align: center;
-  margin: 2rem 0 1rem;
-  font-size: 2rem;
-  color: #333;
-}
-
-/* ================================
-  Contenedor de tarjetas
-  ================================ */
-.card-container {
-  background-color: #1b1b1b;
+/* ======== GENERAL ======== */
+.card-usados-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: stretch;
-  gap: 1.5rem;
-  padding: 30px;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  background-color: #fff;
+  font-family: "Oswald", "Helvetica Neue", sans-serif;
+  color: #111;
 }
 
-/* ================================
-  Tarjeta individual (responsiva)
-  ================================ */
-/* Uso de flex para que las cards crezcan/encogan según el espacio.
-  min/max-width garantizan límites razonables; clamp en caso de querer usar width fluid. */
-.card {
-  flex: 1 1 18rem;          /* permite crecer/encoger; base ~18rem */
-  min-width: 14rem;         /* no se haga demasiado pequeña */
-  max-width: 22rem;         /* no se haga demasiado ancha */
-  border: none;
-  border-radius: 0.5rem;
+/* ======== TARJETAS ======== */
+.card-usados {
+  background-color: #f9f9f9;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
-
-/* ================================
-  Imagen de la tarjeta (proporción controlada)
-  ================================ */
-.card-img-top {
-  width: 100%;
-  aspect-ratio: 16/9;       /* mantiene proporción en lugar de altura fija */
-  object-fit: cover;
-  display: block;
-}
-
-/* ================================
-  Cuerpo de la tarjeta
-  ================================ */
-.card-body {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   text-align: center;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  flex-grow: 1;
+  width: 280px;
 }
 
-.card-title {
-  font-size: clamp(1rem, 1.6vw, 1.25rem); /* tamaño responsivo */
+/* Sin efecto hover exagerado, solo una leve elevación */
+.card-usados:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ======== IMAGEN ======== */
+.card-usados-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background-color: #000;
+}
+
+/* ======== CUERPO ======== */
+.card-usados-body {
+  padding: 1.5rem 1rem;
+}
+
+.card-usados-title {
+  font-size: 1.3rem;
+  color: #e60012;
   margin-bottom: 0.5rem;
-  color: #222;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-.card-text {
-  font-size: clamp(1rem, 1.6vw, 1.1rem);
-  font-weight: 600;
-  color: #000000;
+.card-usados-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #222;
   margin-bottom: 1rem;
 }
 
-/* ================================
-  Botón “Más información”
-  ================================ */
-.btn-primary {
-  background-color: #000000;
-  border: none;
-  padding: 0.5rem 1rem;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  align-self: center; /* mantener botón centrado en el layout flexible */
+/* ======== BOTÓN ======== */
+.btn-usados {
+  display: inline-block;
+  background-color: #e60012;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 0.6rem 1.4rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s ease;
 }
 
-.btn-primary:hover {
-  background-color: #1b1b1b;
-  color: rgb(235, 10, 30);
+.btn-usados:hover {
+  background-color: #c4000f;
 }
 
-/* ================================
-  Ajustes para pantallas pequeñas
-  ================================ */
-@media (max-width: 640px) {
-  .card-container {
-   gap: 1rem;
+/* ======== RESPONSIVE ======== */
+@media (max-width: 992px) {
+  .card-usados-container {
+    padding: 3rem 1.5rem;
+    gap: 1.5rem;
   }
-  .card {
-   flex: 1 1 100%;
-   min-width: 0;
-   max-width: 100%;
+
+  .card-usados {
+    width: 260px;
   }
-  .card-img-top {
-   aspect-ratio: 4/3; /* más alto en móviles si lo prefieres */
+
+  .card-usados-img-top {
+    height: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-usados-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-usados {
+    width: 90%;
+    max-width: 350px;
+  }
+
+  .card-usados-img-top {
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-usados-title {
+    font-size: 1.1rem;
+  }
+
+  .card-usados-text {
+    font-size: 1rem;
+  }
+
+  .btn-usados {
+    font-size: 0.9rem;
+    padding: 0.5rem 1.2rem;
   }
 }
