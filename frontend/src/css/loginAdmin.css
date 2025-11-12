@@ -1,15 +1,16 @@
 .background-login {
   justify-content: center;
   align-items: center;
-  background-color:#013632 
+  background-color: aliceblue  !important;
+
 }
 
 .login-container {
   width: 900px;
   height: 600px;
   padding: 30px;
-  background-color: #000000b8; /* fallback */
-  border: #cded00 1px solid;
+  background-color: #000000e3; /* fallback */
+  border: #ffffff  1px solid;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.628);
 
@@ -27,17 +28,17 @@
 }
 
 .boton-inicio-sesion {
-  background-color: #00665e !important;
+  background-color: #ffffff !important;
   border: none;
   border-radius: 8px;
   padding: 12px;
   font-weight: bold;
-  color: #ffffff !important;
+  color: #000 !important;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .boton-inicio-sesion:hover {
-  background-color: #cded00 !important;
-  color: #000 !important;
+  background-color: #c8102e !important;
+  color: #fffafa !important;
 }

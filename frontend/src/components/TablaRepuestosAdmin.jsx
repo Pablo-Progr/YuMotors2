@@ -207,6 +207,9 @@ const TablaRepuestosAdmin = () => {
                 <td>{repuesto.idRepuesto}</td>
                 {/* --- CELDA DE IMAGEN AÑADIDA --- */}
                 <td className="text-center align-middle">
+                  <button                     className="btn btn-sm me-2"
+                    onClick={() => abrirModalImagen(repuesto)}
+                    title="Ver imagen">
                   <img
                     src={repuesto.imagen || "invalid-url"}
                     alt={repuesto.nombre}
@@ -223,6 +226,7 @@ const TablaRepuestosAdmin = () => {
                       e.currentTarget.onerror = null;
                     }}
                   />
+                  </button>
                 </td>
                 {/* ----------------------------- */}
                 <td>{repuesto.nombre}</td>
@@ -234,7 +238,7 @@ const TablaRepuestosAdmin = () => {
                 <td className="text-center">
                   {repuesto.descripcion ? (
                     <button
-                      className="btn btn-sm btn-outline-info"
+                      className="btn btn-sm btn-outline-light"
                       onClick={() => abrirModalDescripcion(repuesto)}
                       title="Ver descripción completa"
                     >
@@ -245,13 +249,6 @@ const TablaRepuestosAdmin = () => {
                   )}
                 </td>
                 <td className="text-end">
-                  <button
-                    className="btn btn-sm btn-outline-info me-2"
-                    onClick={() => abrirModalImagen(repuesto)}
-                    title="Ver imagen"
-                  >
-                    <i className="bi bi-eye"></i>
-                  </button>
                   <button
                     className="btn btn-sm btn-outline-light me-2"
                     onClick={() => abrirModal(repuesto)}
@@ -283,8 +280,7 @@ const TablaRepuestosAdmin = () => {
         >
           <Modal.Header closeButton className="bg-dark text-white">
             <Modal.Title>
-              <i className="bi bi-card-text me-2"></i>
-              Descripción de {repuestoSeleccionado.nombre}
+              {repuestoSeleccionado.nombre}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body className="bg-dark text-white">
@@ -292,11 +288,6 @@ const TablaRepuestosAdmin = () => {
               {repuestoSeleccionado.descripcion || "Sin descripción disponible"}
             </p>
           </Modal.Body>
-          <Modal.Footer className="bg-dark">
-            <Button variant="secondary" onClick={cerrarModalDescripcion}>
-              <i className="bi bi-x-circle me-2"></i>Cerrar
-            </Button>
-          </Modal.Footer>
         </Modal>
       )}
 

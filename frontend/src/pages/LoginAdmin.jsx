@@ -4,6 +4,7 @@ import useAuthStore from "../store/authStore";
 import Swal from "sweetalert2";
 import "../css/LoginAdmin.css"; // Estilos personalizados
 import "bootstrap/dist/css/bootstrap.min.css";
+import logoBlancoRojo from "../img/yumotors-rojo-blanco.png";
 
 const LoginAdmin = () => {
   const [nombre, setNombre] = useState("");
@@ -71,6 +72,9 @@ const LoginAdmin = () => {
     <div className="background-login d-flex justify-content-center align-items-center vh-100">
       <div className="login-container d-flex flex-column justify-content-center align-items-center ">
         <div className="text-center d-flex flex-column justify-content-start align-items-center mb-4">
+          <div className="mb-3">
+            <img className="nav-logo" src={logoBlancoRojo} alt="Yu Motors" />
+          </div>    
           <h2 className="text-white mb-2">Acceso para Administradores</h2>
           <p className="text-light mb-4">
             Inicia sesión para gestionar el concesionario.

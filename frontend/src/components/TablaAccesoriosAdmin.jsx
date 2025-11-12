@@ -204,7 +204,12 @@ const TablaAccesoriosAdmin = () => {
                 <td>{accesorio.idAccesorio}</td>
                 {/* --- CELDA DE IMAGEN AÑADIDA --- */}
                 <td className="text-center align-middle">
-                  <img
+                                    <button
+                    className="btn btn-sm  me-2"
+                    onClick={() => abrirModalImagen(accesorio)}
+                    title="Ver imagen"
+                  >
+                                      <img
                     src={accesorio.imagen || "invalid-url"}
                     alt={accesorio.nombre}
                     className="rounded"
@@ -220,6 +225,8 @@ const TablaAccesoriosAdmin = () => {
                       e.currentTarget.onerror = null;
                     }}
                   />
+                  </button>
+
                 </td>
                 {/* ----------------------------- */}
                 <td>{accesorio.nombre}</td>
@@ -227,7 +234,7 @@ const TablaAccesoriosAdmin = () => {
                 <td className="text-center">
                   {accesorio.descripcion ? (
                     <button
-                      className="btn btn-sm btn-outline-info"
+                      className="btn btn-sm btn-outline-light"
                       onClick={() => abrirModalDescripcion(accesorio)}
                       title="Ver descripción completa"
                     >
@@ -243,13 +250,6 @@ const TablaAccesoriosAdmin = () => {
                 </td>
                 <td>{accesorio.stock}</td>
                 <td className="text-end">
-                  <button
-                    className="btn btn-sm btn-outline-info me-2"
-                    onClick={() => abrirModalImagen(accesorio)}
-                    title="Ver imagen"
-                  >
-                    <i className="bi bi-eye"></i>
-                  </button>
                   <button
                     className="btn btn-sm btn-outline-light me-2"
                     onClick={() => abrirModal(accesorio)}
@@ -283,8 +283,7 @@ const TablaAccesoriosAdmin = () => {
         >
           <Modal.Header closeButton className="bg-dark text-white">
             <Modal.Title>
-              <i className="bi bi-card-text me-2"></i>
-              Descripción de {accesorioSeleccionado.nombre}
+             {accesorioSeleccionado.nombre}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body className="bg-dark text-white">
@@ -292,11 +291,6 @@ const TablaAccesoriosAdmin = () => {
               {accesorioSeleccionado.descripcion || "Sin descripción disponible"}
             </p>
           </Modal.Body>
-          <Modal.Footer className="bg-dark">
-            <Button variant="secondary" onClick={cerrarModalDescripcion}>
-              <i className="bi bi-x-circle me-2"></i>Cerrar
-            </Button>
-          </Modal.Footer>
         </Modal>
       )}
 
