@@ -2,10 +2,10 @@
 .accesorios-container {
   padding: 40px 20px;
   background-color: #f9f9f9;
-  min-height: 100vh;       /* ocupa al menos toda la altura visible */
-  height: auto;            /* permite crecer según el contenido */
-  overflow-x: hidden;      /* evita scroll horizontal */
-  overflow-y: auto;        /* permite scroll vertical */
+  min-height: 100vh; /* ocupa al menos toda la altura visible */
+  height: auto; /* permite crecer según el contenido */
+  overflow-x: hidden; /* evita scroll horizontal */
+  overflow-y: auto; /* permite scroll vertical */
 }
 
 /* === Título principal === */
@@ -20,17 +20,38 @@
 
 /* === Carousel exclusivo de accesorios === */
 .carousel-accesorios {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto 50px auto;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  height: 400px;
+}
+
+.carousel-accesorios .carousel-item {
+  height: 400px;
+  position: relative;
 }
 
 .carousel-accesorios img {
-  height: 300px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.carousel-accesorios .carousel-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px 30px;
   border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
 }
 
 .carousel-accesorios .carousel-caption h5 {
@@ -124,8 +145,17 @@
 
 /* === Responsive === */
 @media (max-width: 768px) {
-  .carousel-accesorios img {
-    height: 220px;
+  .carousel-accesorios {
+    height: 300px;
+  }
+
+  .carousel-accesorios .carousel-item {
+    height: 300px;
+  }
+
+  .carousel-accesorios .carousel-caption {
+    padding: 15px 20px;
+    width: 90%;
   }
 }
 
@@ -138,7 +168,24 @@
     height: 160px;
   }
 
-  .carousel-accesorios img {
-    height: 180px;
+  .carousel-accesorios {
+    height: 250px;
+  }
+
+  .carousel-accesorios .carousel-item {
+    height: 250px;
+  }
+
+  .carousel-accesorios .carousel-caption {
+    padding: 10px 15px;
+    width: 95%;
+  }
+
+  .carousel-accesorios .carousel-caption h5 {
+    font-size: 1.1rem;
+  }
+
+  .carousel-accesorios .carousel-caption p {
+    font-size: 0.8rem;
   }
 }

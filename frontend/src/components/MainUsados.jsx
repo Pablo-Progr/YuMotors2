@@ -3,22 +3,22 @@ import { useEffect, useState } from "react";
 import "../css/mainusados.css";
 
 const MainUsados = () => {
-  const [vehiculos, setVehiculos] = useState([]);
+    const [vehiculos, setVehiculos] = useState([]);
 
-  useEffect(() => {
-    const fetchVehiculos = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/api/vehiculos-usados"
-        );
-        setVehiculos(response.data);
-      } catch (error) {
-        console.error("Error fetching vehiculos:", error);
-      }
-    };
+    useEffect(() => {
+      const fetchVehiculos = async () => {
+        try {
+          const response = await axios.get(
+            "http://localhost:3000/api/vehiculos-usados"
+          );
+          setVehiculos(response.data);
+        } catch (error) {
+          console.error("Error fetching vehiculos:", error);
+        }
+      };
 
-    fetchVehiculos();
-  }, []);
+      fetchVehiculos();
+    }, []);
 
   return (
     <>

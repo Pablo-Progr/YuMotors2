@@ -37,11 +37,14 @@ const getProductosMasVendidos = (req, res) => {
       a.idAccesorio,
       a.nombre,
       a.marca,
+      a.imagen,
+      a.descripcion,
+      a.precio,
       SUM(dv.cantidad) as total_vendido,
       SUM(dv.cantidad * dv.precioMomento) as ingresos_totales
     FROM detalleVentasAccesorios dv
     INNER JOIN accesorios a ON dv.idAccesorio = a.idAccesorio
-    GROUP BY a.idAccesorio, a.nombre, a.marca
+    GROUP BY a.idAccesorio, a.nombre, a.marca, a.imagen, a.descripcion, a.precio
     ORDER BY total_vendido DESC
     LIMIT 10
   `;

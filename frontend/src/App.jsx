@@ -15,11 +15,8 @@ import Usados from "./pages/Usados";
 import Concesionario from "./pages/Concesionario";
 import Accesorios from "./pages/Accesorios";
 import Repuestos from "./pages/Repuestos";
-
-
 import Toyota from "./pages/Toyota";
 import GazooRacing from "./pages/GazooRacing";
-
 import Marcas from "./pages/Marcas";
 import Yaris from "./pages/Yaris";
 import Corolla from "./pages/Corolla"
