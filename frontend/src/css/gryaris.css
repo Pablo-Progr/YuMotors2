@@ -1,0 +1,376 @@
+/* ======== GENERAL ======== */
+.yaris-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  font-family: "Oswald", "Helvetica Neue", sans-serif;
+  color: #111;
+  overflow-x: hidden;
+}
+
+/* ======== TITULOS ======== */
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  letter-spacing: 1px;
+  margin: 2rem 0 1.5rem;
+}
+
+/* ======== CARRUSELES YARIS ======== */
+.carousel-section-yaris {
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 4rem;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  background-color: #000;
+}
+
+.carousel-section-yaris.interior {
+  background-color: #111;
+}
+
+.carousel-inner-yaris {
+  width: 100%;
+}
+
+.carousel-item-yaris img {
+  width: 100%;
+  height: 550px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+
+
+
+
+/* ======== FEATURES ======== */
+.features-section,
+.downloads-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1100px;
+  margin-bottom: 4rem;
+  padding: 1rem;
+}
+
+.feature-box,
+.download-box {
+  flex: 1 1 240px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+/* ICONOS FEATURES Y DESCARGAS */
+.feature-icon,
+.download-icon {
+  font-size: 2.8rem;
+  color: #e60012;
+  margin-bottom: 1rem;
+}
+
+/* TITULOS */
+.feature-box h3,
+.download-box h3 {
+  font-size: 1.25rem;
+  color: #e60012;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+/* PARÁGRAFOS Y LINKS */
+.feature-box p {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.4;
+}
+
+.download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #000000;
+  font-weight: 500;
+}
+
+.link-icon {
+  font-size: 1rem;
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 992px) {
+  .carousel-item-yaris img {
+    height: 420px;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-item-yaris img {
+    height: 360px;
+  }
+
+  .feature-box,
+  .download-box {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-item-yaris img {
+    height: 280px;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+  }
+
+  .feature-icon,
+  .download-icon {
+    font-size: 2.2rem;
+  }
+
+  .feature-box,
+  .download-box {
+    padding: 1.2rem;
+  }
+}
+
+/* ======== SHOWCASE ======== */
+.yaris-showcase {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.yaris-card {
+  position: relative;
+  width: 500px;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.yaris-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+.yaris-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.yaris-card:hover .yaris-card-img {
+  transform: scale(1.05);
+}
+
+.yaris-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0));
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  transition: background 0.3s ease;
+}
+
+.yaris-card-overlay p {
+  font-size: 1rem;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.yaris-card-overlay h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0.3rem 0 0;
+  color: #e60012;
+  letter-spacing: 1px;
+}
+
+/* ======== MODAL ======== */
+.yaris-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.yaris-modal-img {
+  max-width: 90%;
+  max-height: 90vh;
+  border-radius: 10px;
+  object-fit: contain;
+  box-shadow: 0 0 25px rgba(0,0,0,0.7);
+}
+
+.close-btn {
+  position: absolute;
+  top: 25px;
+  right: 40px;
+  font-size: 2.5rem;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 2100;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #e60012;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3rem;
+  color: #fff;
+  background: rgba(0,0,0,0.4);
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 2050;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: #e60012;
+}
+
+.nav-btn.prev { left: 40px; }
+.nav-btn.next { right: 40px; }
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 992px) {
+  .yaris-card {
+    width: 420px;
+    height: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .yaris-card {
+    width: 90%;
+    height: 240px;
+  }
+
+  .yaris-card-overlay h3 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .yaris-card {
+    width: 95%;
+    height: 200px;
+  }
+
+  .nav-btn {
+    font-size: 2.2rem;
+  }
+
+  .close-btn {
+    font-size: 2rem;
+  }
+}
+
+/* ======== PORTADA GR YARIS ======== */
+.yaris-portada {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto 3rem;
+  
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  position: relative;
+  background: #000;
+}
+
+.yaris-portada-img {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 1.5s ease, opacity 1.2s ease;
+}
+
+/* Efecto de leve zoom al entrar */
+.yaris-portada-img:hover {
+  transform: scale(1.03);
+  opacity: 0.95;
+}
+
+/* Oscurecer levemente el borde para profundidad */
+.yaris-portada::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.35), rgba(0,0,0,0));
+  pointer-events: none;
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 992px) {
+  .yaris-portada-img {
+    height: 460px;
+  }
+}
+
+@media (max-width: 768px) {
+  .yaris-portada-img {
+    height: 380px;
+  }
+}
+
+@media (max-width: 480px) {
+  .yaris-portada-img {
+    height: 280px;
+  }
+}

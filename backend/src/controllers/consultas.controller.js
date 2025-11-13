@@ -36,8 +36,26 @@ const eliminarConsulta = (req, res) => {
     });
 };
 
+const crearConsulta = (req, res) => {
+    const { nombre, email, telefono, asunto, mensaje, preferencia  } = req.body;
+    const query = 'INSERT INTO consultas (nombre, email, telefono, asunto, mensaje, preferencia, estado) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    db.query(query, [nombre, email, telefono, asunto, mensaje, preferencia, 0], (error, results) => {
+        if (error) {
+            console.error('Error al crear consulta:', error);
+            return res.status(500).json({ error: 'Error al crear consulta' });
+        }   
+        res.status(201).json({ message: 'Consulta creada correctamente' });
+    }   
+    );
+};
+
+
+
+
+
 module.exports = {
     obtenerConsultas,
     actualizarEstadoConsulta,
     eliminarConsulta,
+    crearConsulta
 };

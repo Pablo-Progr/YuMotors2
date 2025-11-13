@@ -80,7 +80,7 @@ const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
       <Modal.Body className="bg-dark text-white">
         <Form onSubmit={handleSubmit}>
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <Form.Group className="mb-3">
                 <Form.Label>
                   <i className="bi bi-tag me-2"></i>Marca
@@ -97,7 +97,7 @@ const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
               </Form.Group>
             </div>
 
-            <div className="col-md-6">
+            <div className="col-md-5">
               <Form.Group className="mb-3">
                 <Form.Label>
                   <i className="bi bi-car-front-fill me-2"></i>Modelo
@@ -116,7 +116,7 @@ const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
           </div>
 
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <Form.Group className="mb-3">
                 <Form.Label>
                   <i className="bi bi-calendar3 me-2"></i>Año
@@ -135,7 +135,7 @@ const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
               </Form.Group>
             </div>
 
-            <div className="col-md-6">
+            <div className="col-md-5">
               <Form.Group className="mb-3">
                 <Form.Label>
                   <i className="bi bi-speedometer2 me-2"></i>Kilometraje
@@ -153,7 +153,8 @@ const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
               </Form.Group>
             </div>
           </div>
-
+          <div className="row">
+            <div className="col-md-10">
           <Form.Group className="mb-3">
             <Form.Label>
               <i className="bi bi-card-text me-2"></i>Descripción
@@ -167,10 +168,12 @@ const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
               onChange={handleChange}
               className="bg-secondary text-white border-secondary"
             />
-          </Form.Group>
+              </Form.Group>
+            </div>
+          </div>
 
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-5">
               <Form.Group className="mb-3">
                 <Form.Label>
                   <i className="bi bi-currency-dollar me-2"></i>Precio
@@ -189,7 +192,7 @@ const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
               </Form.Group>
             </div>
 
-            <div className="col-md-6">
+            <div className="col-md-5">
               <Form.Group className="mb-3">
                 <Form.Label>
                   <i className="bi bi-image me-2"></i>URL de Imagen

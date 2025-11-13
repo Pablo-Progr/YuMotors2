@@ -9,11 +9,15 @@ import MetricasAdmin from "./pages/MetricasAdmin";
 import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminHome from "./pages/AdminHome";
+import VehPostVentaAdmin from "./pages/VehPostVentaAdmin";
+import RegistroPosventa from "./pages/RegistroPosventa.jsx";
 import Usados from "./pages/Usados";
 import Concesionario from "./pages/Concesionario";
+import Toyota from "./pages/Toyota";
 import GazooRacing from "./pages/GazooRacing";
 import Marcas from "./pages/Marcas";
 import Yaris from "./pages/Yaris";
+import Contanto from "./pages/Contanto";
 
 
 function App() {
@@ -24,10 +28,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/usados" element={<Usados />} />
           <Route path="/concesionario" element={<Concesionario />} />
+          <Route path="/toyota" element={<Toyota />} />
           <Route path="/marcas/gr" element={<GazooRacing />} />
           <Route path="/marcas" element={<Marcas />} />
           <Route path="/marcas/gr/yaris" element={<Yaris />} />
           <Route path="/login" element={<AdminLogin />} />
+          <Route path="/contacto" element={<Contanto />} />
 
           {/* Rutas protegidas para administradores */}
           <Route
@@ -82,9 +88,15 @@ function App() {
             path="/admin/post-venta"
             element={
               <ProtectedRoute requireAdmin={true}>
-                <div className="d-flex bg-dark text-white min-vh-100 justify-content-center align-items-center">
-                  <h1>Página de Post-Venta - En construcción</h1>
-                </div>
+                <VehPostVentaAdmin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/registro-posventa/:id"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <RegistroPosventa />
               </ProtectedRoute>
             }
           />

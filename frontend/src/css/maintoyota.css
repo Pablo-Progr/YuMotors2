@@ -1,0 +1,79 @@
+/* ===== CONTENEDOR GENERAL ===== */
+.toyota-container {
+  font-family: 'Oswald', 'Helvetica Neue', sans-serif;
+  color: #111;
+  background-color: #fff;
+  padding: 4rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  text-align: center;
+}
+
+/* ===== LOGO ===== */
+.toyota-logo-section img {
+  width: 200px;
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+/* ===== TITULOS ===== */
+.toyota-info-section h2,
+.toyota-history-section h2,
+.toyota-facts-section h2 {
+  color: #e60012;
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+/* ===== PARÁGRAFOS ===== */
+.toyota-info-section p,
+.toyota-history-section p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ===== DATOS CLAVE ===== */
+.toyota-facts-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.toyota-facts-section li {
+  font-size: 1.05rem;
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .toyota-container {
+    padding: 3rem 1rem;
+  }
+
+  .toyota-logo-section img {
+    width: 150px;
+  }
+
+  .toyota-info-section h2,
+  .toyota-history-section h2,
+  .toyota-facts-section h2 {
+    font-size: 1.6rem;
+  }
+
+  .toyota-info-section p,
+  .toyota-history-section p {
+    font-size: 1rem;
+  }
+
+  .toyota-facts-section li {
+    font-size: 0.95rem;
+  }
+}

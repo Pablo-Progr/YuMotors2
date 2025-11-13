@@ -69,11 +69,11 @@ const MainAdmin = () => {
         </button>
       </div>
 
-      <div className="menu-grid">
+      <div className="d-flex flex-wrap justify-content-center gap-3">
         {menuItems.map((item, index) => (
           <div
             key={index}
-            className="menu-card"
+            className="menu-card w-25"
             style={
               item.backgroundImage
                 ? {

@@ -1,48 +1,113 @@
-.MainMarcas{
-    background-color: #2a2a2a;
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.MainMarcas {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  box-sizing: border-box;
+  color: #fff;
+  font-family: "Oswald", sans-serif;
 }
 
+/* ===== GRID DE TARJETAS ===== */
 .card-container-marcas {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    padding: 10rem 2rem 2rem; /* más espacio solo arriba */
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
 }
 
+/* ===== CADA TARJETA ===== */
 .card-marcas {
-    background-color: white;
-    border-radius: 10px;
-    padding: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-.card-marcas:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  border: 2px solid #c8102e; /* rojo Toyota */
+  border-radius: 15px;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  cursor: pointer;
+  overflow: hidden;
 }
 
 .card-marcas img {
-    max-width: 200px;
-    height: auto;
-    display: block;
+  width: 80%;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.4s ease;
 }
 
+/* Hover elegante */
+.card-marcas:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(200, 16, 46, 0.5);
+  border-color: #fff;
+}
+
+.card-marcas:hover img {
+  transform: scale(1.1);
+}
+
+/* ===== BOTÓN VOLVER ===== */
 .btn-volver-container {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 8rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
-.btn-volver{
-    text-decoration: none;
-    background-color: #000000;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+.btn-volver {
+  background-color: #c8102e;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 1px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-volver:hover {
+  background-color: #a00f26;
+  transform: scale(1.05);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .card-container-marcas {
+    gap: 2rem;
+  }
+
+  .card-marcas {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+@media (max-width: 600px) {
+  .MainMarcas {
+    padding: 2rem 1rem;
+  }
+
+  .card-container-marcas {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .card-marcas {
+    width: 160px;
+    height: 160px;
+  }
+
+  .btn-volver {
+    width: 80%;
+  }
 }
