@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 import { FaCogs, FaTachometerAlt, FaChair, FaSnowflake, FaFileAlt, FaChartBar, FaLink } from "react-icons/fa";
 
-import gryaris1 from "../img/gryaris1.jpeg";
-import gryaris2 from "../img/gryaris2.jpeg";
-import gryaris3 from "../img/gryaris3.jpeg";
-import gryaris4 from "../img/gryaris4.jpeg";
-import gryaris5 from "../img/gryaris5.jpeg";
-import gryaris6 from "../img/gryaris6.jpeg";
-import gryaris7 from "../img/gryaris7.jpeg";
-import gryaris8 from "../img/gryaris8.jpeg";
-import gryaris9 from "../img/gryaris9.jpeg";
+import gryaris1 from "../img/autosnuevos/gr/gryaris/gryaris1.jpeg";
+import gryaris2 from "../img/autosnuevos/gr/gryaris/gryaris2.jpeg";
+import gryaris3 from "../img/autosnuevos/gr/gryaris/gryaris3.jpeg";
+import gryaris4 from "../img/autosnuevos/gr/gryaris/gryaris4.jpeg";
+import gryaris5 from "../img/autosnuevos/gr/gryaris/gryaris5.jpeg";
+import gryaris6 from "../img/autosnuevos/gr/gryaris/gryaris6.jpeg";
+import gryaris7 from "../img/autosnuevos/gr/gryaris/gryaris7.jpeg";
+import gryaris8 from "../img/autosnuevos/gr/gryaris/gryaris8.jpeg";
+import gryaris9 from "../img/autosnuevos/gr/gryaris/gryaris9.jpeg";
 
-import gryarisint1 from "../img/yarisint1.jpeg";
-import gryarisint2 from "../img/yarisint2.jpeg";
-import gryarisint3 from "../img/yarisint3.jpeg";
-import gryarisint4 from "../img/yarisint4.jpeg";
-import gryarisint5 from "../img/yarisint5.jpeg";
-import gryarisint6 from "../img/yarisint6.jpeg";
-import gryarisint7 from "../img/yarisint7.jpeg";
-import gryarisint8 from "../img/yarisint8.jpeg";
+import gryarisint1 from "../img/autosnuevos/gr/gryaris/yarisint1.jpeg";
+import gryarisint2 from "../img/autosnuevos/gr/gryaris/yarisint2.jpeg";
+import gryarisint3 from "../img/autosnuevos/gr/gryaris/yarisint3.jpeg";
+import gryarisint4 from "../img/autosnuevos/gr/gryaris/yarisint4.jpeg";
+import gryarisint5 from "../img/autosnuevos/gr/gryaris/yarisint5.jpeg";
+import gryarisint6 from "../img/autosnuevos/gr/gryaris/yarisint6.jpeg";
+import gryarisint7 from "../img/autosnuevos/gr/gryaris/yarisint7.jpeg";
+import gryarisint8 from "../img/autosnuevos/gr/gryaris/yarisint8.jpeg";
 
-import portada from "../img/gr-yaris-portada.jpeg";
+import portada from "../img/autosnuevos/gr/gryaris/gr-yaris-portada.jpeg";
 
 import "../css/gryaris.css";
 

@@ -38,7 +38,8 @@ const Header = () => {
           </button>
           <a className="nav-link" href="/usados">Usados</a>
           <a className="nav-link" href="/concesionario">Concesionario</a>
-          <a className="nav-link" href="/toyota">Toyota</a>
+          <a className="nav-link" href="/accesorios">Accesorios</a>
+          <a className="nav-link" href="/repuestos">Repuestos</a>
           <a className="nav-link" href="#">Post Venta</a>
         </nav>
       </div>
@@ -56,7 +57,7 @@ const Header = () => {
           </div>
           <div className="categoria">
             <h4>Pick-Up</h4>
-            <a href="/marcas/toyota/hilux">Hilux DX/SR</a>
+            <a href="/marcas/toyota/hiluxsr">Hilux SR</a>
             <a href="/marcas/toyota/hilux-srv">Hilux SRV/SRX</a>
           </div>
           <div className="categoria">
