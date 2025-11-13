@@ -8,6 +8,8 @@ const metricasRoutes = require('./metricas.routes');
 const vehiculosUsadosRoutes = require('./vehiculosUsados.routes');
 const vehPosventaRoutes = require('./vehPosventa.routes');
 const regPosventaRoutes = require('./regPosventa.routes');
+const signInPosventaRoutes = require('./signInPosventa.routes');
+const regPosventaUserRoutes = require('./regPosventaUser.routes');
 
 const router = express.Router();
 
@@ -20,5 +22,7 @@ router.use('/metricas', metricasRoutes);
 router.use('/vehiculos-usados', vehiculosUsadosRoutes);
 router.use('/veh-posventa', vehPosventaRoutes);
 router.use('/reg-posventa', regPosventaRoutes);
+router.use('/signin-posventa', signInPosventaRoutes);
+router.use('/reg-posventa-user', regPosventaUserRoutes);
 
 module.exports = router;

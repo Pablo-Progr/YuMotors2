@@ -18,6 +18,9 @@ import GazooRacing from "./pages/GazooRacing";
 import Marcas from "./pages/Marcas";
 import Yaris from "./pages/Yaris";
 import Contanto from "./pages/Contanto";
+import PosventaUser from "./pages/PosventaUser";
+import VehiculoDetalle from "./pages/VehiculoDetalle";
+import RegistrosPosventaUser from "./pages/RegistrosPosventaUser";
 
 
 function App() {
@@ -34,6 +37,9 @@ function App() {
           <Route path="/marcas/gr/yaris" element={<Yaris />} />
           <Route path="/login" element={<AdminLogin />} />
           <Route path="/contacto" element={<Contanto />} />
+          <Route path="/posventa" element={<PosventaUser />} />
+          <Route path="/posventa/vehiculo/:id" element={<VehiculoDetalle />} />
+          <Route path="/posventa/registros/:id" element={<RegistrosPosventaUser />} />
 
           {/* Rutas protegidas para administradores */}
           <Route
