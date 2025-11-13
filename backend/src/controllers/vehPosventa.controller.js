@@ -48,8 +48,21 @@ const editarVehiculoPostventa = (req, res) => {
     });
 };
 
+const crearVehiculoPostventa = (req, res) => {
+    const { patente, marca, modelo, anio, telefono, codigo } = req.body;
+    const query = 'INSERT INTO vehiculospostventa (patente, marca, modelo, anio, telefono, codigo) VALUES (?, ?, ?, ?, ?, ?)';
+    db.query(query, [patente, marca, modelo, anio, telefono, codigo], (err, results) => {
+        if (err) {
+            console.error('Error al crear el vehículo postventa:', err);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        res.status(201).json({ message: 'Vehículo postventa creado exitosamente', id: results.insertId, codigo });
+    });
+};
+
 module.exports = {
     obtenerVehPostventa,
     eliminarVehiculoPostventa,
     editarVehiculoPostventa,
+    crearVehiculoPostventa,
 };

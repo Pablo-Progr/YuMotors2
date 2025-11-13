@@ -22,6 +22,9 @@ import Yaris from "./pages/Yaris";
 import Corolla from "./pages/Corolla"
 import HiluxSR from "./pages/HiluxSR";
 import Contanto from "./pages/Contanto";
+import PosventaUser from "./pages/PosventaUser";
+import VehiculoDetalle from "./pages/VehiculoDetalle";
+import RegistrosPosventaUser from "./pages/RegistrosPosventaUser";
 
 
 function App() {
@@ -42,6 +45,9 @@ function App() {
           <Route path="/marcas/toyota/hiluxsr" element={<HiluxSR />} />
           <Route path="/login" element={<AdminLogin />} />
           <Route path="/contacto" element={<Contanto />} />
+          <Route path="/posventa" element={<PosventaUser />} />
+          <Route path="/posventa/vehiculo/:id" element={<VehiculoDetalle />} />
+          <Route path="/posventa/registros/:id" element={<RegistrosPosventaUser />} />
 
           {/* Rutas protegidas para administradores */}
           <Route
