@@ -1,0 +1,144 @@
+/* === Contenedor general === */
+.accesorios-container {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  min-height: 100vh;       /* ocupa al menos toda la altura visible */
+  height: auto;            /* permite crecer según el contenido */
+  overflow-x: hidden;      /* evita scroll horizontal */
+  overflow-y: auto;        /* permite scroll vertical */
+}
+
+/* === Título principal === */
+.titulo-accesorios {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #c00;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+/* === Carousel exclusivo de accesorios === */
+.carousel-accesorios {
+  max-width: 900px;
+  margin: 0 auto 50px auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-accesorios img {
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.carousel-accesorios .carousel-caption h5 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.carousel-accesorios .carousel-caption p {
+  font-size: 0.9rem;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* === Grid de cards === */
+.card-accesorios-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  justify-content: center;
+}
+
+/* === Card individual === */
+.card-accesorios {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-accesorios:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* === Imagen === */
+.foto-card-accesorios {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* === Cuerpo === */
+.body-card-accesorios {
+  padding: 20px;
+  text-align: center;
+}
+
+/* === Título === */
+.titulo-card-accesorios {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+/* === Descripción === */
+.texto-card-accesorios {
+  font-size: 0.95rem;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+/* === Precio === */
+.precio-card-accesorios {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #c00;
+  margin-bottom: 15px;
+}
+
+/* === Botón === */
+.btn-accesorios {
+  display: inline-block;
+  background-color: #c00;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-accesorios:hover {
+  background-color: #a00;
+  transform: scale(1.05);
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .carousel-accesorios img {
+    height: 220px;
+  }
+}
+
+@media (max-width: 576px) {
+  .titulo-accesorios {
+    font-size: 1.6rem;
+  }
+
+  .foto-card-accesorios {
+    height: 160px;
+  }
+
+  .carousel-accesorios img {
+    height: 180px;
+  }
+}

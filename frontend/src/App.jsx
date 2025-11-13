@@ -11,10 +11,17 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminHome from "./pages/AdminHome";
 import Usados from "./pages/Usados";
 import Concesionario from "./pages/Concesionario";
+import Accesorios from "./pages/Accesorios";
+import Repuestos from "./pages/Repuestos";
+
+
 import Toyota from "./pages/Toyota";
 import GazooRacing from "./pages/GazooRacing";
+
 import Marcas from "./pages/Marcas";
 import Yaris from "./pages/Yaris";
+import Corolla from "./pages/Corolla"
+import HiluxSR from "./pages/HiluxSR";
 
 
 function App() {
@@ -25,10 +32,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/usados" element={<Usados />} />
           <Route path="/concesionario" element={<Concesionario />} />
+          <Route path="/repuestos" element={<Repuestos />} />
+          <Route path="/accesorios" element={<Accesorios />} />
           <Route path="/toyota" element={<Toyota />} />
           <Route path="/marcas/gr" element={<GazooRacing />} />
           <Route path="/marcas" element={<Marcas />} />
           <Route path="/marcas/gr/yaris" element={<Yaris />} />
+          <Route path="/marcas/toyota/corolla" element={<Corolla />} />
+          <Route path="/marcas/toyota/hiluxsr" element={<HiluxSR />} />
           <Route path="/login" element={<AdminLogin />} />
 
           {/* Rutas protegidas para administradores */}
