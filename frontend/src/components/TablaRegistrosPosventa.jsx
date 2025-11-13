@@ -265,7 +265,7 @@ const TablaRegistrosPosventa = (props) => {
                 <td>{idx + 1}</td>
                 <td>{formatDate(reg.fecha)}</td>
                 <td>{formatTime(reg.hora)}</td>
-                <td>{reg.kilometraje}</td>
+                <td>{reg.kilometraje}km</td>
                 <td>{reg.tipoPostVent}</td>
                 <td>
                   <button
@@ -338,7 +338,7 @@ const TablaRegistrosPosventa = (props) => {
               <Form.Group className="mb-3">
                 <Form.Label>Kilometraje</Form.Label>
                 <Form.Control
-                  type="number"
+                  type="text"
                   name="kilometraje"
                   value={registroSeleccionado.kilometraje}
                   onChange={handleChange}

@@ -17,6 +17,7 @@ import Toyota from "./pages/Toyota";
 import GazooRacing from "./pages/GazooRacing";
 import Marcas from "./pages/Marcas";
 import Yaris from "./pages/Yaris";
+import Contanto from "./pages/Contanto";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/marcas" element={<Marcas />} />
           <Route path="/marcas/gr/yaris" element={<Yaris />} />
           <Route path="/login" element={<AdminLogin />} />
+          <Route path="/contacto" element={<Contanto />} />
 
           {/* Rutas protegidas para administradores */}
           <Route

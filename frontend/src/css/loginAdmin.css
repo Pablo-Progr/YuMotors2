@@ -1,7 +1,7 @@
 .background-login {
   justify-content: center;
   align-items: center;
-  background-color: aliceblue  !important;
+  background: linear-gradient(135deg, #454545 10%, #b7b6b6 100%);
 
 }
 

@@ -37,8 +37,7 @@ const MainMetricasAdmin = () => {
   const [ventasRepuestosPorMes, setVentasRepuestosPorMes] = useState([]);
   const [repuestosMasVendidos, setRepuestosMasVendidos] = useState([]);
   const [resumenGeneralRepuestos, setResumenGeneralRepuestos] = useState(null);
-  const [comparativoMensualRepuestos, setComparativoMensualRepuestos] =
-    useState([]);
+  const [comparativoMensualRepuestos, setComparativoMensualRepuestos] = useState([]);
 
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("accesorios"); // 'accesorios' o 'repuestos'
