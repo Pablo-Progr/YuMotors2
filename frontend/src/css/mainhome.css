@@ -144,14 +144,23 @@ html, body, main-home {
   color: white;
 }
 
+/* Imagen */
 .image-section img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
+  transition: transform 0.6s ease, filter 0.6s ease;
 }
 
+/* Hover: zoom suave + oscurecer */
+.image-section:hover img {
+  transform: scale(1.08);
+  filter: brightness(0.7);
+}
+
+/* Texto: SIEMPRE visible */
 .promo-text {
   position: absolute;
   bottom: 2rem;
@@ -159,8 +168,19 @@ html, body, main-home {
   background: rgba(0, 0, 0, 0.4);
   padding: 1rem 1.5rem;
   border-radius: 10px;
+  
+  /* Antes estaba opacity:0 — lo quitamos */
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 0.4s ease;
 }
 
+/* Hover: pequeña animación elegante */
+.image-section:hover .promo-text {
+  transform: translateY(-5px);
+}
+
+/* Texto interno */
 .promo-text h2 {
   margin: 0;
   font-size: 1.5rem;
@@ -200,6 +220,10 @@ html, body, main-home {
   text-align: center;
 }
 
+.promo-text a:hover {
+  text-decoration: underline;
+}
+
 /* Elimina todo el espacio entre los cuadrados */
 .menu-grid > .menu-item {
   border: none;
@@ -219,19 +243,20 @@ html, body, main-home {
 }
 
 .icono-menu-container:hover {
-  transform: scale(1.1) ;
+  transform: scale(1.5);
+  transition: transform 0.3s ease-in-out; /* Añadido para una animación más fluida */
 }
 
 
 
 /* ---- COLORES TOYOTA ---- */
 .menu-item.dark {
-  background-color: #1a1a1a;
+  background-color: #242424;
   color: #ffffff;
 }
 
 .menu-item.medium {
-  background-color: #c8102e;
+  background-color: #b92929;
   color: #ffffff;
 }
 
@@ -242,7 +267,7 @@ html, body, main-home {
 
 .menu-item.lighter {
   background-color: #ffffff;
-  color: #c8102e;
+  color: #c22020;
 }
 
 /* Texto */
@@ -364,13 +389,13 @@ html, body, main-home {
 /* === ÍCONO === */
 .servicio-icono {
   font-size: 3rem;
-  color: #c8102e;
+  color: #b92929;
   margin-bottom: 1rem;
 }
 
 /* === BOTÓN === */
 .btn-servicios {
-  background-color: #c8102e;
+  background-color: #b92929;
   color: white;
   border: none;
   font-weight: 600;

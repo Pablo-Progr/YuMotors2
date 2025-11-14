@@ -1,20 +1,18 @@
-import wall2 from "../img/hilux.jpg";
+import wall2 from "../img/autosnuevos/toyota/hilux/hiluxint3.png";
 import wall4 from "../img/camry-tc-2024.jpg";
 import wall5 from "../img/Supras.png";
 import wall6 from "../img/gr-yaris-wrc.jpg";
 import wall8 from "../img/wall8.jpg";
 import wall10 from "../img/wall10.jpg";
+import accesorios from "../img/accesorios.webp";
+import repuestos from "../img/repuestos.jpg";
 import home from "../img/toyota-main-home.jpg";
 
 import { MdAttachMoney } from "react-icons/md";
-import { GiCarKey } from "react-icons/gi";
+import { GiCarKey, GiSteeringWheel, GiCarWheel } from "react-icons/gi";
 import { BiSolidCheckShield } from "react-icons/bi";
-import {
-  FaMapMarkerAlt,
-  FaCalendarAlt,
-  FaTools,
-  FaAward,
-} from "react-icons/fa";
+import { FaMapMarkerAlt, FaCalendarAlt, FaTools } from "react-icons/fa";
+
 import "../css/mainhome.css";
 
 const MainHome = () => {
@@ -79,23 +77,27 @@ const MainHome = () => {
             <img src={wall4} className="d-block w-100" alt="Slide 1" />
             <div className="carousel-caption d-none d-md-block">
               <h2 className="titulo-carousel">Bienvenido a Yu Motors</h2>
-              <p className="subtitulo-carousel">Conducí tu futuro con nosotros</p>
+              <p className="subtitulo-carousel">
+                Conducí tu futuro con nosotros
+              </p>
             </div>
           </div>
 
           <div className="carousel-item">
-            <img src={wall2} className="d-block w-100" alt="Slide 2" />
+            <img src={wall8} className="d-block w-100" alt="Slide 2" />
             <div className="carousel-caption d-none d-md-block">
               <h2 className="titulo-carousel">Autos Usados</h2>
-              <p className="subtitulo-carousel" >Confiables y al mejor precio</p>
+              <p className="subtitulo-carousel">Confiables y al mejor precio</p>
             </div>
           </div>
 
           <div className="carousel-item">
-            <img src={wall8} className="d-block w-100" alt="Slide 3" />
+            <img src={wall2} className="d-block w-100" alt="Slide 3" />
             <div className="carousel-caption d-none d-md-block">
               <h2 className="titulo-carousel">Nuevos Modelos</h2>
-              <p className="subtitulo-carousel">Innovación y estilo en cada viaje</p>
+              <p className="subtitulo-carousel">
+                Innovación y estilo en cada viaje
+              </p>
             </div>
           </div>
 
@@ -111,12 +113,14 @@ const MainHome = () => {
             <img src={wall5} className="d-block w-100" alt="Slide 5" />
             <div className="carousel-caption d-none d-md-block">
               <h2 className="titulo-carousel">Servicio Premium</h2>
-              <p className="subtitulo-carousel">Mantenimiento y cuidado profesional</p>
+              <p className="subtitulo-carousel">
+                Mantenimiento y cuidado profesional
+              </p>
             </div>
           </div>
 
           <div className="carousel-item">
-            <img src={wall6} className="d-block w-100" alt="Slide 6" />
+            <img src={accesorios} className="d-block w-100" alt="Slide 6" />
             <div className="carousel-caption d-none d-md-block">
               <h2 className="titulo-carousel">Accesorios</h2>
               <p className="subtitulo-carousel">Porque la apariencia importa</p>
@@ -124,10 +128,12 @@ const MainHome = () => {
           </div>
 
           <div className="carousel-item">
-            <img src={wall10} className="d-block w-100" alt="Slide 7" />
+            <img src={repuestos} className="d-block w-100" alt="Slide 7" />
             <div className="carousel-caption d-none d-md-block">
-              <h2 className="titulo-carousel">Sobre nosotros</h2>
-              <p className="subtitulo-carousel">Siempre a tu lado en el camino</p>
+              <h2 className="titulo-carousel">Repuestos</h2>
+              <p className="subtitulo-carousel">
+                Calidad y durabilidad garantizadas
+              </p>
             </div>
           </div>
         </div>
@@ -158,19 +164,15 @@ const MainHome = () => {
           <span className="visually-hidden">Next</span>
         </button>
       </div>
-      
 
-
-
-
-
-      <div className="main-container">  
+      <div className="main-container">
         {/* Sección izquierda con imagen */}
         <div className="image-section">
-          <img src={home} alt="Promociones" />
+          <img src={home} alt="Usados" />
           <div className="promo-text">
-            <h2>Promociones</h2>
-            <a href="#">+ Saber más</a>
+            <a href="/usados">
+              <h2>Autos Usados</h2>+ Saber más
+            </a>
           </div>
         </div>
 
@@ -179,13 +181,13 @@ const MainHome = () => {
           <div className="menu-item dark">
             <div className="icono-menu-container">
               <FaMapMarkerAlt size={40} />
-              <p>Concesionarios</p>
+              <p>Concesionario</p>
             </div>
           </div>
-          <div className="menu-item medium">
+          <div className="menu-item lighter">
             <div className="icono-menu-container">
-              <FaCalendarAlt size={40} />
-              <p>Turno Online</p>
+              <GiSteeringWheel size={40} className="icono-menu" />
+              <p className="texto-menu">Accesorios</p>
             </div>
           </div>
           <div className="menu-item light">
@@ -194,21 +196,14 @@ const MainHome = () => {
               <p>Post Venta</p>
             </div>
           </div>
-
-          <div className="menu-item lighter">
+          <div className="menu-item medium">
             <div className="icono-menu-container">
-              <FaAward size={40} className="icono-menu" />
-              <p className="texto-menu">Garantía</p>
+              <GiCarWheel size={40} />
+              <p>Repuestos</p>
             </div>
           </div>
         </div>
       </div>
-
-
-
-
-
-
 
       {/* Sobre Nosotos */}
       {/* Servicios */}

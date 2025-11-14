@@ -1,246 +1,123 @@
-/* ===== CONTENEDOR PRINCIPAL ===== */
+/* HILUX SR - estilos encapsulados (prefijo: hilux-) */
 .hilux-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  font-family: "Oswald", "Helvetica Neue", sans-serif;
+  color: #111;
+  overflow-x: hidden;
+  padding-bottom: 3rem;
+}
+
+.hilux-section-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  letter-spacing: 1px;
+  margin: 2rem 0 1.5rem;
+}
+
+.hilux-carousel-section {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  font-family: "Roboto", sans-serif;
-  color: #222;
-}
-
-/* ===== TÍTULOS ===== */
-.section-title {
-  text-align: center;
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin-bottom: 40px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: #b81c1c; /* Rojo Toyota */
-}
-
-/* ===== PORTADA ===== */
-.hilux-portada {
-  width: 100%;
-  height: auto;
-  margin-bottom: 50px;
-  overflow: hidden;
+  margin-bottom: 2.5rem;
   border-radius: 16px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  background-color: #000;
 }
 
-.hilux-portada-img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
+.hilux-carousel-section.interior { background-color: #111; }
+.hilux-carousel-inner { width: 100%; }
 
-.hilux-portada-img:hover {
-  transform: scale(1.03);
-}
+.hilux-carousel-item img { width:100%; height:550px; object-fit:cover; transition:transform 0.4s ease; }
 
-/* ===== FEATURES ===== */
-.features-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
-  margin-bottom: 60px;
-}
-
-.feature-box {
-  background: #f5f5f5;
-  padding: 25px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-}
-
-.feature-icon {
-  font-size: 2.5rem;
-  color: #b81c1c;
-  margin-bottom: 10px;
-}
-
-.feature-box h3 {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-
-.feature-box p {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: #555;
-}
-
-/* ===== SHOWCASE ===== */
-.hilux-showcase {
+/* Features / Downloads */
+.hilux-features,
+.hilux-downloads {
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin-bottom: 60px;
+  gap: 3rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto 4rem;
+  padding: 0 1rem;
+}
+
+.hilux-feature { flex:1 1 220px; max-width:260px; background:transparent; text-align:left; }
+.hilux-feature-icon { font-size:3.2rem; color:#e60012; margin-bottom:1rem; }
+
+.hilux-feature h3 { font-size:1.15rem; font-weight:700; color:#1a1a1a; margin-bottom:0.6rem; text-transform:uppercase; }
+.hilux-feature p { font-size:0.95rem; color:#444; line-height:1.45; max-width:260px; }
+
+.hilux-download-box { flex:1 1 240px; background:#fff; border-radius:12px; padding:1.6rem; text-align:center; }
+.hilux-download-icon { font-size:2.4rem; color:#e60012; margin-bottom:0.6rem; }
+.hilux-download-box h3 { font-size:1.05rem; color:#e60012; margin-bottom:0.5rem; }
+
+/* Showcase */
+.hilux-showcase {
+  display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin-bottom:3rem; width:100%; max-width:1100px;
 }
 
 .hilux-card {
   position: relative;
-  width: 300px;
-  height: 200px;
+  width: 500px;
+  height: 320px;
+  border-radius: 16px;
   overflow: hidden;
-  border-radius: 12px;
   cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.hilux-card:hover {
-  transform: scale(1.03);
-}
-
-.hilux-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hilux-card-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.hilux-card:hover .hilux-card-overlay {
-  opacity: 1;
-}
-
-.hilux-card-overlay h3 {
-  font-size: 1.5rem;
-  margin-top: 5px;
-}
-
-/* ===== MODAL ===== */
-.hilux-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.hilux-modal-img {
-  max-width: 90%;
-  max-height: 80%;
-  border-radius: 12px;
-  object-fit: contain;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-}
-
-.close-btn,
-.nav-btn {
-  position: absolute;
-  background: transparent;
-  border: none;
-  color: #fff;
-  font-size: 2.5rem;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.close-btn {
-  top: 20px;
-  right: 30px;
-}
-
-.nav-btn.prev {
-  left: 50px;
-}
-
-.nav-btn.next {
-  right: 50px;
-}
-
-.close-btn:hover,
-.nav-btn:hover {
-  color: #b81c1c;
-}
-
-/* ===== DESCARGAS ===== */
-.downloads-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-  margin-top: 60px;
-}
-
-.download-box {
-  background: #f5f5f5;
-  padding: 25px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.download-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+.hilux-card:hover { transform:scale(1.03); box-shadow:0 10px 25px rgba(0,0,0,0.35); }
+.hilux-card-img { width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease; }
+.hilux-card:hover .hilux-card-img { transform:scale(1.05); }
+
+.hilux-card-overlay {
+  position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0)); color:#fff; display:flex; flex-direction:column; justify-content:flex-end; padding:2rem;
 }
+.hilux-card-overlay p { font-size:1rem; margin:0; opacity:0.9; }
+.hilux-card-overlay h3 { font-size:1.8rem; font-weight:600; color:#e60012; margin:0.3rem 0 0; }
 
-.download-icon {
-  font-size: 2.2rem;
-  color: #b81c1c;
-  margin-bottom: 10px;
+/* Modal */
+.hilux-modal { position:fixed; inset:0; background:rgba(0,0,0,0.95); display:flex; justify-content:center; align-items:center; z-index:3000; animation: hilux-fade 0.25s ease; }
+@keyframes hilux-fade { from{opacity:0} to{opacity:1} }
+
+.hilux-modal-img { max-width:90%; max-height:90vh; border-radius:10px; object-fit:contain; box-shadow:0 0 25px rgba(0,0,0,0.7); }
+.hilux-close-btn { position:absolute; top:20px; right:30px; font-size:2rem; color:#fff; background:none; border:none; cursor:pointer; }
+.hilux-close-btn:hover { color:#e60012; }
+.hilux-nav-btn { position:absolute; top:50%; transform:translateY(-50%); font-size:2.6rem; color:#fff; background:rgba(0,0,0,0.4); border:none; padding:0.5rem 1rem; border-radius:8px; cursor:pointer; }
+.hilux-nav-btn.prev { left:30px } .hilux-nav-btn.next { right:30px }
+.hilux-nav-btn:hover { color:#e60012; background: rgba(255,255,255,0.06); }
+
+/* Portada */
+.hilux-portada { width:100%; max-width:1400px; margin:0 auto 3rem; overflow:hidden; box-shadow:0 6px 16px rgba(0,0,0,0.25); position:relative; background:#000; }
+.hilux-portada-img { width:100%; height:600px; object-fit:cover; transition:transform 1.2s ease, opacity 1.2s ease; }
+.hilux-portada-img:hover { transform:scale(1.03); opacity:0.95; }
+.hilux-portada::after { content:""; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,0.35), rgba(0,0,0,0)); pointer-events:none; }
+
+/* Responsive */
+@media (max-width:992px) {
+  .hilux-card { width:420px; height:260px; }
+  .hilux-carousel-item img { height:420px; }
+  .hilux-portada-img { height:460px; }
 }
-
-.download-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  color: #b81c1c;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.3s ease;
+@media (max-width:768px) {
+  .hilux-card { width:90%; height:240px; }
+  .hilux-carousel-item img { height:360px; }
+  .hilux-section-title { font-size:1.6rem; }
+  .hilux-feature { max-width:300px; text-align:center; }
 }
-
-.download-link:hover {
-  color: #333;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .hilux-card {
-    width: 100%;
-    height: 220px;
-  }
-
-  .nav-btn.prev {
-    left: 20px;
-  }
-
-  .nav-btn.next {
-    right: 20px;
-  }
-
-  .close-btn {
-    top: 15px;
-    right: 20px;
-  }
+@media (max-width:480px) {
+  .hilux-card { width:95%; height:200px; }
+  .hilux-carousel-item img { height:280px; }
+  .hilux-section-title { font-size:1.4rem; }
+  .hilux-feature-icon { font-size:2.4rem; }
+  .hilux-download-box { width:90%; }
 }

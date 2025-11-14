@@ -12,14 +12,25 @@ const Footer = () => {
         </div>
 
         <div className="footer-links">
-          
+          <a href="/">Volver al principio</a>
+          <a href="/concesionario">Nosotros</a>
+          <a href="#">Servicios</a>
+          <a href="#">Contacto</a>
         </div>
 
         <div className="footer-social">
-          <a href="https://instagram.com" aria-label="Instagram"><FiInstagram /></a>
-          <a href="https://facebook.com" aria-label="Facebook"><FiFacebook /></a>
-          <a href="https://youtube.com" aria-label="YouTube"><FiYoutube /></a>
-          <a href="https://linkedin.com" aria-label="LinkedIn"><FiLinkedin /></a>
+          <a href="https://instagram.com" aria-label="Instagram">
+            <FiInstagram />
+          </a>
+          <a href="https://facebook.com" aria-label="Facebook">
+            <FiFacebook />
+          </a>
+          <a href="https://youtube.com" aria-label="YouTube">
+            <FiYoutube />
+          </a>
+          <a href="https://linkedin.com" aria-label="LinkedIn">
+            <FiLinkedin />
+          </a>
         </div>
       </div>
 

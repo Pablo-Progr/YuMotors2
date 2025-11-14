@@ -21,6 +21,7 @@ import Marcas from "./pages/Marcas";
 import Yaris from "./pages/Yaris";
 import Corolla from "./pages/Corolla"
 import HiluxSR from "./pages/HiluxSR";
+import SW4 from "./pages/SW4";
 import Contanto from "./pages/Contanto";
 
 
@@ -40,6 +41,7 @@ function App() {
           <Route path="/marcas/gr/yaris" element={<Yaris />} />
           <Route path="/marcas/toyota/corolla" element={<Corolla />} />
           <Route path="/marcas/toyota/hiluxsr" element={<HiluxSR />} />
+          <Route path="/marcas/toyota/sw4" element={<SW4 />} />
           <Route path="/login" element={<AdminLogin />} />
           <Route path="/contacto" element={<Contanto />} />
 

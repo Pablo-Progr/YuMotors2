@@ -39,46 +39,52 @@ const MainYaris = () => {
   };
 
   const closeModal = () => setModalOpen(false);
-
-  const prevImage = () => setCurrentIndex((prev) => (prev === 0 ? currentImages.length - 1 : prev - 1));
-  const nextImage = () => setCurrentIndex((prev) => (prev === currentImages.length - 1 ? 0 : prev + 1));
+  const prevImage = () =>
+    setCurrentIndex((prev) =>
+      prev === 0 ? currentImages.length - 1 : prev - 1
+    );
+  const nextImage = () =>
+    setCurrentIndex((prev) =>
+      prev === currentImages.length - 1 ? 0 : prev + 1
+    );
 
   return (
     <div className="yaris-container">
-      <h2 className="section-title">Toyota GR Yaris</h2>
+      <h2 className="yaris-section-title">Toyota GR Yaris</h2>
 
-      {/* ===== PORTADA ===== */}
+      {/* PORTADA */}
       <section className="yaris-portada">
         <img src={portada} alt="Toyota GR Yaris Portada" className="yaris-portada-img" />
       </section>
 
-      {/* ===== FEATURES ===== */}
-      <section className="features-section">
-        <div className="feature-box">
-          <FaCogs className="feature-icon" />
+
+      {/* FEATURES */}
+      <section className="yaris-features">
+        <div className="yaris-feature">
+          <FaCogs className="yaris-feature-icon" />
           <h3>GR-FOUR</h3>
           <p>Tracción total con 3 modos: Normal / Gravel / Track.</p>
         </div>
-        <div className="feature-box">
-          <FaTachometerAlt className="feature-icon" />
+        <div className="yaris-feature">
+          <FaTachometerAlt className="yaris-feature-icon" />
           <h3>PERFORMANCE</h3>
           <p>Motor 1.6L Turbo — 300 HP y máxima eficiencia Gazoo Racing.</p>
         </div>
-        <div className="feature-box">
-          <FaChair className="feature-icon" />
+        <div className="yaris-feature">
+          <FaChair className="yaris-feature-icon" />
           <h3>DISEÑO INTERIOR</h3>
           <p>Cabina enfocada al conductor con materiales deportivos premium.</p>
         </div>
-        <div className="feature-box">
-          <FaSnowflake className="feature-icon" />
+        <div className="yaris-feature">
+          <FaSnowflake className="yaris-feature-icon" />
           <h3>DISEÑO FUNCIONAL</h3>
           <p>Refrigeración optimizada con difusores de aire y control térmico.</p>
         </div>
       </section>
 
-      {/* ===== SHOWCASE ===== */}
+      {/* SHOWCASE */}
       <section className="yaris-showcase">
-        <div className="yaris-card" onClick={() => openModal(interiorImages)}>
+        <div className="yaris-card" onClick={() => openModal(interiorImages, 0)}>
           <img src={gryarisint1} alt="Interior GR Yaris" className="yaris-card-img" />
           <div className="yaris-card-overlay">
             <p>Conocé el</p>
@@ -86,7 +92,7 @@ const MainYaris = () => {
           </div>
         </div>
 
-        <div className="yaris-card" onClick={() => openModal(exteriorImages)}>
+        <div className="yaris-card" onClick={() => openModal(exteriorImages, 0)}>
           <img src={gryaris1} alt="Exterior GR Yaris" className="yaris-card-img" />
           <div className="yaris-card-overlay">
             <p>Conocé el</p>
@@ -95,43 +101,31 @@ const MainYaris = () => {
         </div>
       </section>
 
-      {/* ===== MODAL ===== */}
+      {/* MODAL */}
       {modalOpen && (
         <div className="yaris-modal">
-          <button className="close-btn" onClick={closeModal}>×</button>
-          <button className="nav-btn prev" onClick={prevImage}>‹</button>
+          <button className="yaris-close-btn" onClick={closeModal}>×</button>
+          <button className="yaris-nav-btn prev" onClick={prevImage}>‹</button>
           <img src={currentImages[currentIndex]} alt="GR Yaris" className="yaris-modal-img" />
-          <button className="nav-btn next" onClick={nextImage}>›</button>
+          <button className="yaris-nav-btn next" onClick={nextImage}>›</button>
         </div>
       )}
 
-      
-
-      {/* ===== DESCARGAS ===== */}
-      <section className="downloads-section">
-        <div className="download-box">
-          <FaFileAlt className="download-icon" />
+      {/* DOWNLOADS */}
+      <section className="yaris-downloads">
+        <div className="yaris-download-box">
+          <FaFileAlt className="yaris-download-icon" />
           <h3>Ficha Técnica</h3>
-          <a
-            href="https://media.toyota.com.ar/ebbfa9de-bbec-46d1-adfa-843773975234.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="download-link"
-          >
-            Descargar <FaLink className="link-icon" />
+          <a href="https://media.toyota.com.ar/ebbfa9de-bbec-46d1-adfa-843773975234.pdf" target="_blank" rel="noopener noreferrer" className="yaris-download-link">
+            Descargar <FaLink className="yaris-link-icon" />
           </a>
         </div>
 
-        <div className="download-box">
-          <FaChartBar className="download-icon" />
+        <div className="yaris-download-box">
+          <FaChartBar className="yaris-download-icon" />
           <h3>Información de Consumo</h3>
-          <a
-            href="https://media.toyota.com.ar/9c389c63-8499-4b27-883e-3d515837d573.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="download-link"
-          >
-            Descargar <FaLink className="link-icon" />
+          <a href="https://media.toyota.com.ar/9c389c63-8499-4b27-883e-3d515837d573.pdf" target="_blank" rel="noopener noreferrer" className="yaris-download-link">
+            Descargar <FaLink className="yaris-link-icon" />
           </a>
         </div>
       </section>
