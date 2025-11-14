@@ -109,7 +109,7 @@
 .modelos-dropdown {
   display: none;
   background: #ffffff;
-  padding: 2rem 3rem;
+  padding: 1rem 2rem;
   width: 100%;
 }
 .modelos-dropdown.show {
@@ -117,8 +117,8 @@
 }
 .modelos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
 }
 .modelos-grid .categoria h4 {
   color: #c8102e;

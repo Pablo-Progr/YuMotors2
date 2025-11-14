@@ -36,6 +36,21 @@ const Header = () => {
           >
             Modelos
           </button>
+          <a className="nav-link" href="/usados">
+            Usados
+          </a>
+          <a className="nav-link" href="/concesionario">
+            Concesionario
+          </a>
+          <a className="nav-link" href="/accesorios">
+            Accesorios
+          </a>
+          <a className="nav-link" href="/repuestos">
+            Repuestos
+          </a>
+          <a className="nav-link" href="#">
+            Post Venta
+          </a>
           <a className="nav-link" href="/usados">Usados</a>
           <a className="nav-link" href="/concesionario">Concesionario</a>
           <a className="nav-link" href="/toyota">Toyota</a>
@@ -52,31 +67,23 @@ const Header = () => {
       >
         <div className="modelos-grid">
           <div className="categoria">
-            <h4>Autos</h4>
-            <a href="/marcas/toyota/yaris">Yaris</a>
+            <h4>Toyota</h4>
             <a href="/marcas/toyota/corolla">Corolla</a>
-          </div>
-          <div className="categoria">
-            <h4>Pick-Up</h4>
             <a href="/marcas/toyota/hiluxsr">Hilux SR</a>
-            <a href="/marcas/toyota/hilux-srv">Hilux SRV/SRX</a>
-          </div>
-          <div className="categoria">
-            <h4>SUV</h4>
-            <a href="/marcas/toyota/corolla-cross">Corolla Cross</a>
             <a href="/marcas/toyota/sw4">SW4</a>
-            <a href="/marcas/toyota/rav4">RAV4</a>
           </div>
           <div className="categoria">
-            <h4>Comercial</h4>
-            <a href="/marcas/toyota/hiace-furgon">Hiace Furgón</a>
-            <a href="/marcas/toyota/hiace-commuter">Hiace Commuter</a>
+            <h4>Lexus</h4>
+            <a href="/marcas/toyota/hilux-srv">LFA</a>
+            <a href="/marcas/toyota/hilux-srv">Ejemplo</a>
+            <a href="/marcas/toyota/hilux-srv">Ejemplo</a>
           </div>
           <div className="categoria">
-            <h4>Deportivos</h4>
+            <h4>Gazoo Racing</h4>
             <a href="/marcas/gr/yaris">GR Yaris</a>
-            <a href="/marcas/gr/gr86">GR86</a>
+            <a href="/marcas/gr/gr86">GR 86</a>
             <a href="/marcas/gr/gr86">GR Supra</a>
+            
           </div>
         </div>
       </div>
