@@ -36,26 +36,10 @@ const Header = () => {
           >
             Modelos
           </button>
-          <a className="nav-link" href="/usados">
-            Usados
-          </a>
-          <a className="nav-link" href="/concesionario">
-            Concesionario
-          </a>
-          <a className="nav-link" href="/accesorios">
-            Accesorios
-          </a>
-          <a className="nav-link" href="/repuestos">
-            Repuestos
-          </a>
-          <a className="nav-link" href="#">
-            Post Venta
-          </a>
           <a className="nav-link" href="/usados">Usados</a>
-          <a className="nav-link" href="/concesionario">Concesionario</a>
-          <a className="nav-link" href="/toyota">Toyota</a>
           <a className="nav-link" href="/accesorios">Accesorios</a>
           <a className="nav-link" href="/repuestos">Repuestos</a>
+          <a className="nav-link" href="/concesionario">Concesionario</a>
           <a className="nav-link" href="/posventa">Post Venta</a>
         </nav>
       </div>
