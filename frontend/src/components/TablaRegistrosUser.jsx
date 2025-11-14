@@ -87,39 +87,47 @@ const TablaRegistrosUser = (props) => {
   return (
     <>
       <div className="table-responsive p-3 rounded">
-        <table className="table table-dark table-hover align-middle">
-          <thead>
-            <tr>
-              <th>N°</th>
-              <th>Fecha</th>
-              <th>Hora</th>
-              <th>Kilometraje</th>
-              <th>Tipo</th>
-              <th>Descripción</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            {regPosventa.map((reg, idx) => (
-              <tr key={reg.idRegistroPostVenta || idx}>
-                <td>{idx + 1}</td>
-                <td>{formatDate(reg.fecha)}</td>
-                <td>{formatTime(reg.hora)}</td>
-                <td>{reg.kilometraje}km</td>
-                <td>{reg.tipoPostVent}</td>
-                <td>
-                  <button
-                    className="btn btn-sm btn-outline-light"
-                    onClick={() => abrirDescripcionModal(reg.descripcion)}
-                  >
-                    <i className="bi bi-eye"></i>
-                  </button>
-                </td>
-                <td>{renderEstado(reg.estado)}</td>
+        {regPosventa.length === 0 ? (
+          <div className="text-center py-5">
+            <i className="bi bi-inbox" style={{ fontSize: '4rem', color: '#6c757d' }}></i>
+            <h4 className="text-white mt-3">No hay registros disponibles</h4>
+            <p className="text-muted">Todavía no hay registros de post-venta para mostrar.</p>
+          </div>
+        ) : (
+          <table className="table table-dark table-hover align-middle">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Kilometraje</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Estado</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {regPosventa.map((reg, idx) => (
+                <tr key={reg.idRegistroPostVenta || idx}>
+                  <td>{idx + 1}</td>
+                  <td>{formatDate(reg.fecha)}</td>
+                  <td>{formatTime(reg.hora)}</td>
+                  <td>{reg.kilometraje}km</td>
+                  <td>{reg.tipoPostVent}</td>
+                  <td>
+                    <button
+                      className="btn btn-sm btn-outline-light"
+                      onClick={() => abrirDescripcionModal(reg.descripcion)}
+                    >
+                      <i className="bi bi-eye"></i>
+                    </button>
+                  </td>
+                  <td>{renderEstado(reg.estado)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
 
       {/* Modal para mostrar la descripción */}
