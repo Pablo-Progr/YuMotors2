@@ -1,10 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../css/accesorios.css";
+import { Link } from "react-router-dom";
 
 const MainAccesorios = () => {
   const [accesorios, setAccesorios] = useState([]);
   const [topAccesorios, setTopAccesorios] = useState([]);
+  const [selectedAccesorio, setSelectedAccesorio] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchAccesorios = async () => {
@@ -34,10 +37,29 @@ const MainAccesorios = () => {
     fetchTopAccesorios();
   }, []);
 
+  // Función para formatear el precio con puntos
+  const formatPrice = (price) => {
+    return Number(price)
+      .toFixed(0)
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
+  // Función para abrir el modal
+  const openModal = (accesorio) => {
+    setSelectedAccesorio(accesorio);
+    setShowModal(true);
+  };
+
+  // Función para cerrar el modal
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedAccesorio(null);
+  };
+
   return (
     <>
       <div className="accesorios-container">
-        <h2 className="titulo-accesorios">Accesorios Toyota</h2>
+        <h2 className="titulo-accesorios">Accesorios</h2>
 
         {/* ===== Carousel exclusivo de accesorios ===== */}
         {/* ===== Carousel exclusivo de accesorios ===== */}
@@ -134,16 +156,82 @@ const MainAccesorios = () => {
               />
               <div className="body-card-accesorios">
                 <h5 className="titulo-card-accesorios">{accesorio.nombre}</h5>
-                <p className="texto-card-accesorios">{accesorio.descripcion}</p>
-                <p className="precio-card-accesorios">{`ARS$${accesorio.precio}`}</p>
-                <a href="#" className="btn-accesorios">
-                  Ver detalle
-                </a>
+                <p className="precio-card-accesorios">{`ARS $${formatPrice(
+                  accesorio.precio
+                )}`}</p>
+                <button
+                  onClick={() => openModal(accesorio)}
+                  className="btn-accesorios"
+                >
+                  Ver Informacion
+                </button>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Modal de Accesorios */}
+      {showModal && selectedAccesorio && (
+        <div className="modal-overlay-accesorios" onClick={closeModal}>
+          <div
+            className="modal-content-accesorios"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="modal-close-accesorios" onClick={closeModal}>
+              &times;
+            </button>
+
+            <div className="modal-body-accesorios">
+              <div className="modal-image-section-accesorios">
+                <img
+                  src={selectedAccesorio.imagen}
+                  alt={selectedAccesorio.nombre}
+                  className="modal-accesorio-imagen"
+                />
+              </div>
+
+              <div className="modal-info-section-accesorios">
+                <h2 className="modal-accesorio-title">
+                  {selectedAccesorio.nombre}
+                </h2>
+
+                <div className="modal-accesorio-details">
+                  <div className="detail-item-accesorios">
+                    <span className="detail-label-accesorios">Marca:</span>
+                    <span className="detail-value-accesorios">
+                      {selectedAccesorio.marca}
+                    </span>
+                  </div>
+
+                  <div className="detail-item-accesorios">
+                    <span className="detail-label-accesorios">
+                      Descripción:
+                    </span>
+                    <p className="detail-description-accesorios">
+                      {selectedAccesorio.descripcion}
+                    </p>
+                  </div>
+
+                  <div className="detail-item-accesorios detail-price-accesorios">
+                    <span className="detail-label-accesorios">Precio:</span>
+                    <span className="detail-value-price-accesorios">
+                      ARS ${formatPrice(selectedAccesorio.precio)}
+                    </span>
+                  </div>
+                </div>
+
+                <Link
+                  to="/contacto"
+                  className="btn-modal-contacto-accesorios text-center"
+                >
+                  Consultar disponibilidad
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
