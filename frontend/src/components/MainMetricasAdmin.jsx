@@ -33,6 +33,11 @@ const MainMetricasAdmin = () => {
   const [resumenGeneral, setResumenGeneral] = useState(null);
   const [comparativoMensual, setComparativoMensual] = useState([]);
 
+  // Función para formatear números con separador de miles
+  const formatearNumero = (numero) => {
+    return parseInt(numero).toLocaleString('es-AR');
+  };
+
   // Estados para repuestos
   const [ventasRepuestosPorMes, setVentasRepuestosPorMes] = useState([]);
   const [repuestosMasVendidos, setRepuestosMasVendidos] = useState([]);
@@ -379,10 +384,7 @@ const MainMetricasAdmin = () => {
                 <i className="bi bi-currency-dollar"></i>
                 <div className="card-content">
                   <h3>
-                    $
-                    {parseFloat(resumenGeneral.ingresos_totales || 0).toFixed(
-                      2
-                    )}
+                    ${formatearNumero(resumenGeneral.ingresos_totales || 0)}
                   </h3>
                   <p>Ingresos Totales</p>
                 </div>
@@ -392,8 +394,7 @@ const MainMetricasAdmin = () => {
                 <i className="bi bi-receipt"></i>
                 <div className="card-content">
                   <h3>
-                    $
-                    {parseFloat(resumenGeneral.ticket_promedio || 0).toFixed(2)}
+                    ${formatearNumero(resumenGeneral.ticket_promedio || 0)}
                   </h3>
                   <p>Ticket Promedio</p>
                 </div>
@@ -445,7 +446,7 @@ const MainMetricasAdmin = () => {
                       <td>{producto.marca}</td>
                       <td>{producto.total_vendido}</td>
                       <td className="text-success fw-bold">
-                        ${parseFloat(producto.ingresos_totales).toFixed(2)}
+                        ${formatearNumero(producto.ingresos_totales)}
                       </td>
                     </tr>
                   ))}
@@ -471,10 +472,9 @@ const MainMetricasAdmin = () => {
                 <i className="bi bi-currency-dollar"></i>
                 <div className="card-content">
                   <h3>
-                    $
-                    {parseFloat(
+                    ${formatearNumero(
                       resumenGeneralRepuestos.ingresos_totales || 0
-                    ).toFixed(2)}
+                    )}
                   </h3>
                   <p>Ingresos Totales</p>
                 </div>
@@ -484,10 +484,9 @@ const MainMetricasAdmin = () => {
                 <i className="bi bi-receipt"></i>
                 <div className="card-content">
                   <h3>
-                    $
-                    {parseFloat(
+                    ${formatearNumero(
                       resumenGeneralRepuestos.ticket_promedio || 0
-                    ).toFixed(2)}
+                    )}
                   </h3>
                   <p>Ticket Promedio</p>
                 </div>
@@ -541,7 +540,7 @@ const MainMetricasAdmin = () => {
                       <td>{repuesto.marca}</td>
                       <td>{repuesto.total_vendido}</td>
                       <td className="text-success fw-bold">
-                        ${parseFloat(repuesto.ingresos_totales).toFixed(2)}
+                        ${formatearNumero(repuesto.ingresos_totales)}
                       </td>
                     </tr>
                   ))}

@@ -1,6 +1,113 @@
+/* Estilos generales del sidebar */
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+}
+
 .BotonesSidebar:hover {
   background-color: #c8102e !important;
   color: aliceblue !important;
   border-radius: 5px;
+}
 
+/* Botón hamburguesa */
+.hamburger-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1100;
+  background-color: #212529;
+  border: 2px solid #c8102e;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.hamburger-btn:hover {
+  background-color: #c8102e;
+  transform: scale(1.05);
+}
+
+.hamburger-btn:active {
+  transform: scale(0.95);
+}
+
+/* Overlay para cerrar el menú */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1040;
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive - Tablets y menores (< 992px) */
+@media (max-width: 991px) {
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    z-index: 1050;
+    overflow-y: auto;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .sidebar-open {
+    left: 0;
+    animation: slideIn 0.3s ease-in-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      left: -100%;
+    }
+    to {
+      left: 0;
+    }
+  }
+}
+
+/* Responsive - Móviles pequeños (< 576px) */
+@media (max-width: 575px) {
+  .sidebar {
+    width: 85%;
+    max-width: 280px;
+  }
+
+  .hamburger-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+    top: 10px;
+    left: 10px;
+  }
 }
