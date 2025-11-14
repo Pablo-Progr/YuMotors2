@@ -1,6 +1,6 @@
 /* ====== CONTENEDOR PRINCIPAL ====== */
 .posventa-wrapper {
-  background: linear-gradient(135deg, #454545 10%, #b7b6b6 100%);
+  
   min-height: 100vh;
   padding: 4rem 2rem;
   display: flex;
@@ -11,15 +11,15 @@
 .posventa-container {
   max-width: 600px;
   width: 100%;
-  background: rgba(10, 10, 10, 0.67);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
+  
+  
+  
   padding: 3rem;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  
 }
 
 .posventa-form-container {
-  background: rgba(255, 255, 255, 0.95);
+  background: #1a1a1a;
   padding: 2.5rem;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -208,4 +208,8 @@
     padding: 0.8rem;
     font-size: 0.95rem;
   }
+}
+
+.logo-yu {
+  width: 400px
 }

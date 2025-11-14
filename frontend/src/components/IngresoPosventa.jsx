@@ -5,6 +5,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { FaCar, FaClipboardList, FaKey, FaCalendarAlt } from 'react-icons/fa';
 import FormTurnos from './FormTurnos';
+import logo from "../img/yumotors-rojo-blanco.png";
 import '../css/posventaUser.css';
 
 const IngresoPosventa = ({ onMostrarFormulario }) => {
@@ -211,6 +212,7 @@ const IngresoPosventa = ({ onMostrarFormulario }) => {
     <div className="posventa-wrapper">
       <div className="posventa-container">
         <div className="posventa-form-container">
+          <img className='logo-yu' src={logo} alt="YuMotors Logo" />
           <h2 className="posventa-titulo text-center">Portal de Posventa</h2>
           <p className="posventa-descripcion text-center">
             Registre su vehículo y consulte el historial de servicios de mantenimiento realizados
