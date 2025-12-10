@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { Modal, Button, Form } from "react-bootstrap";
 // Importar 'bootstrap.min.css' aquí si es necesario en tu proyecto
 // import "bootstrap/dist/css/bootstrap.min.css";
+import "../css/modalAdmin.css"; // Import styles
 
 const TablaAccesoriosAdmin = () => {
   const [accesorios, setAccesorios] = useState([]);
@@ -280,13 +281,14 @@ const TablaAccesoriosAdmin = () => {
           onHide={cerrarModalDescripcion}
           centered
           size="md"
+          dialogClassName="admin-modal"
         >
-          <Modal.Header closeButton className="bg-dark text-white">
+          <Modal.Header closeButton>
             <Modal.Title>
              {accesorioSeleccionado.nombre}
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body className="bg-dark text-white">
+          <Modal.Body>
             <p style={{ whiteSpace: "pre-wrap" }}>
               {accesorioSeleccionado.descripcion || "Sin descripción disponible"}
             </p>
@@ -301,14 +303,15 @@ const TablaAccesoriosAdmin = () => {
           onHide={cerrarModalImagen}
           centered
           size="lg"
+          dialogClassName="admin-modal"
         >
-          <Modal.Header closeButton className="bg-dark text-white">
+          <Modal.Header closeButton>
             <Modal.Title>
               <i className="bi bi-image me-2"></i>
               Imagen de {accesorioSeleccionado.nombre}{" "}
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body className="bg-dark text-center">
+          <Modal.Body className="text-center">
             {accesorioSeleccionado.imagen ? (
               <img
                 src={accesorioSeleccionado.imagen}
@@ -333,7 +336,7 @@ const TablaAccesoriosAdmin = () => {
               </div>
             )}
           </Modal.Body>
-          <Modal.Footer className="bg-dark">
+          <Modal.Footer>
             <Button variant="secondary" onClick={cerrarModalImagen}>
               <i className="bi bi-x-circle me-2"></i>Cerrar
             </Button>
@@ -344,13 +347,13 @@ const TablaAccesoriosAdmin = () => {
       {/* Modal de edición */}
       {/* Corregido el typo 'syze' a 'size' y añadido estilo a inputs */}
       {mostrarModal && accesorioSeleccionado && (
-        <Modal show={mostrarModal} onHide={cerrarModal} centered size="lg">
-          <Modal.Header closeButton className="bg-dark text-white">
+        <Modal show={mostrarModal} onHide={cerrarModal} centered size="lg" dialogClassName="admin-modal">
+          <Modal.Header closeButton>
             <Modal.Title>
               Editar Accesorio: {accesorioSeleccionado.nombre}
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body className="bg-dark text-white w-100">
+          <Modal.Body className="w-100">
             <Form onSubmit={handleUpdateAccesorio}>
               <div className="row">
                 <div className="col-md-12 d-flex gap-3">
@@ -362,7 +365,6 @@ const TablaAccesoriosAdmin = () => {
                       value={accesorioSeleccionado.nombre}
                       onChange={handleChange}
                       required
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                   <Form.Group className="mb-3 w-50">
@@ -373,7 +375,6 @@ const TablaAccesoriosAdmin = () => {
                       value={accesorioSeleccionado.marca}
                       onChange={handleChange}
                       required
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                 </div>
@@ -387,7 +388,6 @@ const TablaAccesoriosAdmin = () => {
                   name="descripcion"
                   value={accesorioSeleccionado.descripcion}
                   onChange={handleChange}
-                  className="bg-secondary text-white border-secondary"
                 />
               </Form.Group>
 
@@ -402,7 +402,6 @@ const TablaAccesoriosAdmin = () => {
                       onChange={handleChange}
                       required
                       step="0.01"
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                   <Form.Group className="mb-3 w-50">
@@ -413,7 +412,6 @@ const TablaAccesoriosAdmin = () => {
                       value={accesorioSeleccionado.stock}
                       onChange={handleChange}
                       required
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                 </div>
@@ -425,7 +423,6 @@ const TablaAccesoriosAdmin = () => {
                   name="imagen"
                   value={accesorioSeleccionado.imagen || ""}
                   onChange={handleChange}
-                  className="bg-secondary text-white border-secondary"
                 />
               </Form.Group>
               <div className="d-grid">

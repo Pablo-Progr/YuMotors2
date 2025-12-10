@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Modal, Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../css/modalAdmin.css"; // Import styles
 
 const TablaVehiculosAdmin = ({ refreshTrigger }) => {
   const [vehiculos, setVehiculos] = useState([]);
@@ -261,14 +262,15 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
           onHide={cerrarModalDescripcion}
           centered
           size="md"
+          dialogClassName="admin-modal"
         >
-          <Modal.Header closeButton className="bg-dark text-white">
+          <Modal.Header closeButton>
             <Modal.Title>
               {vehiculoSeleccionado.marca}{" "}
               {vehiculoSeleccionado.modelo}
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body className="bg-dark text-white">
+          <Modal.Body>
             <p style={{ whiteSpace: "pre-wrap" }}>
               {vehiculoSeleccionado.descripcion || "Sin descripción disponible"}
             </p>
@@ -283,15 +285,16 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
           onHide={cerrarModalImagen}
           centered
           size="lg"
+          dialogClassName="admin-modal"
         >
-          <Modal.Header closeButton className="bg-dark text-white">
+          <Modal.Header closeButton>
             <Modal.Title>
               <i className="bi bi-image me-2"></i>
               Imagen de {vehiculoSeleccionado.marca}{" "}
               {vehiculoSeleccionado.modelo}
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body className="bg-dark text-center">
+          <Modal.Body className="text-center">
             {vehiculoSeleccionado.imagen ? (
               <img
                 src={vehiculoSeleccionado.imagen}
@@ -325,15 +328,16 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
           onHide={cerrarModalEditar}
           centered
           size="lg"
+          dialogClassName="admin-modal"
         >
-          <Modal.Header closeButton className="bg-dark text-white">
+          <Modal.Header closeButton>
             <Modal.Title>
               <i className="bi bi-pencil-square me-2"></i>
               Editar Vehículo: {vehiculoSeleccionado.marca}{" "}
               {vehiculoSeleccionado.modelo}
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body className="bg-dark text-white">
+          <Modal.Body>
             <Form onSubmit={handleUpdateVehiculo}>
               <div className="row">
                 <div className="col-md-5">
@@ -347,7 +351,6 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                       value={vehiculoSeleccionado.marca}
                       onChange={handleChange}
                       required
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                 </div>
@@ -363,7 +366,6 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                       value={vehiculoSeleccionado.modelo}
                       onChange={handleChange}
                       required
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                 </div>
@@ -381,7 +383,6 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                       value={vehiculoSeleccionado.anio}
                       onChange={handleChange}
                       required
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                 </div>
@@ -397,7 +398,6 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                       value={vehiculoSeleccionado.kilometraje}
                       onChange={handleChange}
                       required
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                 </div>
@@ -414,7 +414,6 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                       name="descripcion"
                       value={vehiculoSeleccionado.descripcion || ""}
                       onChange={handleChange}
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                 </div>
@@ -432,7 +431,6 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                       onChange={handleChange}
                       required
                       step="0.01"
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                 </div>
@@ -447,7 +445,6 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                       name="imagen"
                       value={vehiculoSeleccionado.imagen || ""}
                       onChange={handleChange}
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                 </div>

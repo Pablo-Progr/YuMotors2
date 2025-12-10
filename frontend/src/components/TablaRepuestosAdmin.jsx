@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { Modal, Button, Form } from "react-bootstrap";
 // Importar 'bootstrap.min.css' aquí si es necesario en tu proyecto
 // import "bootstrap/dist/css/bootstrap.min.css";
+import "../css/modalAdmin.css"; // Import styles
 
 const TablaRepuestosAdmin = () => {
   const [repuestos, setRepuestos] = useState([]);
@@ -277,13 +278,14 @@ const TablaRepuestosAdmin = () => {
           onHide={cerrarModalDescripcion}
           centered
           size="md"
+          dialogClassName="admin-modal"
         >
-          <Modal.Header closeButton className="bg-dark text-white">
+          <Modal.Header closeButton>
             <Modal.Title>
               {repuestoSeleccionado.nombre}
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body className="bg-dark text-white">
+          <Modal.Body>
             <p style={{ whiteSpace: "pre-wrap" }}>
               {repuestoSeleccionado.descripcion || "Sin descripción disponible"}
             </p>
@@ -298,14 +300,15 @@ const TablaRepuestosAdmin = () => {
           onHide={cerrarModalImagen}
           centered
           size="lg"
+          dialogClassName="admin-modal"
         >
-          <Modal.Header closeButton className="bg-dark text-white">
+          <Modal.Header closeButton>
             <Modal.Title>
               <i className="bi bi-image me-2"></i>
               Imagen de {repuestoSeleccionado.nombre}
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body className="bg-dark text-center">
+          <Modal.Body className="text-center">
             {repuestoSeleccionado.imagen ? (
               <img
                 src={repuestoSeleccionado.imagen}
@@ -335,13 +338,13 @@ const TablaRepuestosAdmin = () => {
 
       {/* Modal de edición */}
       {mostrarModal && repuestoSeleccionado && (
-        <Modal show={mostrarModal} onHide={cerrarModal} centered>
-          <Modal.Header closeButton className="bg-dark text-white">
+        <Modal show={mostrarModal} onHide={cerrarModal} centered dialogClassName="admin-modal">
+          <Modal.Header closeButton>
             <Modal.Title>
               Editar Repuesto: {repuestoSeleccionado.nombre}
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body className="bg-dark text-white">
+          <Modal.Body>
             <Form onSubmit={handleUpdateRepuesto}>
               <div className="row">
                 <div className="col-md-12 d-flex gap-2">
@@ -353,7 +356,6 @@ const TablaRepuestosAdmin = () => {
                       value={repuestoSeleccionado.nombre}
                       onChange={handleChange}
                       required
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                   <Form.Group className="mb-3 w-50">
@@ -364,7 +366,6 @@ const TablaRepuestosAdmin = () => {
                       value={repuestoSeleccionado.marca}
                       onChange={handleChange}
                       required
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                 </div>
@@ -379,7 +380,6 @@ const TablaRepuestosAdmin = () => {
                       value={repuestoSeleccionado.numeroParte}
                       onChange={handleChange}
                       required
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                   <Form.Group className="mb-3 w-50">
@@ -391,7 +391,6 @@ const TablaRepuestosAdmin = () => {
                       onChange={handleChange}
                       step="0.01" // Permitir decimales
                       required
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                 </div>
@@ -404,7 +403,6 @@ const TablaRepuestosAdmin = () => {
                   name="descripcion"
                   value={repuestoSeleccionado.descripcion}
                   onChange={handleChange}
-                  className="bg-secondary text-white border-secondary"
                 />
               </Form.Group>
               <div className="row">
@@ -417,7 +415,6 @@ const TablaRepuestosAdmin = () => {
                       value={repuestoSeleccionado.stock}
                       onChange={handleChange}
                       required
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                   <Form.Group className="mb-3 w-50">
@@ -427,7 +424,6 @@ const TablaRepuestosAdmin = () => {
                       name="imagen"
                       value={repuestoSeleccionado.imagen || ""}
                       onChange={handleChange}
-                      className="bg-secondary text-white border-secondary"
                     />
                   </Form.Group>
                 </div>

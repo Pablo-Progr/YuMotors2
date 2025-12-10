@@ -3,6 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../css/modalAdmin.css"; // Import styles
 
 const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
   const [loading, setLoading] = useState(false);
@@ -70,14 +71,14 @@ const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
   };
 
   return (
-    <Modal show={show} onHide={onHide} centered size="lg">
-      <Modal.Header closeButton className="bg-dark text-white">
+    <Modal show={show} onHide={onHide} centered size="lg" dialogClassName="admin-modal">
+      <Modal.Header closeButton>
         <Modal.Title>
           <i className="bi bi-car-front me-2"></i>
           Agregar Nuevo Vehículo
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body className="bg-dark text-white">
+      <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-md-5">
@@ -92,7 +93,6 @@ const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
                   value={nuevoVehiculo.marca}
                   onChange={handleChange}
                   required
-                  className="bg-secondary text-white border-secondary"
                 />
               </Form.Group>
             </div>
@@ -109,7 +109,6 @@ const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
                   value={nuevoVehiculo.modelo}
                   onChange={handleChange}
                   required
-                  className="bg-secondary text-white border-secondary"
                 />
               </Form.Group>
             </div>
@@ -130,7 +129,6 @@ const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
                   required
                   min="1900"
                   max={new Date().getFullYear() + 1}
-                  className="bg-secondary text-white border-secondary"
                 />
               </Form.Group>
             </div>
@@ -148,7 +146,6 @@ const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
                   onChange={handleChange}
                   required
                   min="0"
-                  className="bg-secondary text-white border-secondary"
                 />
               </Form.Group>
             </div>
@@ -166,7 +163,6 @@ const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
               placeholder="Descripción detallada del vehículo..."
               value={nuevoVehiculo.descripcion}
               onChange={handleChange}
-              className="bg-secondary text-white border-secondary"
             />
               </Form.Group>
             </div>
@@ -187,7 +183,6 @@ const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
                   required
                   min="0"
                   step="0.01"
-                  className="bg-secondary text-white border-secondary"
                 />
               </Form.Group>
             </div>
@@ -203,7 +198,6 @@ const ModalAgregarVehiculo = ({ show, onHide, onVehiculoAgregado }) => {
                   placeholder="URL de la imagen del vehículo"
                   value={nuevoVehiculo.imagen}
                   onChange={handleChange}
-                  className="bg-secondary text-white border-secondary"
                 />
               </Form.Group>
             </div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/modalAdmin.css";
 import Swal from "sweetalert2";
+import { Modal } from "react-bootstrap"; // Import Modal
 
 const TablaConsultasAdmin = () => {
   const [consultas, setConsultas] = useState([]);
@@ -203,30 +204,27 @@ const TablaConsultasAdmin = () => {
       </div>
 
       {mostrarModal && consultaSeleccionada && (
-        <div className="modal fade show d-block" tabIndex="-1">
-          <div className="modal-dialog modal-lg modal-dialog-centered">
-            <div className="modal-content text-white">
-              <div className="modal-header">
-                <h5 className="modal-title">
-                  Consulta de {consultaSeleccionada.nombre}
-                  {" - "}
-                  {consultaSeleccionada.asunto}
-                </h5>
-                <button
-                  type="button"
-                  className="btn-close btn-close-white"
-                  onClick={cerrarModal}
-                ></button>
-              </div>
-              <div className="modal-body bg-dark d-box flex-wrap gap-3 justify-content-center p-4">
-                <div>
-                  <h4 className="mb-4">Mensaje</h4>
-                  <h6 className="">{consultaSeleccionada.mensaje}</h6>
-                </div>
-              </div>
+        <Modal
+          show={mostrarModal}
+          onHide={cerrarModal}
+          centered
+          size="lg"
+          dialogClassName="admin-modal"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>
+              Consulta de {consultaSeleccionada.nombre}
+              {" - "}
+              {consultaSeleccionada.asunto}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="p-2">
+              <h4 className="mb-3">Mensaje</h4>
+              <p className="fs-5">{consultaSeleccionada.mensaje}</p>
             </div>
-          </div>
-        </div>
+          </Modal.Body>
+        </Modal>
       )}
     </>
   );
