@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import{ useState } from 'react';
+import { Modal, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -296,7 +296,6 @@ const IngresoPosventa = ({ onMostrarFormulario }) => {
       <Modal show={mostrarModalCodigo} onHide={cerrarModalCodigo} centered>
         <Modal.Header closeButton className="border-0">
           <Modal.Title className="d-flex align-items-center gap-2">
-            <FaKey className="text-danger" />
             Ingresar Código de Acceso
           </Modal.Title>
         </Modal.Header>

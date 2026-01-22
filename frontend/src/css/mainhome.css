@@ -240,6 +240,7 @@ html, body, main-home {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-decoration: none !important;
 }
 
 .icono-menu-container:hover {
@@ -253,21 +254,25 @@ html, body, main-home {
 .menu-item.dark {
   background-color: #242424;
   color: #ffffff;
+  text-decoration: none !important;
 }
 
 .menu-item.medium {
   background-color: #b92929;
   color: #ffffff;
+  text-decoration: none !important;
 }
 
 .menu-item.light {
   background-color: #d5d5d5;
   color: #000000;
+  text-decoration: none !important;
 }
 
 .menu-item.lighter {
   background-color: #ffffff;
   color: #c22020;
+  text-decoration: none !important;
 }
 
 /* Texto */

@@ -384,7 +384,7 @@ const MainMetricasAdmin = () => {
                 <i className="bi bi-currency-dollar"></i>
                 <div className="card-content">
                   <h3>
-                    ${formatearNumero(resumenGeneral.ingresos_totales || 0)}
+                    {formatearNumero(resumenGeneral.ingresos_totales || 0)}
                   </h3>
                   <p>Ingresos Totales</p>
                 </div>
@@ -394,7 +394,7 @@ const MainMetricasAdmin = () => {
                 <i className="bi bi-receipt"></i>
                 <div className="card-content">
                   <h3>
-                    ${formatearNumero(resumenGeneral.ticket_promedio || 0)}
+                    {formatearNumero(resumenGeneral.ticket_promedio || 0)}
                   </h3>
                   <p>Ticket Promedio</p>
                 </div>
@@ -472,7 +472,7 @@ const MainMetricasAdmin = () => {
                 <i className="bi bi-currency-dollar"></i>
                 <div className="card-content">
                   <h3>
-                    ${formatearNumero(
+                    {formatearNumero(
                       resumenGeneralRepuestos.ingresos_totales || 0
                     )}
                   </h3>
@@ -484,7 +484,7 @@ const MainMetricasAdmin = () => {
                 <i className="bi bi-receipt"></i>
                 <div className="card-content">
                   <h3>
-                    ${formatearNumero(
+                    {formatearNumero(
                       resumenGeneralRepuestos.ticket_promedio || 0
                     )}
                   </h3>

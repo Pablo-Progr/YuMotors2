@@ -1,17 +1,16 @@
+import { MdAttachMoney } from "react-icons/md";
+import { GiCarKey, GiSteeringWheel, GiCarWheel } from "react-icons/gi";
+import { BiSolidCheckShield } from "react-icons/bi";
+import { FaMapMarkerAlt, FaCalendarAlt, FaTools } from "react-icons/fa";
+import {Link} from "react-router-dom" 
 import wall2 from "../img/autosnuevos/toyota/hilux/hiluxint3.png";
 import wall4 from "../img/camry-tc-2024.jpg";
 import wall5 from "../img/Supras.png";
 import wall6 from "../img/gr-yaris-wrc.jpg";
 import wall8 from "../img/wall8.jpg";
-import wall10 from "../img/wall10.jpg";
 import accesorios from "../img/accesorios.webp";
 import repuestos from "../img/repuestos.jpg";
 import home from "../img/toyota-main-home.jpg";
-
-import { MdAttachMoney } from "react-icons/md";
-import { GiCarKey, GiSteeringWheel, GiCarWheel } from "react-icons/gi";
-import { BiSolidCheckShield } from "react-icons/bi";
-import { FaMapMarkerAlt, FaCalendarAlt, FaTools } from "react-icons/fa";
 
 import "../css/mainhome.css";
 
@@ -178,30 +177,30 @@ const MainHome = () => {
 
         {/* Sección derecha con 4 bloques */}
         <div className="menu-grid">
-          <div className="menu-item dark">
+          <Link to={"/concesionario"} className="menu-item dark">
             <div className="icono-menu-container">
               <FaMapMarkerAlt size={40} />
               <p>Concesionario</p>
             </div>
-          </div>
-          <div className="menu-item lighter">
+          </Link>
+          <Link to={"/accesorios"} className="menu-item lighter">
             <div className="icono-menu-container">
               <GiSteeringWheel size={40} className="icono-menu" />
               <p className="texto-menu">Accesorios</p>
             </div>
-          </div>
-          <div className="menu-item light">
+          </Link>
+          <Link to={"/postventa"} className="menu-item light">
             <div className="icono-menu-container">
               <FaTools size={40} />
               <p>Post Venta</p>
             </div>
-          </div>
-          <div className="menu-item medium">
+          </Link>
+          <Link to={"/repuestos"} className="menu-item medium">
             <div className="icono-menu-container">
               <GiCarWheel size={40} />
               <p>Repuestos</p>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
 
