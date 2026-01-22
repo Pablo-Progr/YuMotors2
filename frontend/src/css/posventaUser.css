@@ -11,10 +11,8 @@
 .posventa-container {
   max-width: 600px;
   width: 100%;
-  
-  
-  
-  padding: 3rem;
+  background: rgba(10, 10, 10, 0);
+  padding: 1rem;
   
 }
 
@@ -98,6 +96,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  
 }
 
 .form-group label {
@@ -208,8 +207,4 @@
     padding: 0.8rem;
     font-size: 0.95rem;
   }
-}
-
-.logo-yu {
-  width: 400px
 }

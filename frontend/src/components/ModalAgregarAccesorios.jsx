@@ -3,6 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../css/modalAdmin.css"; // Import styles
 
 const ModalAgregarAccesorios = ({ show, onHide, onAccesorioAgregado }) => {
   const [nuevoAccesorio, setNuevoAccesorio] = useState({
@@ -56,11 +57,11 @@ const ModalAgregarAccesorios = ({ show, onHide, onAccesorioAgregado }) => {
   };
 
   return (
-    <Modal show={show} onHide={onHide} centered>
-      <Modal.Header closeButton className="bg-dark text-white">
+    <Modal show={show} onHide={onHide} centered dialogClassName="admin-modal">
+      <Modal.Header closeButton>
         <Modal.Title>Agregar Nuevo Accesorio</Modal.Title>
       </Modal.Header>
-      <Modal.Body className="bg-dark text-white">
+      <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-md-12 d-flex gap-3">
@@ -144,3 +145,4 @@ const ModalAgregarAccesorios = ({ show, onHide, onAccesorioAgregado }) => {
 };
 
 export default ModalAgregarAccesorios;
+

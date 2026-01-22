@@ -246,7 +246,7 @@ const IngresoPosventa = ({ onMostrarFormulario }) => {
 
       {/* Modal para registrar vehículo */}
       <Modal show={mostrarModalRegistro} onHide={cerrarModalRegistro} centered>
-        <Modal.Header closeButton className="border-0">
+        <Modal.Header closeButton className="header-modal">
           <Modal.Title className="d-flex align-items-center gap-2">
             <FaCar className="text-danger" />
             Registrar Vehículo
@@ -294,7 +294,7 @@ const IngresoPosventa = ({ onMostrarFormulario }) => {
 
       {/* Modal para ingresar código */}
       <Modal show={mostrarModalCodigo} onHide={cerrarModalCodigo} centered>
-        <Modal.Header closeButton className="border-0">
+        <Modal.Header closeButton className="header-modal">
           <Modal.Title className="d-flex align-items-center gap-2">
             Ingresar Código de Acceso
           </Modal.Title>
@@ -329,7 +329,7 @@ const IngresoPosventa = ({ onMostrarFormulario }) => {
 
       {/* Modal para consultar registros */}
       <Modal show={mostrarModalConsulta} onHide={cerrarModalConsulta} centered>
-        <Modal.Header closeButton className="border-0">
+        <Modal.Header closeButton className="header-modal">
           <Modal.Title className="d-flex align-items-center gap-2">
             <FaClipboardList className="text-danger" />
             Consultar Registros
@@ -372,7 +372,7 @@ const IngresoPosventa = ({ onMostrarFormulario }) => {
 
       {/* Modal para agendar turno */}
       <Modal show={mostrarModalTurno} onHide={cerrarModalTurno} centered size="lg">
-        <Modal.Header closeButton className="border-0">
+        <Modal.Header closeButton className="header-modal">
           <Modal.Title className="d-flex align-items-center gap-2">
             <FaCalendarAlt className="text-danger" />
             Agendar Turno
