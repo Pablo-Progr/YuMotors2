@@ -17,6 +17,7 @@ const Footer = () => {
             Lexus <FiExternalLink />
           </a>
           <a href="/contacto">Términos y condiciones</a>
+          <a href="/login">Administracion</a>
         </nav>
 
         <div className="footer-social">

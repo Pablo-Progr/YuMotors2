@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import AdminLogin from "./pages/LoginAdmin";
+import ResetPassword from "./pages/ResetPassword";
 import AccesoriosAdmin from "./pages/AccesoriosAdmin";
 import RepuestosAdmin from "./pages/RepuestosAdmin";
 import VehiculosAdmin from "./pages/VehiculosAdmin";
@@ -46,6 +47,8 @@ function App() {
           <Route path="/marcas/toyota/hiluxsr" element={<HiluxSR />} />
           <Route path="/marcas/toyota/sw4" element={<SW4 />} />
           <Route path="/login" element={<AdminLogin />} />
+          <Route path="/loginadmin" element={<AdminLogin />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/contacto" element={<Contanto />} />
           <Route path="/posventa" element={<PosventaUser />} />
           <Route path="/posventa/vehiculo/:id" element={<VehiculoDetalle />} />
