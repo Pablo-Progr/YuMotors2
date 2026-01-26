@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import IngresoPosventa from '../components/IngresoPosventa';
 import Header from '../components/Header';
 import FormularioRegistroPosventa from '../components/FormularioRegistroPosventa';
+import BotonWhatsapp from '../components/BotonWhatsapp';
 import '../css/posventaUser.css';
 
 const PosventaUser = () => {
@@ -29,6 +30,7 @@ const PosventaUser = () => {
       ) : (
         <IngresoPosventa onMostrarFormulario={handleMostrarFormulario} />
       )}
+      <BotonWhatsapp />
     </>
   );
 };

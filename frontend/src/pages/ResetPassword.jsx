@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import BotonWhatsapp from "../components/BotonWhatsapp";
 import "../css/loginAdmin.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logoBlancoRojo from "../img/yumotors-rojo-blanco.png";
@@ -184,6 +185,7 @@ const ResetPassword = () => {
           Volver al inicio de sesión
         </button>
       </div>
+      <BotonWhatsapp />
     </div>
   );
 };

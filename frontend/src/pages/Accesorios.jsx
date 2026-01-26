@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../components/Header'
 import MainAccesorios from '../components/MainAccesorios'
 import Footer from '../components/Footer'
+import BotonWhatsapp from '../components/BotonWhatsapp'
 
 const Accesorios = () => {
   return (
@@ -9,6 +10,7 @@ const Accesorios = () => {
         <Header />
         <MainAccesorios />
         <Footer />
+        <BotonWhatsapp />
     </div>
   )
 }

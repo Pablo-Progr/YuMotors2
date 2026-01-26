@@ -13,6 +13,14 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
   const [mostrarModalDescripcion, setMostrarModalDescripcion] = useState(false);
   const [loading, setLoading] = useState(false);
   const [filtro, setFiltro] = useState("");
+  
+  // Estados para filtros avanzados
+  const [marcaFiltro, setMarcaFiltro] = useState("");
+  const [precioMax, setPrecioMax] = useState(100000000); // Precio inicial alto
+  const [kilometrajeMax, setKilometrajeMax] = useState(500000); // Kilometraje inicial alto
+  const [rangosPrecio, setRangosPrecio] = useState({ min: 0, max: 100000000 });
+  const [rangosKilometraje, setRangosKilometraje] = useState({ min: 0, max: 500000 });
+  const [mostrarFiltros, setMostrarFiltros] = useState(false);
 
   // --- FORMATEADOR DE MONEDA ---
   const currencyFormatter = new Intl.NumberFormat("es-AR", {
@@ -27,6 +35,22 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
         "http://localhost:3000/api/vehiculos-usados"
       );
       setVehiculos(response.data);
+      
+      // Calcular rangos automáticos basados en los datos
+      if (response.data.length > 0) {
+        const precios = response.data.map(v => parseFloat(v.precio));
+        const kilometrajes = response.data.map(v => parseFloat(v.kilometraje));
+        
+        const minPrecio = Math.min(...precios);
+        const maxPrecio = Math.max(...precios);
+        const minKm = Math.min(...kilometrajes);
+        const maxKm = Math.max(...kilometrajes);
+        
+        setRangosPrecio({ min: minPrecio, max: maxPrecio });
+        setRangosKilometraje({ min: minKm, max: maxKm });
+        setPrecioMax(maxPrecio);
+        setKilometrajeMax(maxKm);
+      }
     } catch (error) {
       console.error("Error fetching vehiculos:", error);
     }
@@ -135,36 +159,148 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
     }));
   };
 
-  // Lógica de filtrado único
+  // Lógica de filtrado múltiple
   const vehiculosFiltrados = vehiculos.filter((vehiculo) => {
     const marca = vehiculo.marca || "";
     const modelo = vehiculo.modelo || "";
     const filtroLower = filtro.toLowerCase();
+    const precio = parseFloat(vehiculo.precio);
+    const kilometraje = parseFloat(vehiculo.kilometraje);
 
-    const marcaMatch = marca.toLowerCase().includes(filtroLower);
-    const modeloMatch = modelo.toLowerCase().includes(filtroLower);
+    // Filtro de búsqueda por texto (marca o modelo)
+    const marcaModeloMatch = marca.toLowerCase().includes(filtroLower) || 
+                             modelo.toLowerCase().includes(filtroLower);
 
-    return marcaMatch || modeloMatch; // Busca en marca O en modelo
+    // Filtro por marca específica (dropdown)
+    const marcaMatch = marcaFiltro === "" || marca === marcaFiltro;
+
+    // Filtro por precio máximo
+    const precioMatch = precio <= precioMax;
+
+    // Filtro por kilometraje máximo
+    const kilometrajeMatch = kilometraje <= kilometrajeMax;
+
+    return marcaModeloMatch && marcaMatch && precioMatch && kilometrajeMatch;
   });
+
+  // Obtener marcas únicas para el filtro
+  const marcasUnicas = [...new Set(vehiculos.map(v => v.marca))].sort();
 
   return (
     <>
-        <div className="row mb-3">
-          <div className="col-md-6">
-            <Form.Group>
-              <Form.Label className="text-white">
-                <i className="bi bi-search me-2"></i>Buscar por Marca o Modelo
-              </Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Escribe una marca o modelo..."
-                value={filtro}
-                onChange={(e) => setFiltro(e.target.value)}
-                className="bg-secondary text-white border-secondary"
-              />
-            </Form.Group>
+      <div className="mb-3">
+        <Button
+          variant={mostrarFiltros ? "outline-light" : "light"}
+          onClick={() => setMostrarFiltros(!mostrarFiltros)}
+          className="d-flex align-items-center"
+        >
+          <i className={`bi bi-funnel-fill me-2`}></i>
+          {mostrarFiltros ? "Ocultar Filtros" : "Mostrar Filtros"}
+          <i className={`bi bi-chevron-${mostrarFiltros ? "up" : "down"} ms-2`}></i>
+        </Button>
+      </div>
+
+      <div className="row">
+        {/* Sidebar de Filtros */}
+        {mostrarFiltros && (
+          <div className="col-lg-3 col-md-4 mb-3">
+            <div className="bg-dark p-3 rounded border border-secondary">
+              <h5 className="text-white mb-3">
+                <i className="bi bi-funnel-fill me-2"></i>Filtros
+              </h5>
+              
+              {/* Búsqueda por texto */}
+              <Form.Group className="mb-3">
+                <Form.Label className="text-white">
+                  <i className="bi bi-search me-2"></i>Buscar
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Marca o modelo..."
+                  value={filtro}
+                  onChange={(e) => setFiltro(e.target.value)}
+                  className="bg-secondary text-white border-secondary"
+                />
+              </Form.Group>
+
+              <hr className="text-white-50" />
+
+              {/* Filtro por marca específica */}
+              <Form.Group className="mb-3">
+                <Form.Label className="text-white">
+                  <i className="bi bi-tag me-2"></i>Marca
+                </Form.Label>
+                <Form.Select
+                  value={marcaFiltro}
+                  onChange={(e) => setMarcaFiltro(e.target.value)}
+                  className="bg-secondary text-white border-secondary"
+                >
+                  <option value="">Todas</option>
+                  {marcasUnicas.map((marca) => (
+                    <option key={marca} value={marca}>
+                      {marca}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+
+              <hr className="text-white-50" />
+
+              {/* Filtro por precio */}
+              <Form.Group className="mb-3">
+                <Form.Label className="text-white">
+                  <i className="bi bi-currency-dollar me-2"></i>Precio máximo
+                </Form.Label>
+                <div className="text-white fw-bold mb-2">
+                  {currencyFormatter.format(precioMax)}
+                </div>
+                <Form.Range
+                  min={rangosPrecio.min}
+                  max={rangosPrecio.max}
+                  value={precioMax}
+                  onChange={(e) => setPrecioMax(parseFloat(e.target.value))}
+                  className="custom-range"
+                />
+                <div className="d-flex justify-content-between text-white-50 small">
+                  <span>{currencyFormatter.format(rangosPrecio.min)}</span>
+                  <span>{currencyFormatter.format(rangosPrecio.max)}</span>
+                </div>
+              </Form.Group>
+
+              <hr className="text-white-50" />
+
+              {/* Filtro por kilometraje */}
+              <Form.Group className="mb-3">
+                <Form.Label className="text-white">
+                  <i className="bi bi-speedometer2 me-2"></i>Kilometraje máx.
+                </Form.Label>
+                <div className="text-white fw-bold mb-2">
+                  {kilometrajeMax.toLocaleString()} km
+                </div>
+                <Form.Range
+                  min={rangosKilometraje.min}
+                  max={rangosKilometraje.max}
+                  value={kilometrajeMax}
+                  onChange={(e) => setKilometrajeMax(parseFloat(e.target.value))}
+                  className="custom-range"
+                />
+                <div className="d-flex justify-content-between text-white-50 small">
+                  <span>{rangosKilometraje.min.toLocaleString()}</span>
+                  <span>{rangosKilometraje.max.toLocaleString()}</span>
+                </div>
+              </Form.Group>
+
+              {/* Contador de resultados */}
+              <div className="mt-3 p-2 bg-secondary rounded text-center">
+                <small className="text-white-50">Resultados encontrados:</small>
+                <div className="text-white fw-bold fs-5">{vehiculosFiltrados.length}</div>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Tabla de Vehículos */}
+        <div className={mostrarFiltros ? "col-lg-9 col-md-8" : "col-12"}>
       <div className="table-responsive p-3 rounded">
         <table className="table table-dark table-hover align-middle">
           <thead>
@@ -253,6 +389,8 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
             ))}
           </tbody>
         </table>
+      </div>
+        </div>
       </div>
 
       {/* Modal de descripción */}

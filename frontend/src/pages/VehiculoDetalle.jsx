@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import BotonWhatsapp from '../components/BotonWhatsapp';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const VehiculoDetalle = () => {
@@ -30,16 +31,20 @@ const VehiculoDetalle = () => {
 
   if (loading) {
     return (
+      <>
       <Container className="d-flex justify-content-center align-items-center min-vh-100">
         <div className="spinner-border text-primary" role="status">
           <span className="visually-hidden">Cargando...</span>
         </div>
       </Container>
+      <BotonWhatsapp />
+      </>
     );
   }
 
   if (!vehiculo) {
     return (
+      <>
       <Container className="d-flex justify-content-center align-items-center min-vh-100">
         <Card className="shadow-lg bg-dark text-white text-center p-5">
           <Card.Body>
@@ -50,10 +55,13 @@ const VehiculoDetalle = () => {
           </Card.Body>
         </Card>
       </Container>
+      <BotonWhatsapp />
+      </>
     );
   }
 
   return (
+    <>
     <Container className="d-flex justify-content-center align-items-center min-vh-100">
       <Row className="w-100">
         <Col md={8} lg={6} className="mx-auto">
@@ -105,6 +113,8 @@ const VehiculoDetalle = () => {
         </Col>
       </Row>
     </Container>
+    <BotonWhatsapp />
+    </>
   );
 };
 
