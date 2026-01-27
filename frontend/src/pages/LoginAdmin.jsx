@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../store/authStore";
 import Swal from "sweetalert2";
-import "../css/LoginAdmin.css"; // Estilos personalizados
+import "../css/loginAdmin.css"; // Estilos personalizados
 import "bootstrap/dist/css/bootstrap.min.css";
 import logoBlancoRojo from "../img/yumotors-rojo-blanco.png";
 
