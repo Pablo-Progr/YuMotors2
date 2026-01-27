@@ -1,9 +1,17 @@
-import wall2 from "../img/wall2.jpg";
-import wall4 from "../img/wall4.jpg";
-import wall5 from "../img/wall5.jpg";
-import wall6 from "../img/wall6.jpg";
+import { MdAttachMoney } from "react-icons/md";
+import { GiCarKey, GiSteeringWheel, GiCarWheel } from "react-icons/gi";
+import { BiSolidCheckShield } from "react-icons/bi";
+import { FaMapMarkerAlt, FaCalendarAlt, FaTools } from "react-icons/fa";
+import {Link} from "react-router-dom" 
+import wall2 from "../img/autosnuevos/toyota/hilux/hiluxint3.png";
+import wall4 from "../img/camry-tc-2024.jpg";
+import wall5 from "../img/Supras.png";
+import wall6 from "../img/gr-yaris-wrc.jpg";
 import wall8 from "../img/wall8.jpg";
-import wall10 from "../img/wall10.jpg";
+import accesorios from "../img/accesorios.webp";
+import repuestos from "../img/repuestos.jpg";
+import home from "../img/toyota-main-home.jpg";
+
 import "../css/mainhome.css";
 
 const MainHome = () => {
@@ -67,56 +75,64 @@ const MainHome = () => {
           <div className="carousel-item active">
             <img src={wall4} className="d-block w-100" alt="Slide 1" />
             <div className="carousel-caption d-none d-md-block">
-              <h2 className="fw-bold">Bienvenido a Yu Motors</h2>
-              <p>Conducí tu futuro con nosotros</p>
+              <h2 className="titulo-carousel">Bienvenido a Yu Motors</h2>
+              <p className="subtitulo-carousel">
+                Conducí tu futuro con nosotros
+              </p>
             </div>
           </div>
 
           <div className="carousel-item">
-            <img src={wall2} className="d-block w-100" alt="Slide 2" />
+            <img src={wall8} className="d-block w-100" alt="Slide 2" />
             <div className="carousel-caption d-none d-md-block">
-              <h2 className="fw-bold">Autos Usados</h2>
-              <p>Confiables y al mejor precio</p>
+              <h2 className="titulo-carousel">Autos Usados</h2>
+              <p className="subtitulo-carousel">Confiables y al mejor precio</p>
             </div>
           </div>
 
           <div className="carousel-item">
-            <img src={wall8} className="d-block w-100" alt="Slide 3" />
+            <img src={wall2} className="d-block w-100" alt="Slide 3" />
             <div className="carousel-caption d-none d-md-block">
-              <h2 className="fw-bold">Nuevos Modelos</h2>
-              <p>Innovación y estilo en cada viaje</p>
+              <h2 className="titulo-carousel">Nuevos Modelos</h2>
+              <p className="subtitulo-carousel">
+                Innovación y estilo en cada viaje
+              </p>
             </div>
           </div>
 
           <div className="carousel-item">
             <img src={wall6} className="d-block w-100" alt="Slide 4" />
             <div className="carousel-caption d-none d-md-block">
-              <h2 className="fw-bold">Autos de competición</h2>
-              <p>Domina todos los circuitos</p>
+              <h2 className="titulo-carousel">Autos de competición</h2>
+              <p className="subtitulo-carousel">Domina todos los circuitos</p>
             </div>
           </div>
 
           <div className="carousel-item">
             <img src={wall5} className="d-block w-100" alt="Slide 5" />
             <div className="carousel-caption d-none d-md-block">
-              <h2 className="fw-bold">Servicio Premium</h2>
-              <p>Mantenimiento y cuidado profesional</p>
+              <h2 className="titulo-carousel">Servicio Premium</h2>
+              <p className="subtitulo-carousel">
+                Mantenimiento y cuidado profesional
+              </p>
             </div>
           </div>
 
           <div className="carousel-item">
-            <img src={wall6} className="d-block w-100" alt="Slide 6" />
+            <img src={accesorios} className="d-block w-100" alt="Slide 6" />
             <div className="carousel-caption d-none d-md-block">
-              <h2 className="fw-bold">Accesorios</h2>
-              <p>Porque la apariencia importa</p>
+              <h2 className="titulo-carousel">Accesorios</h2>
+              <p className="subtitulo-carousel">Porque la apariencia importa</p>
             </div>
           </div>
 
           <div className="carousel-item">
-            <img src={wall10} className="d-block w-100" alt="Slide 7" />
+            <img src={repuestos} className="d-block w-100" alt="Slide 7" />
             <div className="carousel-caption d-none d-md-block">
-              <h2 className="fw-bold">Sobre nosotros</h2>
-              <p>Siempre a tu lado en el camino</p>
+              <h2 className="titulo-carousel">Repuestos</h2>
+              <p className="subtitulo-carousel">
+                Calidad y durabilidad garantizadas
+              </p>
             </div>
           </div>
         </div>
@@ -148,86 +164,80 @@ const MainHome = () => {
         </button>
       </div>
 
-      {/* Cards */}
-
-      
-        <div className="container">
-          <div className="row">
-            <div className="col">
-              <div className="card shadow-sm">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Moscow%2C_Toyota_Corolla_Sport_hatchback%2C_Sept_2025_02.jpg"
-                  alt="Auto"
-                />
-                <div className="card-body">
-                  <p className="card-text">Toyota Corolla 2022</p>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div className="btn-group">
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-outline-secondary"
-                      >
-                        Autos usados
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col">
-              <div className="card shadow-sm">
-                <img
-                  src="https://media.toyota.com.ar/696e5ffd-4c88-4b05-8f3c-c720a5941da8.jpeg"
-                  alt="Auto"
-                />
-                <div className="card-body">
-                  <p className="card-text">Recién llegado - GR Yaris 2025</p>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div className="btn-group">
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-outline-secondary"
-                      >
-                        Más información
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col">
-              <div className="card shadow-sm">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/4/42/Lexus-cars-logo-emblem.jpg"
-                  alt="Auto"
-                />
-                <div className="card-body">
-                  <p className="card-text">Lexus</p>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div className="btn-group">
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-outline-secondary"
-                      >
-                        Ver autos
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div className="main-container">
+        {/* Sección izquierda con imagen */}
+        <div className="image-section">
+          <img src={home} alt="Usados" />
+          <div className="promo-text">
+            <a href="/usados">
+              <h2>Autos Usados</h2>+ Saber más
+            </a>
           </div>
         </div>
 
-        {/* Sobre Nosotos */}
-
-
-        <div className="container">
-          
+        {/* Sección derecha con 4 bloques */}
+        <div className="menu-grid">
+          <Link to={"/concesionario"} className="menu-item dark">
+            <div className="icono-menu-container">
+              <FaMapMarkerAlt size={40} />
+              <p>Concesionario</p>
+            </div>
+          </Link>
+          <Link to={"/accesorios"} className="menu-item lighter">
+            <div className="icono-menu-container">
+              <GiSteeringWheel size={40} className="icono-menu" />
+              <p className="texto-menu">Accesorios</p>
+            </div>
+          </Link>
+          <Link to={"/postventa"} className="menu-item light">
+            <div className="icono-menu-container">
+              <FaTools size={40} />
+              <p>Post Venta</p>
+            </div>
+          </Link>
+          <Link to={"/repuestos"} className="menu-item medium">
+            <div className="icono-menu-container">
+              <GiCarWheel size={40} />
+              <p>Repuestos</p>
+            </div>
+          </Link>
         </div>
-      
+      </div>
+
+      {/* Sobre Nosotos */}
+      {/* Servicios */}
+      <div className="servicios-wrapper">
+        <h3 className="servicios-titulo">Nuestros Servicios</h3>
+
+        <div className="servicios-container">
+          <div className="servicio">
+            <MdAttachMoney className="servicio-icono" />
+            <button className="btn-servicios">Financiamiento</button>
+            <p>
+              Ofrecemos planes de financiamiento flexibles para ayudarte a
+              comprar el auto de tus sueños.
+            </p>
+          </div>
+
+          <div className="servicio">
+            <GiCarKey className="servicio-icono" />
+            <button className="btn-servicios">Mantenimiento</button>
+            <p>
+              Nuestro taller cuenta con técnicos certificados para mantener tu
+              vehículo en óptimas condiciones.
+            </p>
+          </div>
+
+          <div className="servicio">
+            <BiSolidCheckShield className="servicio-icono" />
+            <button className="btn-servicios">Garantía extendida</button>
+            <p>
+              Protege tu inversión con nuestras opciones de garantía extendida
+              para tu tranquilidad.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

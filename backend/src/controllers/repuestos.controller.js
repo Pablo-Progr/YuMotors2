@@ -12,9 +12,9 @@ const traerRepuestos = (req, res) => {
 };
 
 const agregarRepuesto = (req, res) => {
-  const { nombre, marca, numeroParte, descripcion, precio, stock } = req.body;
-  const query = 'INSERT INTO repuestos (nombre, marca, numeroParte, descripcion, precio, stock) VALUES (?, ?, ?, ?, ?, ?)';
-  db.query(query, [nombre, marca, numeroParte, descripcion, precio, stock], (err, results) => {
+  const { nombre, marca, numeroParte, descripcion, precio, stock, imagen } = req.body;
+  const query = 'INSERT INTO repuestos (nombre, marca, numeroParte, descripcion, precio, stock, imagen) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  db.query(query, [nombre, marca, numeroParte, descripcion, precio, stock, imagen], (err, results) => {
     if (err) {
       console.error('Error adding repuesto:', err);
       return res.status(500).json({ error: 'Internal server error' });
@@ -25,27 +25,39 @@ const agregarRepuesto = (req, res) => {
 
 const eliminarRepuesto = (req, res) => {
   const { id } = req.params;
-  const query = 'DELETE FROM repuestos WHERE idRepuesto = ?';
-  db.query(query, [id], (err, results) => {
+  
+  // Primero eliminar los detalles de ventas relacionados
+  const deleteDetailsQuery = 'DELETE FROM detalleVentasRepuestos WHERE idRepuesto = ?';
+  
+  db.query(deleteDetailsQuery, [id], (err, results) => {
     if (err) {
-      console.error('Error deleting repuesto:', err);
+      console.error('Error deleting related sales details:', err);
       return res.status(500).json({ error: 'Internal server error' });
     }
-    res.status(204).send();
+    
+    // Ahora eliminar el repuesto
+    const deleteRepuestoQuery = 'DELETE FROM repuestos WHERE idRepuesto = ?';
+    db.query(deleteRepuestoQuery, [id], (err, results) => {
+      if (err) {
+        console.error('Error deleting repuesto:', err);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+      res.status(204).send();
+    });
   });
 };
 
 const editarRepuesto = (req, res) => {
   const { id } = req.params;
-  const { nombre, marca, numeroParte, descripcion, precio, stock } = req.body;
+  const { nombre, marca, numeroParte, descripcion, precio, stock, imagen } = req.body;
 
-  const query = 'UPDATE repuestos SET nombre = ?, marca = ?, numeroParte = ?, descripcion = ?, precio = ?, stock = ? WHERE idRepuesto = ?';
-  db.query(query, [nombre, marca, numeroParte, descripcion, precio, stock, id], (err, results) => {
+  const query = 'UPDATE repuestos SET nombre = ?, marca = ?, numeroParte = ?, descripcion = ?, precio = ?, stock = ?, imagen = ? WHERE idRepuesto = ?';
+  db.query(query, [nombre, marca, numeroParte, descripcion, precio, stock, imagen, id], (err, results) => {
     if (err) {
       console.error('Error updating repuesto:', err);
       return res.status(500).json({ error: 'Internal server error' });
     }
-    res.json({ id, nombre, marca, numeroParte, descripcion, precio, stock });
+    res.json({ id, nombre, marca, numeroParte, descripcion, precio, stock, imagen });
   });
 };
 

@@ -1,4 +1,4 @@
-const db = require('../config/config');
+const db = require('../config/config.js');
 const bcrypt = require('bcrypt');
 
 // Controlador para login de usuarios
@@ -77,23 +77,28 @@ const loginUser = async (req, res) => {
 
 // Controlador para registro de usuarios (opcional)
 const registerUser = async (req, res) => {
-  const { nombre, password, idRol } = req.body;
+  console.log('Body recibido:', req.body); // Debug: ver qué llega
+  
+  const { nombre, mail, password, idRol } = req.body;
 
   // Validar campos requeridos
-  if (!nombre || !password || !idRol) {
+  if (!nombre || !mail|| !password || !idRol) {
+    console.log('Campos faltantes - nombre:', nombre, 'mail:', mail, 'password:', password ? 'presente' : 'ausente', 'idRol:', idRol);
     return res.status(400).json({
       success: false,
       message: 'Nombre, contraseña e idRol son requeridos'
     });
   }
 
+  console.log('Datos a registrar:', { nombre, idRol }); // No mostrar password
+
   try {
     // Verificar si el nombre ya existe
-    const checkQuery = 'SELECT * FROM usuarios WHERE nombre = ?';
+    const checkQuery = 'SELECT * FROM usuarios WHERE mail = ? ';
     
-    db.query(checkQuery, [nombre], (error, results) => {
+    db.query(checkQuery, [mail, nombre], (error, results) => {
       if (error) {
-        console.error('Error verificando nombre:', error);
+        console.error('Error verificando mail:', error);
         return res.status(500).json({
           success: false,
           message: 'Error en el servidor'
@@ -101,6 +106,7 @@ const registerUser = async (req, res) => {
       }
 
       if (results.length > 0) {
+        console.log('Usuario ya existe:', mail);
         return res.status(400).json({
           success: false,
           message: 'El nombre de usuario ya está registrado'
@@ -117,17 +123,25 @@ const registerUser = async (req, res) => {
           });
         }
 
-        // Insertar nuevo usuario con contraseña hasheada
-        const insertQuery = 'INSERT INTO usuarios (nombre, pass, idRol) VALUES (?, ?, ?)';
+        console.log('Password hasheado correctamente');
 
-        db.query(insertQuery, [nombre, hashedPassword, idRol], (error, result) => {
+        // Insertar nuevo usuario con contraseña hasheada
+        const insertQuery = 'INSERT INTO usuarios (nombre, mail, pass, idRol) VALUES (?, ?, ?, ?)';
+
+        console.log('Ejecutando INSERT con idRol:', idRol);
+
+        db.query(insertQuery, [nombre, mail, hashedPassword, idRol], (error, result) => {
           if (error) {
             console.error('Error registrando usuario:', error);
+            console.error('SQL State:', error.sqlState);
+            console.error('SQL Message:', error.sqlMessage);
             return res.status(500).json({
               success: false,
-              message: 'Error al registrar usuario'
+              message: 'Error al registrar usuario: ' + error.sqlMessage
             });
           }
+
+          console.log('Usuario registrado exitosamente:', result.insertId);
 
           res.status(201).json({
             success: true,

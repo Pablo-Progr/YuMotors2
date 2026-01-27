@@ -1,22 +1,144 @@
-.modal{
-    background-color: #00000097;
+/* modalAdmin.css */
+
+/* Custom class wrapper to safely target Bootstrap Modals */
+.admin-modal .modal-content {
+    background: linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    color: #e0e0e0;
+    overflow: hidden; /* For header curved corners */
 }
 
-.modal-header {
-    color: white;
-    background-color: #00665e;
-    border-bottom: none;
+/* Header Styling */
+.admin-modal .modal-header {
+    background: linear-gradient(90deg, #004d40 0%, #00695c 100%); /* Teal gradient */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
 }
 
-.modal-body {
-    color: aliceblue;
+.admin-modal .modal-title {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.25rem;
 }
 
-.btn-dark {
-    background-color: #00665e;
+.admin-modal .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+    opacity: 0.8;
 }
 
-.btn-dark:hover {
-    background-color: #cde8e5;
-    
+.admin-modal .btn-close:hover {
+    opacity: 1;
+}
+
+/* Body Styling */
+.admin-modal .modal-body {
+    padding: 2rem;
+    background-color: transparent; /* Inherits from content */
+}
+
+/* Form Controls */
+.admin-modal .form-label {
+    color: #b2dfdb; /* Light teal text */
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.admin-modal .form-control,
+.admin-modal .form-select {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.admin-modal .form-control:focus,
+.admin-modal .form-select:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #4db6ac; /* Accento teal brighter */
+    box-shadow: 0 0 0 4px rgba(77, 182, 172, 0.1);
+    color: #ffffff;
+}
+
+.admin-modal .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Buttons */
+.admin-modal .btn-primary {
+    background: linear-gradient(45deg, #00695c 0%, #00897b 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 77, 64, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.admin-modal .btn-primary:hover {
+    background: linear-gradient(45deg, #004d40 0%, #00796b 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 77, 64, 0.4);
+}
+
+.admin-modal .btn-primary:disabled {
+    background: #424242;
+    transform: none;
+}
+
+.admin-modal .btn-secondary {
+    background: #424242;
+    border: none;
+    border-radius: 8px;
+    color: #bdbdbd;
+}
+
+.admin-modal .btn-secondary:hover {
+    background: #616161;
+    color: #fff;
+}
+
+/* Icons in Labels */
+.admin-modal .form-label i {
+    color: #4db6ac;
+    margin-right: 8px;
+    font-size: 1.1em;
+}
+
+/* Image Preview in Modal */
+.admin-modal img.img-fluid {
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* --- Standardized Layouts --- */
+
+/* Force uniform width for all admin modals on larger screens */
+@media (min-width: 576px) {
+    .modal-dialog.admin-modal {
+        max-width: 1000px !important;
+        margin: 1.75rem auto;
+    }
+}
+
+/* Center form rows and add spacing */
+.admin-modal form .row {
+    justify-content: center; /* Centers columns like col-md-5 */
+    column-gap: 15px; /* Adds space between centered columns */
+}
+
+/* Ensure consistent spacing in flex containers inside forms */
+.admin-modal form .d-flex {
+    gap: 15px !important;
 }

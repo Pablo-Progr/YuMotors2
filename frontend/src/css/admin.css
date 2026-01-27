@@ -1,4 +1,28 @@
 .botones {
-    background-color: #00665e !important;
+    background-color: #c8102e !important;
     color:aliceblue;
+}
+
+/* Ajustes responsive para el contenido principal del admin */
+@media (max-width: 991px) {
+  .main-metricas-admin,
+  .admin-content,
+  .main-admin {
+    padding-top: 70px !important;
+  }
+
+  /* Ajuste para tablas en móviles */
+  .table-responsive {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-metricas-admin,
+  .admin-content,
+  .main-admin {
+    padding-top: 65px !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
 }

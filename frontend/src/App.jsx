@@ -1,12 +1,33 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import AdminLogin from "./pages/LoginAdmin";
+import ResetPassword from "./pages/ResetPassword";
 import AccesoriosAdmin from "./pages/AccesoriosAdmin";
 import RepuestosAdmin from "./pages/RepuestosAdmin";
 import VehiculosAdmin from "./pages/VehiculosAdmin";
 import ConsultasAdmin from "./pages/ConsultasAdmin";
+import MetricasAdmin from "./pages/MetricasAdmin";
 import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminHome from "./pages/AdminHome";
+import VehPostVentaAdmin from "./pages/VehPostVentaAdmin";
+import RegistroPosventa from "./pages/RegistroPosventa.jsx";
+import Usados from "./pages/Usados";
+import Concesionario from "./pages/Concesionario";
+import Accesorios from "./pages/Accesorios";
+import Repuestos from "./pages/Repuestos";
+import Toyota from "./pages/Toyota";
+import GazooRacing from "./pages/GazooRacing";
+import Marcas from "./pages/Marcas";
+import Yaris from "./pages/Yaris";
+import Corolla from "./pages/Corolla"
+import HiluxSR from "./pages/HiluxSR";
+import SW4 from "./pages/SW4";
+import Contanto from "./pages/Contanto";
+import PosventaUser from "./pages/PosventaUser";
+import VehiculoDetalle from "./pages/VehiculoDetalle";
+import RegistrosPosventaUser from "./pages/RegistrosPosventaUser";
+
 
 function App() {
   return (
@@ -14,9 +35,34 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/usados" element={<Usados />} />
+          <Route path="/concesionario" element={<Concesionario />} />
+          <Route path="/repuestos" element={<Repuestos />} />
+          <Route path="/accesorios" element={<Accesorios />} />
+          <Route path="/toyota" element={<Toyota />} />
+          <Route path="/marcas/gr" element={<GazooRacing />} />
+          <Route path="/marcas" element={<Marcas />} />
+          <Route path="/marcas/gr/yaris" element={<Yaris />} />
+          <Route path="/marcas/toyota/corolla" element={<Corolla />} />
+          <Route path="/marcas/toyota/hiluxsr" element={<HiluxSR />} />
+          <Route path="/marcas/toyota/sw4" element={<SW4 />} />
           <Route path="/login" element={<AdminLogin />} />
+          <Route path="/loginadmin" element={<AdminLogin />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/contacto" element={<Contanto />} />
+          <Route path="/posventa" element={<PosventaUser />} />
+          <Route path="/posventa/vehiculo/:id" element={<VehiculoDetalle />} />
+          <Route path="/posventa/registros/:id" element={<RegistrosPosventaUser />} />
 
           {/* Rutas protegidas para administradores */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <AdminHome />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/admin/accesorios"
             element={
@@ -46,6 +92,30 @@ function App() {
             element={
               <ProtectedRoute requireAdmin={true}>
                 <ConsultasAdmin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/metricas"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <MetricasAdmin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/post-venta"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <VehPostVentaAdmin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/registro-posventa/:id"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <RegistroPosventa />
               </ProtectedRoute>
             }
           />

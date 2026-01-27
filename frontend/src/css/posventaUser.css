@@ -1,0 +1,210 @@
+/* ====== CONTENEDOR PRINCIPAL ====== */
+.posventa-wrapper {
+  
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.posventa-container {
+  max-width: 600px;
+  width: 100%;
+  background: rgba(10, 10, 10, 0);
+  padding: 1rem;
+  
+}
+
+.posventa-form-container {
+  background: #1a1a1a;
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.posventa-titulo {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #c8102e;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.posventa-descripcion {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #666;
+  margin: 0 0 2rem 0;
+}
+
+/* ====== BOTONES PRINCIPALES ====== */
+.btn-posventa {
+  background: linear-gradient(135deg, #c8102e 0%, #a00d25 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 100%;
+}
+
+.btn-posventa:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(200, 16, 46, 0.3);
+}
+
+.btn-posventa:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-posventa:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-posventa-secondary {
+  background: linear-gradient(135deg, #454545 0%, #2a2a2a 100%);
+}
+
+.btn-posventa-secondary:hover:not(:disabled) {
+  box-shadow: 0 10px 25px rgba(69, 69, 69, 0.3);
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+}
+
+/* ====== FORMULARIO ====== */
+.posventa-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #1a1a1a;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.label-icon {
+  color: #c8102e;
+  font-size: 1rem;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.9rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+  color: #1a1a1a;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #c8102e;
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.1);
+}
+
+.form-group input:read-only {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+/* ====== SPINNER ====== */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ====== ANIMACIONES ====== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.posventa-container {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  .posventa-wrapper {
+    padding: 2rem 1rem;
+  }
+
+  .posventa-container {
+    padding: 1.5rem;
+  }
+
+  .posventa-titulo {
+    font-size: 2rem;
+  }
+
+  .posventa-descripcion {
+    font-size: 1rem;
+  }
+
+  .posventa-form-container {
+    padding: 1.5rem;
+  }
+
+  .btn-posventa {
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .posventa-titulo {
+    font-size: 1.8rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
+}

@@ -1,0 +1,271 @@
+/* GR YARIS - estilos encapsulados (prefijo: yaris-) */
+.yaris-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  font-family: "Oswald", "Helvetica Neue", sans-serif;
+  color: #111;
+  overflow-x: hidden;
+  padding-bottom: 3rem;
+}
+
+/* Títulos */
+.yaris-section-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  letter-spacing: 1px;
+  margin: 2rem 0 1.5rem;
+}
+
+/* Portada / Carrusel */
+.yaris-carousel-section {
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 2.5rem;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  background-color: #000;
+}
+
+.yaris-carousel-section.interior {
+  background-color: #111;
+}
+
+.yaris-carousel-inner { width: 100%; }
+
+.yaris-carousel-item img {
+  width: 100%;
+  height: 550px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+/* Features (estilo Toyota limpio) */
+.yaris-features,
+.yaris-downloads {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 3rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto 4rem;
+  padding: 0 1rem;
+}
+
+.yaris-feature {
+  flex: 1 1 220px;
+  max-width: 260px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-align: left;
+}
+
+.yaris-feature-icon {
+  font-size: 3.2rem;
+  color: #e60012;
+  margin-bottom: 1rem;
+}
+
+.yaris-feature h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+
+.yaris-feature p {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.45;
+  max-width: 260px;
+}
+
+/* Downloads box */
+.yaris-download-box {
+  flex: 1 1 240px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.6rem;
+  text-align: center;
+}
+
+.yaris-download-icon {
+  font-size: 2.4rem;
+  color: #e60012;
+  margin-bottom: 0.6rem;
+}
+
+.yaris-download-box h3 {
+  font-size: 1.05rem;
+  color: #e60012;
+  margin-bottom: 0.5rem;
+}
+
+/* Showcase cards (estilo A) */
+.yaris-showcase {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.yaris-card {
+  position: relative;
+  width: 500px;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.yaris-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+.yaris-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.yaris-card:hover .yaris-card-img { transform: scale(1.05); }
+
+.yaris-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0));
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+}
+
+.yaris-card-overlay p { font-size: 1rem; margin: 0; opacity: 0.9; }
+.yaris-card-overlay h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #e60012;
+  margin: 0.3rem 0 0;
+  letter-spacing: 1px;
+}
+
+/* Modal */
+.yaris-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  animation: yaris-fade 0.25s ease;
+}
+
+@keyframes yaris-fade { from { opacity: 0 } to { opacity: 1 } }
+
+.yaris-modal-img {
+  max-width: 90%;
+  max-height: 90vh;
+  border-radius: 10px;
+  object-fit: contain;
+  box-shadow: 0 0 25px rgba(0,0,0,0.7);
+}
+
+.yaris-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.yaris-close-btn:hover { color: #e60012; }
+
+.yaris-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.6rem;
+  color: #fff;
+  background: rgba(0,0,0,0.4);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.yaris-nav-btn.prev { left: 30px; }
+.yaris-nav-btn.next { right: 30px; }
+
+.yaris-nav-btn:hover { color: #e60012; background: rgba(255,255,255,0.06); }
+
+/* Portada */
+.yaris-portada {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto 3rem;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  position: relative;
+  background: #000;
+}
+
+.yaris-portada-img {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 1.2s ease, opacity 1.2s ease;
+}
+
+.yaris-portada-img:hover { transform: scale(1.03); opacity: 0.95; }
+.yaris-portada::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.35), rgba(0,0,0,0));
+  pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .yaris-card { width: 420px; height: 260px; }
+  .yaris-carousel-item img { height: 420px; }
+  .yaris-portada-img { height: 460px; }
+}
+
+@media (max-width: 768px) {
+  .yaris-card { width: 90%; height: 240px; }
+  .yaris-carousel-item img { height: 360px; }
+  .yaris-section-title { font-size: 1.6rem; }
+  .yaris-feature { max-width: 300px; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .yaris-card { width: 95%; height: 200px; }
+  .yaris-carousel-item img { height: 280px; }
+  .yaris-section-title { font-size: 1.4rem; }
+  .yaris-feature-icon { font-size: 2.4rem; }
+  .yaris-download-box { width: 90%; }
+}
