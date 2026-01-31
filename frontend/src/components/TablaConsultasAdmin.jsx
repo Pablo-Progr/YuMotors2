@@ -75,8 +75,8 @@ const TablaConsultasAdmin = () => {
         prev.map((c) =>
           c.idConsulta === consulta.idConsulta
             ? { ...c, estado: nuevoEstado }
-            : c
-        )
+            : c,
+        ),
       );
 
       Swal.fire({
@@ -118,7 +118,7 @@ const TablaConsultasAdmin = () => {
         `http://localhost:3000/api/consultas/eliminar/${idConsulta}`,
         {
           method: "DELETE",
-        }
+        },
       );
 
       if (!res.ok) throw new Error("Error eliminando consulta");
@@ -180,7 +180,9 @@ const TablaConsultasAdmin = () => {
                 <td>
                   <span
                     className={`badge ${
-                      Number(consultas.estado) === 1 ? "bg-success" : "bg-danger"
+                      Number(consultas.estado) === 1
+                        ? "bg-success"
+                        : "bg-danger"
                     }`}
                   >
                     {Number(consultas.estado) === 1 ? "Atendida" : "Pendiente"}

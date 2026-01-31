@@ -29,7 +29,7 @@ const TablaRepuestosAdmin = () => {
   const fetchRepuestos = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/repuestos/repuestos"
+        "http://localhost:3000/api/repuestos/repuestos",
       );
       setRepuestos(response.data);
     } catch (error) {
@@ -57,10 +57,10 @@ const TablaRepuestosAdmin = () => {
     if (result.isConfirmed) {
       try {
         await axios.delete(
-          `http://localhost:3000/api/repuestos/eliminar/${id}`
+          `http://localhost:3000/api/repuestos/eliminar/${id}`,
         );
         setRepuestos(
-          repuestos.filter((repuesto) => repuesto.idRepuesto !== id)
+          repuestos.filter((repuesto) => repuesto.idRepuesto !== id),
         );
         Swal.fire({
           icon: "success",
@@ -97,7 +97,7 @@ const TablaRepuestosAdmin = () => {
     try {
       const response = await axios.put(
         `http://localhost:3000/api/repuestos/editar/${repuestoSeleccionado.idRepuesto}`,
-        repuestoSeleccionado
+        repuestoSeleccionado,
       );
 
       if (response.status === 200) {
@@ -170,7 +170,10 @@ const TablaRepuestosAdmin = () => {
   // --- LÓGICA DE PAGINACIÓN ---
   const indiceUltimo = paginaActual * itemsPorPagina;
   const indicePrimero = indiceUltimo - itemsPorPagina;
-  const repuestosPaginados = repuestosFiltrados.slice(indicePrimero, indiceUltimo);
+  const repuestosPaginados = repuestosFiltrados.slice(
+    indicePrimero,
+    indiceUltimo,
+  );
   const totalPaginas = Math.ceil(repuestosFiltrados.length / itemsPorPagina);
 
   const cambiarPagina = (numeroPagina) => {
@@ -221,25 +224,27 @@ const TablaRepuestosAdmin = () => {
                 <td>{repuesto.idRepuesto}</td>
                 {/* --- CELDA DE IMAGEN AÑADIDA --- */}
                 <td className="text-center align-middle">
-                  <button                     className="btn btn-sm me-2"
+                  <button
+                    className="btn btn-sm me-2"
                     onClick={() => abrirModalImagen(repuesto)}
-                    title="Ver imagen">
-                  <img
-                    src={repuesto.imagen || "invalid-url"}
-                    alt={repuesto.nombre}
-                    className="rounded"
-                    style={{
-                      width: "80px",
-                      height: "60px",
-                      objectFit: "cover",
-                      border: "1px solid #495057",
-                    }}
-                    onError={(e) => {
-                      e.currentTarget.src =
-                        "https://placehold.co/80x60/495057/dee2e6?text=Sin+Foto";
-                      e.currentTarget.onerror = null;
-                    }}
-                  />
+                    title="Ver imagen"
+                  >
+                    <img
+                      src={repuesto.imagen || "invalid-url"}
+                      alt={repuesto.nombre}
+                      className="rounded"
+                      style={{
+                        width: "80px",
+                        height: "60px",
+                        objectFit: "cover",
+                        border: "1px solid #495057",
+                      }}
+                      onError={(e) => {
+                        e.currentTarget.src =
+                          "https://placehold.co/80x60/495057/dee2e6?text=Sin+Foto";
+                        e.currentTarget.onerror = null;
+                      }}
+                    />
                   </button>
                 </td>
                 {/* ----------------------------- */}
@@ -303,9 +308,7 @@ const TablaRepuestosAdmin = () => {
           dialogClassName="admin-modal"
         >
           <Modal.Header closeButton>
-            <Modal.Title>
-              {repuestoSeleccionado.nombre}
-            </Modal.Title>
+            <Modal.Title>{repuestoSeleccionado.nombre}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p style={{ whiteSpace: "pre-wrap" }}>
@@ -360,7 +363,12 @@ const TablaRepuestosAdmin = () => {
 
       {/* Modal de edición */}
       {mostrarModal && repuestoSeleccionado && (
-        <Modal show={mostrarModal} onHide={cerrarModal} centered dialogClassName="admin-modal">
+        <Modal
+          show={mostrarModal}
+          onHide={cerrarModal}
+          centered
+          dialogClassName="admin-modal"
+        >
           <Modal.Header closeButton>
             <Modal.Title>
               Editar Repuesto: {repuestoSeleccionado.nombre}

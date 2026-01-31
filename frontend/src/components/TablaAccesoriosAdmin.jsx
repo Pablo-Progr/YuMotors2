@@ -29,7 +29,7 @@ const TablaAccesoriosAdmin = () => {
   const fetchAccesorios = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/accesorios/accesorios"
+        "http://localhost:3000/api/accesorios/accesorios",
       );
       setAccesorios(response.data);
     } catch (error) {
@@ -57,10 +57,10 @@ const TablaAccesoriosAdmin = () => {
     if (result.isConfirmed) {
       try {
         await axios.delete(
-          `http://localhost:3000/api/accesorios/eliminar/${id}`
+          `http://localhost:3000/api/accesorios/eliminar/${id}`,
         );
         setAccesorios(
-          accesorios.filter((accesorio) => accesorio.idAccesorio !== id)
+          accesorios.filter((accesorio) => accesorio.idAccesorio !== id),
         );
         Swal.fire({
           icon: "success",
@@ -117,7 +117,7 @@ const TablaAccesoriosAdmin = () => {
     try {
       const response = await axios.put(
         `http://localhost:3000/api/accesorios/editar/${accesorioSeleccionado.idAccesorio}`,
-        accesorioSeleccionado
+        accesorioSeleccionado,
       );
 
       if (response.status === 200) {
@@ -168,7 +168,10 @@ const TablaAccesoriosAdmin = () => {
   // --- LÓGICA DE PAGINACIÓN ---
   const indiceUltimo = paginaActual * itemsPorPagina;
   const indicePrimero = indiceUltimo - itemsPorPagina;
-  const accesoriosPaginados = accesoriosFiltrados.slice(indicePrimero, indiceUltimo);
+  const accesoriosPaginados = accesoriosFiltrados.slice(
+    indicePrimero,
+    indiceUltimo,
+  );
   const totalPaginas = Math.ceil(accesoriosFiltrados.length / itemsPorPagina);
 
   const cambiarPagina = (numeroPagina) => {
@@ -218,29 +221,28 @@ const TablaAccesoriosAdmin = () => {
                 <td>{accesorio.idAccesorio}</td>
                 {/* --- CELDA DE IMAGEN AÑADIDA --- */}
                 <td className="text-center align-middle">
-                                    <button
+                  <button
                     className="btn btn-sm  me-2"
                     onClick={() => abrirModalImagen(accesorio)}
                     title="Ver imagen"
                   >
-                                      <img
-                    src={accesorio.imagen || "invalid-url"}
-                    alt={accesorio.nombre}
-                    className="rounded"
-                    style={{
-                      width: "80px",
-                      height: "60px",
-                      objectFit: "cover",
-                      border: "1px solid #495057",
-                    }}
-                    onError={(e) => {
-                      e.currentTarget.src =
-                        "https://placehold.co/80x60/495057/dee2e6?text=Sin+Foto";
-                      e.currentTarget.onerror = null;
-                    }}
-                  />
+                    <img
+                      src={accesorio.imagen || "invalid-url"}
+                      alt={accesorio.nombre}
+                      className="rounded"
+                      style={{
+                        width: "80px",
+                        height: "60px",
+                        objectFit: "cover",
+                        border: "1px solid #495057",
+                      }}
+                      onError={(e) => {
+                        e.currentTarget.src =
+                          "https://placehold.co/80x60/495057/dee2e6?text=Sin+Foto";
+                        e.currentTarget.onerror = null;
+                      }}
+                    />
                   </button>
-
                 </td>
                 {/* ----------------------------- */}
                 <td>{accesorio.nombre}</td>
@@ -306,13 +308,12 @@ const TablaAccesoriosAdmin = () => {
           dialogClassName="admin-modal"
         >
           <Modal.Header closeButton>
-            <Modal.Title>
-             {accesorioSeleccionado.nombre}
-            </Modal.Title>
+            <Modal.Title>{accesorioSeleccionado.nombre}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p style={{ whiteSpace: "pre-wrap" }}>
-              {accesorioSeleccionado.descripcion || "Sin descripción disponible"}
+              {accesorioSeleccionado.descripcion ||
+                "Sin descripción disponible"}
             </p>
           </Modal.Body>
         </Modal>
@@ -369,7 +370,13 @@ const TablaAccesoriosAdmin = () => {
       {/* Modal de edición */}
       {/* Corregido el typo 'syze' a 'size' y añadido estilo a inputs */}
       {mostrarModal && accesorioSeleccionado && (
-        <Modal show={mostrarModal} onHide={cerrarModal} centered size="lg" dialogClassName="admin-modal">
+        <Modal
+          show={mostrarModal}
+          onHide={cerrarModal}
+          centered
+          size="lg"
+          dialogClassName="admin-modal"
+        >
           <Modal.Header closeButton>
             <Modal.Title>
               Editar Accesorio: {accesorioSeleccionado.nombre}

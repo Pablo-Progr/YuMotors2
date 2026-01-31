@@ -16,13 +16,16 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
   const [filtro, setFiltro] = useState("");
   const [paginaActual, setPaginaActual] = useState(1);
   const itemsPorPagina = 7;
-  
+
   // Estados para filtros avanzados
   const [marcaFiltro, setMarcaFiltro] = useState("");
   const [precioMax, setPrecioMax] = useState(100000000); // Precio inicial alto
   const [kilometrajeMax, setKilometrajeMax] = useState(500000); // Kilometraje inicial alto
   const [rangosPrecio, setRangosPrecio] = useState({ min: 0, max: 100000000 });
-  const [rangosKilometraje, setRangosKilometraje] = useState({ min: 0, max: 500000 });
+  const [rangosKilometraje, setRangosKilometraje] = useState({
+    min: 0,
+    max: 500000,
+  });
   const [mostrarFiltros, setMostrarFiltros] = useState(false);
 
   // --- FORMATEADOR DE MONEDA ---
@@ -35,20 +38,22 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
   const fetchVehiculos = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/vehiculos-usados"
+        "http://localhost:3000/api/vehiculos-usados",
       );
       setVehiculos(response.data);
-      
+
       // Calcular rangos automáticos basados en los datos
       if (response.data.length > 0) {
-        const precios = response.data.map(v => parseFloat(v.precio));
-        const kilometrajes = response.data.map(v => parseFloat(v.kilometraje));
-        
+        const precios = response.data.map((v) => parseFloat(v.precio));
+        const kilometrajes = response.data.map((v) =>
+          parseFloat(v.kilometraje),
+        );
+
         const minPrecio = Math.min(...precios);
         const maxPrecio = Math.max(...precios);
         const minKm = Math.min(...kilometrajes);
         const maxKm = Math.max(...kilometrajes);
-        
+
         setRangosPrecio({ min: minPrecio, max: maxPrecio });
         setRangosKilometraje({ min: minKm, max: maxKm });
         setPrecioMax(maxPrecio);
@@ -78,10 +83,10 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
     if (result.isConfirmed) {
       try {
         await axios.delete(
-          `http://localhost:3000/api/vehiculos-usados/eliminar/${id}`
+          `http://localhost:3000/api/vehiculos-usados/eliminar/${id}`,
         );
         setVehiculos(
-          vehiculos.filter((vehiculo) => vehiculo.idVehiculoUsado !== id)
+          vehiculos.filter((vehiculo) => vehiculo.idVehiculoUsado !== id),
         );
         Swal.fire("Eliminado", "El vehículo ha sido eliminado", "success");
       } catch (error) {
@@ -128,7 +133,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
     try {
       const response = await axios.put(
         `http://localhost:3000/api/vehiculos-usados/editar/${vehiculoSeleccionado.idVehiculoUsado}`,
-        vehiculoSeleccionado
+        vehiculoSeleccionado,
       );
 
       if (response.status === 200) {
@@ -171,8 +176,9 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
     const kilometraje = parseFloat(vehiculo.kilometraje);
 
     // Filtro de búsqueda por texto (marca o modelo)
-    const marcaModeloMatch = marca.toLowerCase().includes(filtroLower) || 
-                             modelo.toLowerCase().includes(filtroLower);
+    const marcaModeloMatch =
+      marca.toLowerCase().includes(filtroLower) ||
+      modelo.toLowerCase().includes(filtroLower);
 
     // Filtro por marca específica (dropdown)
     const marcaMatch = marcaFiltro === "" || marca === marcaFiltro;
@@ -189,7 +195,10 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
   // --- LÓGICA DE PAGINACIÓN ---
   const indiceUltimo = paginaActual * itemsPorPagina;
   const indicePrimero = indiceUltimo - itemsPorPagina;
-  const vehiculosPaginados = vehiculosFiltrados.slice(indicePrimero, indiceUltimo);
+  const vehiculosPaginados = vehiculosFiltrados.slice(
+    indicePrimero,
+    indiceUltimo,
+  );
   const totalPaginas = Math.ceil(vehiculosFiltrados.length / itemsPorPagina);
 
   const cambiarPagina = (numeroPagina) => {
@@ -197,7 +206,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
   };
 
   // Obtener marcas únicas para el filtro
-  const marcasUnicas = [...new Set(vehiculos.map(v => v.marca))].sort();
+  const marcasUnicas = [...new Set(vehiculos.map((v) => v.marca))].sort();
 
   return (
     <>
@@ -209,7 +218,9 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
         >
           <i className={`bi bi-funnel-fill me-2`}></i>
           {mostrarFiltros ? "Ocultar Filtros" : "Mostrar Filtros"}
-          <i className={`bi bi-chevron-${mostrarFiltros ? "up" : "down"} ms-2`}></i>
+          <i
+            className={`bi bi-chevron-${mostrarFiltros ? "up" : "down"} ms-2`}
+          ></i>
         </Button>
       </div>
 
@@ -221,7 +232,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
               <h5 className="text-white mb-3">
                 <i className="bi bi-funnel-fill me-2"></i>Filtros
               </h5>
-              
+
               {/* Búsqueda por texto */}
               <Form.Group className="mb-3">
                 <Form.Label className="text-white">
@@ -294,7 +305,9 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                   min={rangosKilometraje.min}
                   max={rangosKilometraje.max}
                   value={kilometrajeMax}
-                  onChange={(e) => setKilometrajeMax(parseFloat(e.target.value))}
+                  onChange={(e) =>
+                    setKilometrajeMax(parseFloat(e.target.value))
+                  }
                   className="custom-range"
                 />
                 <div className="d-flex justify-content-between text-white-50 small">
@@ -306,7 +319,9 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
               {/* Contador de resultados */}
               <div className="mt-3 p-2 bg-secondary rounded text-center">
                 <small className="text-white-50">Resultados encontrados:</small>
-                <div className="text-white fw-bold fs-5">{vehiculosFiltrados.length}</div>
+                <div className="text-white fw-bold fs-5">
+                  {vehiculosFiltrados.length}
+                </div>
               </div>
             </div>
           </div>
@@ -314,104 +329,106 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
 
         {/* Tabla de Vehículos */}
         <div className={mostrarFiltros ? "col-lg-9 col-md-8" : "col-12"}>
-      <div className="table-responsive p-3 rounded">
-        <table className="table table-dark table-hover align-middle">
-          <thead>
-            <tr>
-              {/* --- COLUMNA DE IMAGEN AÑADIDA --- */}
-              <th className="text-center">Imagen</th>
-              <th>Marca</th>
-              <th>Modelo</th>
-              <th>Año</th>
-              <th>Kilometraje</th>
-              <th>Descripción</th>
-              <th>Precio</th>
-              <th className="text-end">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {vehiculosPaginados.map((vehiculo) => (
-              <tr key={vehiculo.idVehiculoUsado}>
-                {/* --- CELDA DE IMAGEN AÑADIDA --- */}
-                <td className="text-center align-middle">
-                  <button                     className="btn btn-sm me-2"
-                    onClick={() => abrirModalImagen(vehiculo)}
-                    title="Ver imagen">
-                  <img
-                    // Si vehiculo.imagen existe, úsalo. Si no, usa un string inválido para forzar el 'onError'
-                    src={vehiculo.imagen || 'invalid-url'}
-                    alt={`${vehiculo.marca} ${vehiculo.modelo}`}
-                    className="rounded"
-                    style={{
-                      width: '80px',
-                      height: '60px',
-                      objectFit: 'cover',
-                      border: '1px solid #495057'
-                    }}
-                    // 'onError' se dispara si la URL es nula, vacía, o es un enlace roto
-                    onError={(e) => {
-                      e.currentTarget.src = 'https://placehold.co/80x60/495057/dee2e6?text=Sin+Foto';
-                      e.currentTarget.onerror = null; // Previene bucles infinitos si el placeholder también falla
-                    }}
-                  />
-                  </button>
-                </td>
-                {/* ------------------------------- */}
-                <td>{vehiculo.marca}</td>
-                <td>{vehiculo.modelo}</td>
-                <td>{vehiculo.anio}</td>
-                <td>{vehiculo.kilometraje} km</td>
-                <td className="text-center">
-                  {vehiculo.descripcion ? (
-                    <button
-                      className="btn btn-sm btn-outline-light"
-                      onClick={() => abrirModalDescripcion(vehiculo)}
-                      title="Ver descripción completa"
-                    >
-                      <i className="bi bi-eye"></i>
-                    </button>
-                  ) : (
-                    <span className="text-muted">N/A</span>
-                  )}
-                </td>
-                {/* --- PRECIO FORMATEADO --- */}
-                <td>
-                  {currencyFormatter.format(parseFloat(vehiculo.precio))}
-                </td>
-                {/* ------------------------- */}
-                <td className="text-end">
+          <div className="table-responsive p-3 rounded">
+            <table className="table table-dark table-hover align-middle">
+              <thead>
+                <tr>
+                  {/* --- COLUMNA DE IMAGEN AÑADIDA --- */}
+                  <th className="text-center">Imagen</th>
+                  <th>Marca</th>
+                  <th>Modelo</th>
+                  <th>Año</th>
+                  <th>Kilometraje</th>
+                  <th>Descripción</th>
+                  <th>Precio</th>
+                  <th className="text-end">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {vehiculosPaginados.map((vehiculo) => (
+                  <tr key={vehiculo.idVehiculoUsado}>
+                    {/* --- CELDA DE IMAGEN AÑADIDA --- */}
+                    <td className="text-center align-middle">
+                      <button
+                        className="btn btn-sm me-2"
+                        onClick={() => abrirModalImagen(vehiculo)}
+                        title="Ver imagen"
+                      >
+                        <img
+                          // Si vehiculo.imagen existe, úsalo. Si no, usa un string inválido para forzar el 'onError'
+                          src={vehiculo.imagen || "invalid-url"}
+                          alt={`${vehiculo.marca} ${vehiculo.modelo}`}
+                          className="rounded"
+                          style={{
+                            width: "80px",
+                            height: "60px",
+                            objectFit: "cover",
+                            border: "1px solid #495057",
+                          }}
+                          // 'onError' se dispara si la URL es nula, vacía, o es un enlace roto
+                          onError={(e) => {
+                            e.currentTarget.src =
+                              "https://placehold.co/80x60/495057/dee2e6?text=Sin+Foto";
+                            e.currentTarget.onerror = null; // Previene bucles infinitos si el placeholder también falla
+                          }}
+                        />
+                      </button>
+                    </td>
+                    {/* ------------------------------- */}
+                    <td>{vehiculo.marca}</td>
+                    <td>{vehiculo.modelo}</td>
+                    <td>{vehiculo.anio}</td>
+                    <td>{vehiculo.kilometraje} km</td>
+                    <td className="text-center">
+                      {vehiculo.descripcion ? (
+                        <button
+                          className="btn btn-sm btn-outline-light"
+                          onClick={() => abrirModalDescripcion(vehiculo)}
+                          title="Ver descripción completa"
+                        >
+                          <i className="bi bi-eye"></i>
+                        </button>
+                      ) : (
+                        <span className="text-muted">N/A</span>
+                      )}
+                    </td>
+                    {/* --- PRECIO FORMATEADO --- */}
+                    <td>
+                      {currencyFormatter.format(parseFloat(vehiculo.precio))}
+                    </td>
+                    {/* ------------------------- */}
+                    <td className="text-end">
+                      <button
+                        className="btn btn-sm btn-outline-warning me-2"
+                        onClick={() => abrirModalEditar(vehiculo)}
+                        title="Editar"
+                      >
+                        <i className="bi bi-pencil"></i>
+                      </button>
+                      <button
+                        className="btn btn-sm btn-outline-danger"
+                        onClick={() =>
+                          handleEliminarVehiculo(vehiculo.idVehiculoUsado)
+                        }
+                        title="Eliminar"
+                      >
+                        <i className="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-                  <button
-                    className="btn btn-sm btn-outline-warning me-2"
-                    onClick={() => abrirModalEditar(vehiculo)}
-                    title="Editar"
-                  >
-                    <i className="bi bi-pencil"></i>
-                  </button>
-                  <button
-                    className="btn btn-sm btn-outline-danger"
-                    onClick={() =>
-                      handleEliminarVehiculo(vehiculo.idVehiculoUsado)
-                    }
-                    title="Eliminar"
-                  >
-                    <i className="bi bi-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-        {/* Paginador */}
-        {totalPaginas > 1 && (
-          <Paginador
-            paginaActual={paginaActual}
-            totalPaginas={totalPaginas}
-            cambiarPagina={cambiarPagina}
-          />
-        )}
+          {/* Paginador */}
+          {totalPaginas > 1 && (
+            <Paginador
+              paginaActual={paginaActual}
+              totalPaginas={totalPaginas}
+              cambiarPagina={cambiarPagina}
+            />
+          )}
         </div>
       </div>
 
@@ -426,8 +443,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
         >
           <Modal.Header closeButton>
             <Modal.Title>
-              {vehiculoSeleccionado.marca}{" "}
-              {vehiculoSeleccionado.modelo}
+              {vehiculoSeleccionado.marca} {vehiculoSeleccionado.modelo}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -463,9 +479,10 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                 style={{ maxHeight: "500px" }}
                 // Placeholder por si falla la imagen grande en el modal
                 onError={(e) => {
-                  e.currentTarget.src = 'https://placehold.co/600x400/495057/dee2e6?text=Imagen+no+disponible';
+                  e.currentTarget.src =
+                    "https://placehold.co/600x400/495057/dee2e6?text=Imagen+no+disponible";
                   e.currentTarget.onerror = null;
-                  e.currentTarget.style.maxHeight = '400px';
+                  e.currentTarget.style.maxHeight = "400px";
                 }}
               />
             ) : (
