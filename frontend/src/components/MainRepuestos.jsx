@@ -12,7 +12,7 @@ const MainRepuestos = () => {
     const fetchRepuestos = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/repuestos/repuestos"
+          "http://localhost:3000/api/repuestos/repuestos",
         );
         setRepuestos(response.data);
       } catch (error) {

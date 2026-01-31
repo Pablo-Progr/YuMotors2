@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Modal, Button, Form } from "react-bootstrap";
+import Paginador from "./Paginador";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/modalAdmin.css"; // Import styles
 
@@ -13,6 +14,8 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
   const [mostrarModalDescripcion, setMostrarModalDescripcion] = useState(false);
   const [loading, setLoading] = useState(false);
   const [filtro, setFiltro] = useState("");
+  const [paginaActual, setPaginaActual] = useState(1);
+  const itemsPorPagina = 7;
   
   // Estados para filtros avanzados
   const [marcaFiltro, setMarcaFiltro] = useState("");
@@ -183,6 +186,16 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
     return marcaModeloMatch && marcaMatch && precioMatch && kilometrajeMatch;
   });
 
+  // --- LÓGICA DE PAGINACIÓN ---
+  const indiceUltimo = paginaActual * itemsPorPagina;
+  const indicePrimero = indiceUltimo - itemsPorPagina;
+  const vehiculosPaginados = vehiculosFiltrados.slice(indicePrimero, indiceUltimo);
+  const totalPaginas = Math.ceil(vehiculosFiltrados.length / itemsPorPagina);
+
+  const cambiarPagina = (numeroPagina) => {
+    setPaginaActual(numeroPagina);
+  };
+
   // Obtener marcas únicas para el filtro
   const marcasUnicas = [...new Set(vehiculos.map(v => v.marca))].sort();
 
@@ -317,7 +330,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
             </tr>
           </thead>
           <tbody>
-            {vehiculosFiltrados.map((vehiculo) => (
+            {vehiculosPaginados.map((vehiculo) => (
               <tr key={vehiculo.idVehiculoUsado}>
                 {/* --- CELDA DE IMAGEN AÑADIDA --- */}
                 <td className="text-center align-middle">
@@ -390,6 +403,15 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
           </tbody>
         </table>
       </div>
+
+        {/* Paginador */}
+        {totalPaginas > 1 && (
+          <Paginador
+            paginaActual={paginaActual}
+            totalPaginas={totalPaginas}
+            cambiarPagina={cambiarPagina}
+          />
+        )}
         </div>
       </div>
 

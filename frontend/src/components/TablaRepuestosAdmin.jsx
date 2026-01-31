@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Modal, Button, Form } from "react-bootstrap";
+import Paginador from "./Paginador";
 // Importar 'bootstrap.min.css' aquí si es necesario en tu proyecto
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/modalAdmin.css"; // Import styles
@@ -13,6 +14,8 @@ const TablaRepuestosAdmin = () => {
   const [loading, setLoading] = useState(false);
   const [mostrarModalImagen, setMostrarModalImagen] = useState(false);
   const [mostrarModalDescripcion, setMostrarModalDescripcion] = useState(false);
+  const [paginaActual, setPaginaActual] = useState(1);
+  const itemsPorPagina = 7;
 
   // --- ESTADO PARA FILTRO ÚNICO ---
   const [filtro, setFiltro] = useState("");
@@ -164,6 +167,16 @@ const TablaRepuestosAdmin = () => {
     return nombreMatch || marcaMatch || numeroParteMatch;
   });
 
+  // --- LÓGICA DE PAGINACIÓN ---
+  const indiceUltimo = paginaActual * itemsPorPagina;
+  const indicePrimero = indiceUltimo - itemsPorPagina;
+  const repuestosPaginados = repuestosFiltrados.slice(indicePrimero, indiceUltimo);
+  const totalPaginas = Math.ceil(repuestosFiltrados.length / itemsPorPagina);
+
+  const cambiarPagina = (numeroPagina) => {
+    setPaginaActual(numeroPagina);
+  };
+
   return (
     <>
       <div className="table-responsive p-3 rounded">
@@ -202,8 +215,8 @@ const TablaRepuestosAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {/* --- USAR LISTA FILTRADA --- */}
-            {repuestosFiltrados.map((repuesto) => (
+            {/* --- USAR LISTA FILTRADA Y PAGINADA --- */}
+            {repuestosPaginados.map((repuesto) => (
               <tr key={repuesto.idRepuesto}>
                 <td>{repuesto.idRepuesto}</td>
                 {/* --- CELDA DE IMAGEN AÑADIDA --- */}
@@ -270,6 +283,15 @@ const TablaRepuestosAdmin = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Paginador */}
+      {totalPaginas > 1 && (
+        <Paginador
+          paginaActual={paginaActual}
+          totalPaginas={totalPaginas}
+          cambiarPagina={cambiarPagina}
+        />
+      )}
 
       {/* Modal de descripción */}
       {mostrarModalDescripcion && repuestoSeleccionado && (

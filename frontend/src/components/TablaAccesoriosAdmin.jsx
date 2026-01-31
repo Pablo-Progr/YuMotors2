@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Modal, Button, Form } from "react-bootstrap";
+import Paginador from "./Paginador";
 // Importar 'bootstrap.min.css' aquí si es necesario en tu proyecto
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/modalAdmin.css"; // Import styles
@@ -13,6 +14,8 @@ const TablaAccesoriosAdmin = () => {
   const [loading, setLoading] = useState(false);
   const [mostrarModalImagen, setMostrarModalImagen] = useState(false);
   const [mostrarModalDescripcion, setMostrarModalDescripcion] = useState(false);
+  const [paginaActual, setPaginaActual] = useState(1);
+  const itemsPorPagina = 7;
 
   // --- ESTADO PARA FILTRO ÚNICO ---
   const [filtro, setFiltro] = useState("");
@@ -162,6 +165,16 @@ const TablaAccesoriosAdmin = () => {
     return nombreMatch || marcaMatch;
   });
 
+  // --- LÓGICA DE PAGINACIÓN ---
+  const indiceUltimo = paginaActual * itemsPorPagina;
+  const indicePrimero = indiceUltimo - itemsPorPagina;
+  const accesoriosPaginados = accesoriosFiltrados.slice(indicePrimero, indiceUltimo);
+  const totalPaginas = Math.ceil(accesoriosFiltrados.length / itemsPorPagina);
+
+  const cambiarPagina = (numeroPagina) => {
+    setPaginaActual(numeroPagina);
+  };
+
   return (
     <>
       <div className="table-responsive p-3 rounded">
@@ -199,8 +212,8 @@ const TablaAccesoriosAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {/* --- USAR LISTA FILTRADA --- */}
-            {accesoriosFiltrados.map((accesorio) => (
+            {/* --- USAR LISTA FILTRADA Y PAGINADA --- */}
+            {accesoriosPaginados.map((accesorio) => (
               <tr key={accesorio.idAccesorio}>
                 <td>{accesorio.idAccesorio}</td>
                 {/* --- CELDA DE IMAGEN AÑADIDA --- */}
@@ -273,6 +286,15 @@ const TablaAccesoriosAdmin = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Paginador */}
+      {totalPaginas > 1 && (
+        <Paginador
+          paginaActual={paginaActual}
+          totalPaginas={totalPaginas}
+          cambiarPagina={cambiarPagina}
+        />
+      )}
 
       {/* Modal de descripción */}
       {mostrarModalDescripcion && accesorioSeleccionado && (

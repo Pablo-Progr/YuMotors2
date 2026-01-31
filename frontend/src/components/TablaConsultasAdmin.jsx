@@ -3,11 +3,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/modalAdmin.css";
 import Swal from "sweetalert2";
 import { Modal } from "react-bootstrap"; // Import Modal
+import Paginador from "./Paginador";
 
 const TablaConsultasAdmin = () => {
   const [consultas, setConsultas] = useState([]);
   const [consultaSeleccionada, setConsultaSeleccionada] = useState(null);
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [paginaActual, setPaginaActual] = useState(1);
+  const itemsPorPagina = 7;
 
   const abrirModal = (consultas) => {
     setConsultaSeleccionada(consultas);
@@ -140,6 +143,17 @@ const TablaConsultasAdmin = () => {
     }
   };
 
+  // Calcular índices para la paginación
+  const indiceUltimo = paginaActual * itemsPorPagina;
+  const indicePrimero = indiceUltimo - itemsPorPagina;
+  const consultasPaginadas = consultas.slice(indicePrimero, indiceUltimo);
+  const totalPaginas = Math.ceil(consultas.length / itemsPorPagina);
+
+  // Función para cambiar de página
+  const cambiarPagina = (numeroPagina) => {
+    setPaginaActual(numeroPagina);
+  };
+
   return (
     <>
       <div className="table-responsive p-3 rounded">
@@ -156,7 +170,7 @@ const TablaConsultasAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {consultas.map((consultas) => (
+            {consultasPaginadas.map((consultas) => (
               <tr key={consultas.idConsulta}>
                 <td>{consultas.nombre}</td>
                 <td>{consultas.email}</td>
@@ -202,6 +216,15 @@ const TablaConsultasAdmin = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Paginador */}
+      {totalPaginas > 1 && (
+        <Paginador
+          paginaActual={paginaActual}
+          totalPaginas={totalPaginas}
+          cambiarPagina={cambiarPagina}
+        />
+      )}
 
       {mostrarModal && consultaSeleccionada && (
         <Modal

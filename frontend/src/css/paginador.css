@@ -1,0 +1,188 @@
+/* Estilos del Paginador */
+.paginador-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.paginador-controles {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-paginador {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  border: 2px solid #c8102e;
+  background: linear-gradient(135deg, #c8102e 0%, #a00d25 100%);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(200, 16, 46, 0.3);
+}
+
+.btn-paginador:hover:not(:disabled) {
+  background: linear-gradient(135deg, #e01235 0%, #c8102e 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(200, 16, 46, 0.5);
+}
+
+.btn-paginador:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(200, 16, 46, 0.4);
+}
+
+.btn-paginador:disabled {
+  background: linear-gradient(135deg, #555555 0%, #444444 100%);
+  border-color: #666666;
+  color: #999999;
+  cursor: not-allowed;
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+.btn-paginador i {
+  font-size: 1rem;
+}
+
+/* Botones específicos */
+.btn-inicio,
+.btn-final {
+  font-weight: 700;
+}
+
+.btn-salto {
+  background: linear-gradient(135deg, #8b0a1e 0%, #6a0817 100%);
+  border-color: #8b0a1e;
+}
+
+.btn-salto:hover:not(:disabled) {
+  background: linear-gradient(135deg, #a00d25 0%, #8b0a1e 100%);
+}
+
+/* Números de página */
+.numeros-pagina {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-numero {
+  min-width: 40px;
+  height: 40px;
+  padding: 0.5rem;
+  border: 2px solid #444444;
+  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-numero:hover {
+  background: linear-gradient(135deg, #3d3d3d 0%, #2d2d2d 100%);
+  border-color: #c8102e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(200, 16, 46, 0.3);
+}
+
+.btn-numero.activo {
+  background: linear-gradient(135deg, #c8102e 0%, #a00d25 100%);
+  border-color: #c8102e;
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(200, 16, 46, 0.5);
+  transform: scale(1.1);
+}
+
+.puntos-suspension {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0 0.5rem;
+  user-select: none;
+}
+
+/* Información de página */
+.paginador-info {
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  background: rgba(200, 16, 46, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(200, 16, 46, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .paginador-container {
+    padding: 1rem;
+  }
+
+  .paginador-controles {
+    gap: 0.3rem;
+  }
+
+  .btn-paginador {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.8rem;
+  }
+
+  .btn-text {
+    display: none;
+  }
+
+  .btn-paginador i {
+    font-size: 0.9rem;
+  }
+
+  .btn-numero {
+    min-width: 35px;
+    height: 35px;
+    font-size: 0.85rem;
+  }
+
+  .paginador-info {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-paginador {
+    padding: 0.4rem 0.6rem;
+  }
+
+  .btn-numero {
+    min-width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+
+  .puntos-suspension {
+    font-size: 1rem;
+    padding: 0 0.3rem;
+  }
+}
