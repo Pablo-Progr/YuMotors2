@@ -16,9 +16,21 @@ const TablaAccesoriosAdmin = () => {
   const [mostrarModalDescripcion, setMostrarModalDescripcion] = useState(false);
   const [paginaActual, setPaginaActual] = useState(1);
   const itemsPorPagina = 7;
+  const [descripcionesExpandidas, setDescripcionesExpandidas] = useState({});
+
+  const toggleDescripcion = (idAccesorio) => {
+    setDescripcionesExpandidas((prev) => ({
+      ...prev,
+      [idAccesorio]: !prev[idAccesorio],
+    }));
+  };
 
   // --- ESTADO PARA FILTRO ÚNICO ---
   const [filtro, setFiltro] = useState("");
+
+  // --- ESTADOS PARA FILTROS AVANZADOS ---
+  const [filtroMarca, setFiltroMarca] = useState("");
+  const [filtroDisponibilidad, setFiltroDisponibilidad] = useState("todos"); // todos, disponibles, sinStock
 
   // --- FORMATEADOR DE MONEDA ---
   const currencyFormatter = new Intl.NumberFormat("en-US", {
@@ -153,17 +165,44 @@ const TablaAccesoriosAdmin = () => {
   };
 
   // --- LÓGICA DE FILTRADO ---
-  const accesoriosFiltrados = accesorios.filter((accesorio) => {
-    const filtroLower = filtro.toLowerCase();
-    const nombreMatch = (accesorio.nombre || "")
-      .toLowerCase()
-      .includes(filtroLower);
-    const marcaMatch = (accesorio.marca || "")
-      .toLowerCase()
-      .includes(filtroLower);
+  const accesoriosFiltrados = accesorios
+    .filter((accesorio) => {
+      const filtroLower = filtro.toLowerCase();
+      const nombreMatch = (accesorio.nombre || "")
+        .toLowerCase()
+        .includes(filtroLower);
+      const marcaMatch = (accesorio.marca || "")
+        .toLowerCase()
+        .includes(filtroLower);
 
-    return nombreMatch || marcaMatch;
-  });
+      // Filtro por búsqueda de texto
+      const textoMatch = nombreMatch || marcaMatch;
+
+      // Filtro por marca
+      const filtroMarcaMatch =
+        filtroMarca === "" || accesorio.marca === filtroMarca;
+
+      // Filtro por disponibilidad
+      let disponibilidadMatch = true;
+      if (filtroDisponibilidad === "disponibles") {
+        disponibilidadMatch = accesorio.stock > 0;
+      } else if (filtroDisponibilidad === "sinStock") {
+        disponibilidadMatch = accesorio.stock === 0;
+      }
+
+      return textoMatch && filtroMarcaMatch && disponibilidadMatch;
+    })
+    .sort((a, b) => {
+      // Ordenar: con stock primero, sin stock al final
+      if (a.stock === 0 && b.stock > 0) return 1;
+      if (a.stock > 0 && b.stock === 0) return -1;
+      return 0;
+    });
+
+  // Obtener marcas únicas para el filtro
+  const marcasUnicas = [...new Set(accesorios.map((a) => a.marca))]
+    .filter(Boolean)
+    .sort();
 
   // --- LÓGICA DE PAGINACIÓN ---
   const indiceUltimo = paginaActual * itemsPorPagina;
@@ -181,21 +220,69 @@ const TablaAccesoriosAdmin = () => {
   return (
     <>
       <div className="table-responsive p-3 rounded">
-        {/* --- INPUT DE FILTRO ÚNICO --- */}
+        {/* --- FILTROS --- */}
         <div className="row mb-3">
-          <div className="col-md-6">
+          <div className="col-md-3">
             <Form.Group>
               <Form.Label className="text-white">
-                <i className="bi bi-search me-2"></i>Buscar por Nombre o Marca
+                <i className="bi bi-search me-2"></i>Buscar
               </Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Escribe para filtrar..."
+                placeholder="Nombre o Marca"
                 value={filtro}
                 onChange={(e) => setFiltro(e.target.value)}
                 className="bg-secondary text-white border-secondary"
               />
             </Form.Group>
+          </div>
+          <div className="col-md-2">
+            <Form.Group>
+              <Form.Label className="text-white">
+                <i className="bi bi-tag me-2"></i>Marca
+              </Form.Label>
+              <Form.Select
+                value={filtroMarca}
+                onChange={(e) => setFiltroMarca(e.target.value)}
+                className="bg-secondary text-white border-secondary"
+              >
+                <option value="">Todas</option>
+                {marcasUnicas.map((marca) => (
+                  <option key={marca} value={marca}>
+                    {marca}
+                  </option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+          </div>
+          <div className="col-md-3">
+            <Form.Group>
+              <Form.Label className="text-white">
+                <i className="bi bi-box-seam me-2"></i>Disponibilidad
+              </Form.Label>
+              <Form.Select
+                value={filtroDisponibilidad}
+                onChange={(e) => setFiltroDisponibilidad(e.target.value)}
+                className="bg-secondary text-white border-secondary"
+              >
+                <option value="todos">Todos</option>
+                <option value="disponibles">Con Stock</option>
+                <option value="sinStock">Sin Stock</option>
+              </Form.Select>
+            </Form.Group>
+          </div>
+          <div className="col-md-2 d-flex align-items-end">
+            <Button
+              variant="outline-light"
+              onClick={() => {
+                setFiltro("");
+                setFiltroMarca("");
+                setFiltroDisponibilidad("todos");
+              }}
+              className="w-100"
+            >
+              <i className="bi bi-arrow-counterclockwise me-2"></i>Limpiar
+            </Button>
           </div>
         </div>
         {/* --------------------------- */}
@@ -216,75 +303,101 @@ const TablaAccesoriosAdmin = () => {
           </thead>
           <tbody>
             {/* --- USAR LISTA FILTRADA Y PAGINADA --- */}
-            {accesoriosPaginados.map((accesorio) => (
-              <tr key={accesorio.idAccesorio}>
-                <td>{accesorio.idAccesorio}</td>
-                {/* --- CELDA DE IMAGEN AÑADIDA --- */}
-                <td className="text-center align-middle">
-                  <button
-                    className="btn btn-sm  me-2"
-                    onClick={() => abrirModalImagen(accesorio)}
-                    title="Ver imagen"
-                  >
-                    <img
-                      src={accesorio.imagen || "invalid-url"}
-                      alt={accesorio.nombre}
-                      className="rounded"
+            {accesoriosPaginados.map((accesorio) => {
+              const descripcionExpandida =
+                descripcionesExpandidas[accesorio.idAccesorio];
+              const descripcionCorta = accesorio.descripcion?.substring(0, 30);
+              const necesitaExpansion = accesorio.descripcion?.length > 30;
+
+              return (
+                <tr key={accesorio.idAccesorio}>
+                  <td>{accesorio.idAccesorio}</td>
+                  {/* --- CELDA DE IMAGEN AÑADIDA --- */}
+                  <td className="text-center align-middle">
+                    <button
+                      className="btn btn-sm  me-2"
+                      onClick={() => abrirModalImagen(accesorio)}
+                      title="Ver imagen"
+                    >
+                      <img
+                        src={accesorio.imagen || "invalid-url"}
+                        alt={accesorio.nombre}
+                        className="rounded"
+                        style={{
+                          width: "80px",
+                          height: "60px",
+                          objectFit: "cover",
+                          border: "1px solid #495057",
+                        }}
+                        onError={(e) => {
+                          e.currentTarget.src =
+                            "https://placehold.co/80x60/495057/dee2e6?text=Sin+Foto";
+                          e.currentTarget.onerror = null;
+                        }}
+                      />
+                    </button>
+                  </td>
+                  {/* ----------------------------- */}
+                  <td>{accesorio.nombre}</td>
+                  <td>{accesorio.marca}</td>
+                  <td style={{ maxWidth: "300px" }}>
+                    <div
                       style={{
-                        width: "80px",
-                        height: "60px",
-                        objectFit: "cover",
-                        border: "1px solid #495057",
+                        wordWrap: "break-word",
+                        whiteSpace: descripcionExpandida
+                          ? "pre-wrap"
+                          : "normal",
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: "8px",
                       }}
-                      onError={(e) => {
-                        e.currentTarget.src =
-                          "https://placehold.co/80x60/495057/dee2e6?text=Sin+Foto";
-                        e.currentTarget.onerror = null;
-                      }}
-                    />
-                  </button>
-                </td>
-                {/* ----------------------------- */}
-                <td>{accesorio.nombre}</td>
-                <td>{accesorio.marca}</td>
-                <td className="text-center">
-                  {accesorio.descripcion ? (
+                    >
+                      {necesitaExpansion ? (
+                        <>
+                          <span style={{ flex: 1 }}>
+                            {descripcionExpandida
+                              ? accesorio.descripcion
+                              : descripcionCorta + "..."}
+                          </span>
+                          <button
+                            className="btn btn-sm btn-link text-white p-0"
+                            onClick={() =>
+                              toggleDescripcion(accesorio.idAccesorio)
+                            }
+                            title={
+                              descripcionExpandida ? "Contraer" : "Expandir"
+                            }
+                            style={{ flexShrink: 0 }}
+                          >
+                            <i
+                              className={`bi bi-chevron-${descripcionExpandida ? "up" : "down"}`}
+                            ></i>
+                          </button>
+                        </>
+                      ) : (
+                        <span>
+                          {accesorio.descripcion || "Sin descripción"}
+                        </span>
+                      )}
+                    </div>
+                  </td>
+                  {/* --- PRECIO FORMATEADO --- */}
+                  <td>
+                    {currencyFormatter.format(parseFloat(accesorio.precio))}
+                  </td>
+                  <td>{accesorio.stock}</td>
+                  <td className="text-end">
                     <button
                       className="btn btn-sm btn-outline-light"
-                      onClick={() => abrirModalDescripcion(accesorio)}
-                      title="Ver descripción completa"
+                      onClick={() => abrirModal(accesorio)}
+                      title="Editar"
                     >
-                      <i className="bi bi-eye"></i>
+                      <i className="bi bi-pencil"></i>
                     </button>
-                  ) : (
-                    <span className="text-muted">N/A</span>
-                  )}
-                </td>
-                {/* --- PRECIO FORMATEADO --- */}
-                <td>
-                  {currencyFormatter.format(parseFloat(accesorio.precio))}
-                </td>
-                <td>{accesorio.stock}</td>
-                <td className="text-end">
-                  <button
-                    className="btn btn-sm btn-outline-light me-2"
-                    onClick={() => abrirModal(accesorio)}
-                    title="Editar"
-                  >
-                    <i className="bi bi-pencil"></i>
-                  </button>
-                  <button
-                    className="btn btn-sm btn-outline-danger"
-                    onClick={() =>
-                      handleEliminarAccesorio(accesorio.idAccesorio)
-                    }
-                    title="Eliminar"
-                  >
-                    <i className="bi bi-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
