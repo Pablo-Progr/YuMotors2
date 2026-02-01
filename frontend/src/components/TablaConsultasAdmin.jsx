@@ -131,7 +131,7 @@ const TablaConsultasAdmin = () => {
           <div className="col-md-3">
             <Form.Group>
               <Form.Label className="text-white">
-                <i className="bi bi-funnel me-2"></i>Estado
+                <i className="bi bi-funnel me-2"></i>Estado de consultas
               </Form.Label>
               <Form.Select
                 value={filtroEstado}

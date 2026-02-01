@@ -340,6 +340,11 @@ const TablaAccesoriosAdmin = () => {
                   {/* ----------------------------- */}
                   <td>{accesorio.nombre}</td>
                   <td>{accesorio.marca}</td>
+                  {/* --- PRECIO FORMATEADO --- */}
+                  <td>
+                    {currencyFormatter.format(parseFloat(accesorio.precio))}
+                  </td>
+                  <td>{accesorio.stock}</td>
                   <td style={{ maxWidth: "300px" }}>
                     <div
                       style={{
@@ -381,11 +386,6 @@ const TablaAccesoriosAdmin = () => {
                       )}
                     </div>
                   </td>
-                  {/* --- PRECIO FORMATEADO --- */}
-                  <td>
-                    {currencyFormatter.format(parseFloat(accesorio.precio))}
-                  </td>
-                  <td>{accesorio.stock}</td>
                   <td className="text-end">
                     <button
                       className="btn btn-sm btn-outline-light"
