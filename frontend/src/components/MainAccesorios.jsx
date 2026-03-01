@@ -13,7 +13,7 @@ const MainAccesorios = () => {
     const fetchAccesorios = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/accesorios/accesorios"
+          "http://localhost:3000/api/accesorios/accesorios",
         );
         setAccesorios(response.data);
       } catch (error) {
@@ -24,7 +24,7 @@ const MainAccesorios = () => {
     const fetchTopAccesorios = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/metricas/productos-mas-vendidos"
+          "http://localhost:3000/api/metricas/productos-mas-vendidos",
         );
         // Tomamos solo los 3 primeros accesorios más vendidos
         setTopAccesorios(response.data.data.slice(0, 3));
@@ -157,7 +157,7 @@ const MainAccesorios = () => {
               <div className="body-card-accesorios">
                 <h5 className="titulo-card-accesorios">{accesorio.nombre}</h5>
                 <p className="precio-card-accesorios">{`ARS $${formatPrice(
-                  accesorio.precio
+                  accesorio.precio,
                 )}`}</p>
                 <button
                   onClick={() => openModal(accesorio)}

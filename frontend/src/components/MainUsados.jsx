@@ -12,7 +12,7 @@ const MainUsados = () => {
     const fetchVehiculos = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/vehiculos-usados"
+          "http://localhost:3000/api/vehiculos-usados",
         );
         setVehiculos(response.data);
       } catch (error) {
@@ -60,7 +60,7 @@ const MainUsados = () => {
               <div className="card-usados-body">
                 <h5 className="card-usados-title">{`${vehiculo.marca} ${vehiculo.modelo}`}</h5>
                 <p className="card-usados-text">{`ARS $${formatPrice(
-                  vehiculo.precio
+                  vehiculo.precio,
                 )}`}</p>
                 <button
                   onClick={() => openModal(vehiculo)}
