@@ -27,6 +27,7 @@ import Contanto from "./pages/Contanto";
 import PosventaUser from "./pages/PosventaUser";
 import VehiculoDetalle from "./pages/VehiculoDetalle";
 import RegistrosPosventaUser from "./pages/RegistrosPosventaUser";
+import Carrito from "./pages/Carrito";
 
 
 function App() {
@@ -53,6 +54,14 @@ function App() {
           <Route path="/posventa" element={<PosventaUser />} />
           <Route path="/posventa/vehiculo/:id" element={<VehiculoDetalle />} />
           <Route path="/posventa/registros/:id" element={<RegistrosPosventaUser />} />
+          <Route
+            path="/carrito"
+            element={
+              <ProtectedRoute>
+                <Carrito />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Rutas protegidas para administradores */}
           <Route

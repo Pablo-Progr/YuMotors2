@@ -53,45 +53,7 @@ const TablaAccesoriosAdmin = () => {
     fetchAccesorios();
   }, []);
 
-  const handleEliminarAccesorio = async (id) => {
-    // --- CONFIRMACIÓN AÑADIDA ---
-    const result = await Swal.fire({
-      title: "¿Estás seguro?",
-      text: "Se eliminará el accesorio y todos sus registros de ventas asociados",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, eliminar",
-      cancelButtonText: "Cancelar",
-    });
-
-    if (result.isConfirmed) {
-      try {
-        await axios.delete(
-          `http://localhost:3000/api/accesorios/eliminar/${id}`,
-        );
-        setAccesorios(
-          accesorios.filter((accesorio) => accesorio.idAccesorio !== id),
-        );
-        Swal.fire({
-          icon: "success",
-          title: "Accesorio eliminado",
-          text: "El accesorio y sus ventas asociadas fueron eliminados",
-          timer: 2000,
-          showConfirmButton: false,
-        });
-      } catch (error) {
-        console.error("Error deleting accesorio:", error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "No se pudo eliminar el accesorio. Inténtalo de nuevo.",
-        });
-      }
-    }
-  };
-
+  
   const abrirModal = (accesorio) => {
     setAccesorioSeleccionado(accesorio);
     setMostrarModal(true);
@@ -110,11 +72,6 @@ const TablaAccesoriosAdmin = () => {
   const cerrarModalImagen = () => {
     setAccesorioSeleccionado(null);
     setMostrarModalImagen(false);
-  };
-
-  const abrirModalDescripcion = (accesorio) => {
-    setAccesorioSeleccionado(accesorio);
-    setMostrarModalDescripcion(true);
   };
 
   const cerrarModalDescripcion = () => {

@@ -17,6 +17,14 @@ const solicitarRecuperacion = async (req, res) => {
     });
   }
 
+  // Verificar si el servicio de email está configurado
+  if (!transporter) {
+    return res.status(503).json({
+      success: false,
+      message: 'El servicio de correo no está disponible. Por favor, contacta al administrador.'
+    });
+  }
+
   try {
     // Verificar si el correo existe en la BD
     const query = 'SELECT * FROM usuarios WHERE mail = ?';

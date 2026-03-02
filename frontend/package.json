@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^4.3.2",
     "axios": "^1.13.2",
     "bootstrap": "^5.3.8",
     "chart.js": "^4.5.1",
+    "file-saver": "^2.0.5",
     "react": "^19.1.1",
     "react-bootstrap": "^2.10.10",
     "react-chartjs-2": "^5.3.1",

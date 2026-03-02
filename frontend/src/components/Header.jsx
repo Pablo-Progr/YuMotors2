@@ -1,13 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logoBlancoRojo from "../img/yumotors-rojo-blanco.png";
+import useCartStore from "../store/cartStore";
+import useAuthStore from "../store/authStore";
 import "../css/header.css";
 
 const Header = () => {
   const [showModelos, setShowModelos] = useState(false);
+  const [showProductos, setShowProductos] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const userMenuRef = useRef(null);
+  const totalItems = useCartStore((state) => state.getTotalItems());
+  const { isAuthenticated, user, logout } = useAuthStore();
+  const navigate = useNavigate();
 
-  const toggleModelos = () => setShowModelos(!showModelos);
+  const toggleModelos = () => { setShowModelos(!showModelos); setShowProductos(false); };
+  const toggleProductos = () => { setShowProductos(!showProductos); setShowModelos(false); };
   const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  const handleLogout = () => {
+    logout();
+    setShowUserMenu(false);
+    navigate("/");
+  };
+
+  // Cerrar el menú de usuario al hacer click fuera
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setShowUserMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <>
@@ -37,10 +64,78 @@ const Header = () => {
             Modelos
           </button>
           <a className="nav-link" href="/usados">Usados</a>
-          <a className="nav-link" href="/accesorios">Accesorios</a>
-          <a className="nav-link" href="/repuestos">Repuestos</a>
+
+          {/* Dropdown Productos */}
+          <div className="productos-dropdown-wrapper">
+            <button
+              className="nav-link modelos-btn"
+              onClick={toggleProductos}
+              aria-expanded={showProductos}
+            >
+              Productos
+            </button>
+            {showProductos && (
+              <div className="productos-dropdown-menu">
+                <a href="/repuestos" onClick={() => setShowProductos(false)}>Repuestos</a>
+                <a href="/accesorios" onClick={() => setShowProductos(false)}>Accesorios</a>
+              </div>
+            )}
+          </div>
+
           <a className="nav-link" href="/concesionario">Concesionario</a>
           <a className="nav-link" href="/posventa">Post Venta</a>
+
+          {isAuthenticated ? (
+            <>
+              {/* Icono de carrito */}
+              <Link to="/carrito" className="nav-link cart-icon-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                  className="cart-icon-svg">
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                {totalItems > 0 && (
+                  <span className="cart-badge">{totalItems}</span>
+                )}
+              </Link>
+
+              {/* Usuario logueado con dropdown */}
+              <div className="user-dropdown-wrapper" ref={userMenuRef}>
+                <button
+                  className="nav-user-info"
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                  <span className="nav-user-name">Hola, {user?.nombre}</span>
+                </button>
+                {showUserMenu && (
+                  <div className="user-dropdown-menu">
+                    <button className="user-dropdown-item" onClick={handleLogout}>
+                      Salir
+                    </button>
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            /* No logueado: mostrar links de sesión */
+            <div className="nav-auth-links">
+              <Link to="/login" className="nav-link nav-link-login">
+                Iniciar Sesión
+              </Link>
+              <Link to="/login" state={{ vista: "register" }} className="nav-link-register">
+                Registrarse
+              </Link>
+            </div>
+          )}
         </nav>
       </div>
 

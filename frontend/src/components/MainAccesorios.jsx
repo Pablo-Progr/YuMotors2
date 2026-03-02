@@ -1,13 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../css/accesorios.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import useCartStore from "../store/cartStore";
+import useAuthStore from "../store/authStore";
 
 const MainAccesorios = () => {
   const [accesorios, setAccesorios] = useState([]);
   const [topAccesorios, setTopAccesorios] = useState([]);
   const [selectedAccesorio, setSelectedAccesorio] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [cantidad, setCantidad] = useState(0);
+  const [addedToCart, setAddedToCart] = useState(false);
+  const addItem = useCartStore((state) => state.addItem);
+  const { isAuthenticated } = useAuthStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAccesorios = async () => {
@@ -47,6 +54,8 @@ const MainAccesorios = () => {
   // Función para abrir el modal
   const openModal = (accesorio) => {
     setSelectedAccesorio(accesorio);
+    setCantidad(0);
+    setAddedToCart(false);
     setShowModal(true);
   };
 
@@ -54,6 +63,30 @@ const MainAccesorios = () => {
   const closeModal = () => {
     setShowModal(false);
     setSelectedAccesorio(null);
+    setCantidad(0);
+    setAddedToCart(false);
+  };
+
+  // Funciones de cantidad
+  const incrementarCantidad = () => setCantidad((prev) => prev + 1);
+  const decrementarCantidad = () => setCantidad((prev) => (prev > 0 ? prev - 1 : 0));
+
+  // Agregar al carrito
+  const handleAddToCart = () => {
+    if (!isAuthenticated) {
+      closeModal();
+      navigate("/login");
+      return;
+    }
+    if (cantidad > 0 && selectedAccesorio) {
+      addItem(selectedAccesorio, "accesorio", cantidad);
+      setAddedToCart(true);
+      setTimeout(() => {
+        setAddedToCart(false);
+        closeModal();
+      }, 800);
+      setCantidad(0);
+    }
   };
 
   return (
@@ -221,12 +254,32 @@ const MainAccesorios = () => {
                   </div>
                 </div>
 
-                <Link
-                  to="/contacto"
-                  className="btn-modal-contacto-accesorios text-center"
-                >
-                  Consultar disponibilidad
-                </Link>
+                {/* Agregar al carrito */}
+                <div className="modal-cart-section">
+                  <label className="cart-section-label">Agregar al carrito:</label>
+                  <div className="modal-cart-controls">
+                    <div className="modal-qty-controls">
+                      <button
+                        className="modal-qty-btn"
+                        onClick={decrementarCantidad}
+                        disabled={cantidad === 0}
+                      >
+                        -
+                      </button>
+                      <span className="modal-qty-value">{cantidad}</span>
+                      <button className="modal-qty-btn" onClick={incrementarCantidad}>
+                        +
+                      </button>
+                    </div>
+                    <button
+                      className={`btn-add-cart ${addedToCart ? "added" : ""}`}
+                      onClick={handleAddToCart}
+                      disabled={cantidad === 0}
+                    >
+                      {addedToCart ? "Agregado ✓" : "Agregar al carrito"}
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

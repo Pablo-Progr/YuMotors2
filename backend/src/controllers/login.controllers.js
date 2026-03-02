@@ -9,15 +9,15 @@ const loginUser = async (req, res) => {
   if (!nombre || !password) {
     return res.status(400).json({
       success: false,
-      message: 'Nombre y contraseña son requeridos'
+      message: 'Nombre/mail y contraseña son requeridos'
     });
   }
 
   try {
-    // Buscar usuario por nombre
-    const query = 'SELECT * FROM usuarios WHERE nombre = ?';
+    // Buscar usuario por nombre O por mail
+    const query = 'SELECT * FROM usuarios WHERE nombre = ? OR mail = ?';
 
-    db.query(query, [nombre], (error, results) => {
+    db.query(query, [nombre, nombre], (error, results) => {
       if (error) {
         console.error('Error en la consulta:', error);
         return res.status(500).json({
@@ -79,88 +79,59 @@ const loginUser = async (req, res) => {
 const registerUser = async (req, res) => {
   console.log('Body recibido:', req.body); // Debug: ver qué llega
   
-  const { nombre, mail, password, idRol } = req.body;
+  const { nombre, mail, password } = req.body;
+  const idRol = 2; // Siempre rol de usuario normal
 
   // Validar campos requeridos
-  if (!nombre || !mail|| !password || !idRol) {
-    console.log('Campos faltantes - nombre:', nombre, 'mail:', mail, 'password:', password ? 'presente' : 'ausente', 'idRol:', idRol);
+  if (!nombre || !mail || !password) {
     return res.status(400).json({
       success: false,
-      message: 'Nombre, contraseña e idRol son requeridos'
+      message: 'Nombre, mail y contraseña son requeridos'
     });
   }
 
-  console.log('Datos a registrar:', { nombre, idRol }); // No mostrar password
-
   try {
-    // Verificar si el nombre ya existe
-    const checkQuery = 'SELECT * FROM usuarios WHERE mail = ? ';
-    
+    // Verificar si el mail ya existe
+    const checkQuery = 'SELECT * FROM usuarios WHERE mail = ? OR nombre = ?';
+
     db.query(checkQuery, [mail, nombre], (error, results) => {
       if (error) {
-        console.error('Error verificando mail:', error);
-        return res.status(500).json({
-          success: false,
-          message: 'Error en el servidor'
-        });
+        console.error('Error verificando usuario:', error);
+        return res.status(500).json({ success: false, message: 'Error en el servidor' });
       }
 
       if (results.length > 0) {
-        console.log('Usuario ya existe:', mail);
         return res.status(400).json({
           success: false,
-          message: 'El nombre de usuario ya está registrado'
+          message: 'El nombre de usuario o email ya está registrado'
         });
       }
 
-      // Hashear la contraseña antes de guardar
       bcrypt.hash(password, 10, (err, hashedPassword) => {
         if (err) {
           console.error('Error hasheando contraseña:', err);
-          return res.status(500).json({
-            success: false,
-            message: 'Error en el servidor'
-          });
+          return res.status(500).json({ success: false, message: 'Error en el servidor' });
         }
 
-        console.log('Password hasheado correctamente');
-
-        // Insertar nuevo usuario con contraseña hasheada
         const insertQuery = 'INSERT INTO usuarios (nombre, mail, pass, idRol) VALUES (?, ?, ?, ?)';
-
-        console.log('Ejecutando INSERT con idRol:', idRol);
 
         db.query(insertQuery, [nombre, mail, hashedPassword, idRol], (error, result) => {
           if (error) {
             console.error('Error registrando usuario:', error);
-            console.error('SQL State:', error.sqlState);
-            console.error('SQL Message:', error.sqlMessage);
-            return res.status(500).json({
-              success: false,
-              message: 'Error al registrar usuario: ' + error.sqlMessage
-            });
+            return res.status(500).json({ success: false, message: 'Error al registrar usuario: ' + error.sqlMessage });
           }
-
-          console.log('Usuario registrado exitosamente:', result.insertId);
 
           res.status(201).json({
             success: true,
             message: 'Usuario registrado exitosamente',
-            data: {
-              id: result.insertId,
-              nombre,
-              idRol: idRol
-            }
+            data: { id: result.insertId, nombre, idRol }
           });
         });
       });
     });
   } catch (error) {
     console.error('Error en registro:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Error en el servidor'
-    });
+    res.status(500).json({ success: false, message: 'Error en el servidor' });
   }
 };
 

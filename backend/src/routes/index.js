@@ -11,6 +11,7 @@ const vehPosventaRoutes = require('./vehPosventa.routes');
 const regPosventaRoutes = require('./regPosventa.routes');
 const signInPosventaRoutes = require('./signInPosventa.routes');
 const regPosventaUserRoutes = require('./regPosventaUser.routes');
+const carritoRoutes = require('./carrito.routes');
 
 const router = express.Router();
 
@@ -26,5 +27,5 @@ router.use('/veh-posventa', vehPosventaRoutes);
 router.use('/reg-posventa', regPosventaRoutes);
 router.use('/signin-posventa', signInPosventaRoutes);
 router.use('/reg-posventa-user', regPosventaUserRoutes);
-
+router.use('/carrito', carritoRoutes);
 module.exports = router;

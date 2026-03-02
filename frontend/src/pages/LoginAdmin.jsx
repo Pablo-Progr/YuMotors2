@@ -1,143 +1,164 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import useAuthStore from "../store/authStore";
 import Swal from "sweetalert2";
-import "../css/LoginAdmin.css"; // Estilos personalizados
+import "../css/LoginAdmin.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logoBlancoRojo from "../img/yumotors-rojo-blanco.png";
 
 const LoginAdmin = () => {
-  const [nombre, setNombre] = useState("");
+  // Vista activa: "login" | "recovery" | "register"
+  const [vista, setVista] = useState("login");
+
+  // Login
+  const [credencial, setCredencial] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showRecovery, setShowRecovery] = useState(false);
+
+  // Recuperación
   const [recoveryEmail, setRecoveryEmail] = useState("");
   const [loadingRecovery, setLoadingRecovery] = useState(false);
 
+  // Registro
+  const [regNombre, setRegNombre] = useState("");
+  const [regMail, setRegMail] = useState("");
+  const [regPassword, setRegPassword] = useState("");
+  const [regPassword2, setRegPassword2] = useState("");
+  const [loadingRegister, setLoadingRegister] = useState(false);
+
   const navigate = useNavigate();
+  const location = useLocation();
   const login = useAuthStore((state) => state.login);
 
+  // Si se navega desde Header con state { vista: "register" }, abrir registro directamente
+  useEffect(() => {
+    if (location.state?.vista) {
+      setVista(location.state.vista);
+    }
+  }, [location.state]);
+
+  // ─── LOGIN ───────────────────────────────────────────────
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const response = await fetch("http://localhost:3000/api/admin/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ nombre, password }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre: credencial, password }),
       });
-
       const data = await response.json();
 
       if (response.ok && data.success) {
-        // Guardar datos del usuario en Zustand
         login(data.data);
-
-        // Mostrar mensaje de éxito
         await Swal.fire({
           icon: "success",
-          title: "Login exitoso",
-          text: `Bienvenido ${data.data.nombre}`,
+          title: "¡Bienvenido!",
+          text: `Hola, ${data.data.nombre}`,
           timer: 1500,
           showConfirmButton: false,
         });
-
-        // Redireccionar según el rol
         if (data.data.idRol === 1) {
           navigate("/admin");
         } else {
           navigate("/");
         }
       } else {
-        // Mostrar error
         Swal.fire({
           icon: "error",
           title: "Error",
           text: data.message || "Credenciales inválidas",
+          confirmButtonColor: "#c8102e",
         });
       }
-    } catch (error) {
-      console.error("Error en login:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Error al conectar con el servidor",
-      });
+    } catch {
+      Swal.fire({ icon: "error", title: "Error", text: "Error al conectar con el servidor", confirmButtonColor: "#c8102e" });
     } finally {
       setLoading(false);
     }
   };
 
+  // ─── RECUPERACIÓN ────────────────────────────────────────
   const handleRecoverySubmit = async (e) => {
     e.preventDefault();
     setLoadingRecovery(true);
-
     try {
       const response = await fetch("http://localhost:3000/api/password-recovery/request", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mail: recoveryEmail }),
       });
-
       const data = await response.json();
-
       if (response.ok && data.success) {
-        await Swal.fire({
-          icon: "success",
-          title: "Correo Enviado",
-          text: data.message,
-          confirmButtonColor: "#d32f2f",
-        });
-        setShowRecovery(false);
+        await Swal.fire({ icon: "success", title: "Correo Enviado", text: data.message, confirmButtonColor: "#c8102e" });
+        setVista("login");
         setRecoveryEmail("");
       } else {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: data.message || "No se pudo enviar el correo",
-          confirmButtonColor: "#d32f2f",
-        });
+        Swal.fire({ icon: "error", title: "Error", text: data.message || "No se pudo enviar el correo", confirmButtonColor: "#c8102e" });
       }
-    } catch (error) {
-      console.error("Error en recuperación:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Error al conectar con el servidor",
-        confirmButtonColor: "#d32f2f",
-      });
+    } catch {
+      Swal.fire({ icon: "error", title: "Error", text: "Error al conectar con el servidor", confirmButtonColor: "#c8102e" });
     } finally {
       setLoadingRecovery(false);
     }
   };
 
+  // ─── REGISTRO ────────────────────────────────────────────
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+    if (regPassword !== regPassword2) {
+      return Swal.fire({ icon: "error", title: "Error", text: "Las contraseñas no coinciden", confirmButtonColor: "#c8102e" });
+    }
+    setLoadingRegister(true);
+    try {
+      const response = await fetch("http://localhost:3000/api/admin/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre: regNombre, mail: regMail, password: regPassword }),
+      });
+      const data = await response.json();
+      if (response.ok && data.success) {
+        await Swal.fire({ icon: "success", title: "¡Cuenta creada!", text: "Ya podés iniciar sesión.", confirmButtonColor: "#c8102e" });
+        setVista("login");
+        setRegNombre(""); setRegMail(""); setRegPassword(""); setRegPassword2("");
+      } else {
+        Swal.fire({ icon: "error", title: "Error", text: data.message || "Error al registrarse", confirmButtonColor: "#c8102e" });
+      }
+    } catch {
+      Swal.fire({ icon: "error", title: "Error", text: "Error al conectar con el servidor", confirmButtonColor: "#c8102e" });
+    } finally {
+      setLoadingRegister(false);
+    }
+  };
+
+  // ─── Títulos según vista ──────────────────────────────────
+  const titulos = {
+    login:    { h2: "Iniciar Sesión", sub: "Accedé a tu cuenta para usar el carrito." },
+    recovery: { h2: "Recuperar Contraseña", sub: "Te enviaremos un enlace a tu correo." },
+    register: { h2: "Crear Cuenta", sub: "Completá los datos para registrarte." },
+  };
+
   return (
     <div className="background-login d-flex justify-content-center align-items-center vh-100">
-      <div className="login-container d-flex flex-column justify-content-center align-items-center ">
+      <div className="login-container d-flex flex-column justify-content-center align-items-center">
         <div className="text-center d-flex flex-column justify-content-start align-items-center mb-4">
           <div className="mb-3">
             <img className="nav-logo" src={logoBlancoRojo} alt="Yu Motors" />
-          </div>    
-          <h2 className="text-white mb-2">Acceso para Administradores</h2>
-          <p className="text-light mb-4">
-            Inicia sesión para gestionar el concesionario.
-          </p>
+          </div>
+          <h2 className="text-white mb-2">{titulos[vista].h2}</h2>
+          <p className="text-light mb-4">{titulos[vista].sub}</p>
         </div>
 
-        {!showRecovery ? (
+        {/* ── FORMULARIO LOGIN ── */}
+        {vista === "login" && (
           <>
             <form onSubmit={handleSubmit} className="w-50 mb-3">
               <input
                 type="text"
                 className="mb-3 input-custom"
-                placeholder="Nombre de Usuario"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
+                placeholder="Nombre de usuario o Email"
+                value={credencial}
+                onChange={(e) => setCredencial(e.target.value)}
                 required
               />
               <input
@@ -148,28 +169,27 @@ const LoginAdmin = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <button
-                type="submit"
-                className="boton-inicio-sesion btn w-100 mb-2"
-                disabled={loading}
-              >
+              <button type="submit" className="boton-inicio-sesion btn w-100 mb-2" disabled={loading}>
                 {loading ? "Iniciando..." : "Iniciar Sesión"}
               </button>
             </form>
-            <button
-              className="btn btn-link text-white"
-              onClick={() => setShowRecovery(true)}
-              style={{ textDecoration: "underline", fontSize: "14px" }}
-            >
+            <button className="btn btn-link text-white" onClick={() => setVista("recovery")}
+              style={{ textDecoration: "underline", fontSize: "14px" }}>
               ¿Olvidaste tu contraseña?
             </button>
+            <button className="btn btn-link text-white" onClick={() => setVista("register")}
+              style={{ textDecoration: "underline", fontSize: "14px" }}>
+              ¿No tenés cuenta? Registrate
+            </button>
           </>
-        ) : (
+        )}
+
+        {/* ── FORMULARIO RECUPERACIÓN ── */}
+        {vista === "recovery" && (
           <>
             <form onSubmit={handleRecoverySubmit} className="w-50 mb-3">
-              <h5 className="text-white mb-3">Recuperar Contraseña</h5>
               <p className="text-light mb-3" style={{ fontSize: "14px" }}>
-                Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.
+                Ingresá tu correo y te enviaremos el enlace para restablecer tu contraseña.
               </p>
               <input
                 type="email"
@@ -179,27 +199,63 @@ const LoginAdmin = () => {
                 onChange={(e) => setRecoveryEmail(e.target.value)}
                 required
               />
-              <button
-                type="submit"
-                className="boton-inicio-sesion btn w-100 mb-2"
-                disabled={loadingRecovery}
-              >
+              <button type="submit" className="boton-inicio-sesion btn w-100 mb-2" disabled={loadingRecovery}>
                 {loadingRecovery ? "Enviando..." : "Enviar"}
               </button>
             </form>
-            <button
-              className="btn btn-link text-white"
-              onClick={() => {
-                setShowRecovery(false);
-                setRecoveryEmail("");
-              }}
-              style={{ textDecoration: "underline", fontSize: "14px" }}
-            >
+            <button className="btn btn-link text-white" onClick={() => setVista("login")}
+              style={{ textDecoration: "underline", fontSize: "14px" }}>
               Volver al inicio de sesión
             </button>
           </>
         )}
-        
+
+        {/* ── FORMULARIO REGISTRO ── */}
+        {vista === "register" && (
+          <>
+            <form onSubmit={handleRegisterSubmit} className="w-50 mb-3">
+              <input
+                type="text"
+                className="mb-3 input-custom"
+                placeholder="Nombre de usuario"
+                value={regNombre}
+                onChange={(e) => setRegNombre(e.target.value)}
+                required
+              />
+              <input
+                type="email"
+                className="mb-3 input-custom"
+                placeholder="Correo Electrónico"
+                value={regMail}
+                onChange={(e) => setRegMail(e.target.value)}
+                required
+              />
+              <input
+                type="password"
+                className="mb-3 input-custom"
+                placeholder="Contraseña"
+                value={regPassword}
+                onChange={(e) => setRegPassword(e.target.value)}
+                required
+              />
+              <input
+                type="password"
+                className="mb-3 input-custom"
+                placeholder="Repetir Contraseña"
+                value={regPassword2}
+                onChange={(e) => setRegPassword2(e.target.value)}
+                required
+              />
+              <button type="submit" className="boton-inicio-sesion btn w-100 mb-2" disabled={loadingRegister}>
+                {loadingRegister ? "Creando cuenta..." : "Crear Cuenta"}
+              </button>
+            </form>
+            <button className="btn btn-link text-white" onClick={() => setVista("login")}
+              style={{ textDecoration: "underline", fontSize: "14px" }}>
+              ¿Ya tenés cuenta? Iniciá sesión
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
