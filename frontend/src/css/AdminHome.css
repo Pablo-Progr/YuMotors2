@@ -20,6 +20,71 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
+.btn-home {
+  background-color: transparent;
+  border: 2px solid #3498db;
+  color: #3498db;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  position: relative;
+}
+
+.btn-home::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 0.5rem;
+  padding: 3px;
+  background: linear-gradient(
+    var(--angle-home),
+    transparent 0%,
+    transparent 30%,
+    rgba(52, 152, 219, 1) 50%,
+    transparent 70%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.btn-home:hover::before {
+  opacity: 1;
+  animation: rotateHomeBorder 2s linear infinite;
+}
+
+@keyframes rotateHomeBorder {
+  0% {
+    --angle-home: 0deg;
+  }
+  100% {
+    --angle-home: 360deg;
+  }
+}
+
+@property --angle-home {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.btn-home:hover {
+  background-color: #3498db;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
 .btn-logout {
   background-color: transparent;
   border: 2px solid #e74c3c;
@@ -32,6 +97,50 @@
   display: flex;
   align-items: center;
   white-space: nowrap;
+  position: relative;
+}
+
+.btn-logout::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 0.5rem;
+  padding: 3px;
+  background: linear-gradient(
+    var(--angle-btn),
+    transparent 0%,
+    transparent 30%,
+    rgba(231, 76, 60, 1) 50%,
+    transparent 70%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.btn-logout:hover::before {
+  opacity: 1;
+  animation: rotateBtnBorder 2s linear infinite;
+}
+
+@keyframes rotateBtnBorder {
+  0% {
+    --angle-btn: 0deg;
+  }
+  100% {
+    --angle-btn: 360deg;
+  }
+}
+
+@property --angle-btn {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
 }
 
 .btn-logout:hover {
@@ -67,20 +176,67 @@
   overflow: hidden;
 }
 
+.menu-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem;
+  padding: 2.5px;
+  background: linear-gradient(
+    var(--angle),
+    transparent 0%,
+    transparent 30%,
+    rgba(200, 16, 46, 1) 50%,
+    transparent 70%,
+    transparent 100%
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.menu-card:hover::after {
+  opacity: 1;
+  animation: rotateBorderGradient 3s linear infinite;
+}
+
+@keyframes rotateBorderGradient {
+  0% {
+    --angle: 0deg;
+  }
+  100% {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
 .menu-card::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: inherit;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
   z-index: 0;
+  border-radius: 1rem;
 }
 
 .menu-card:hover::before {
-  transform: scale(1.1);
+  transform: scale(1.05);
+  filter: brightness(1.08);
 }
 
 .menu-card i,
@@ -91,7 +247,7 @@
 }
 
 .menu-card:hover {
-  transform: translateY(-10px) scale(1.05);
+  transform: translateY(-8px) scale(1.02);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
@@ -143,7 +299,13 @@
     grid-template-columns: 1fr;
   }
 
-  .btn-logout {
+  .admin-header .d-flex {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .btn-logout,
+  .btn-home {
     width: 100%;
     justify-content: center;
   }

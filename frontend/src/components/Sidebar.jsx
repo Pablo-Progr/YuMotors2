@@ -68,6 +68,14 @@ const Sidebar = () => {
             Dashboard
           </Link>
           <Link
+            to="/"
+            className="BotonesSidebar nav-link text-white text-opacity-75"
+            onClick={closeMenu}
+          >
+            <i className="bi bi-globe me-2"></i>
+            Ir a Homepage
+          </Link>
+          <Link
             to="/admin/vehiculos"
             className="BotonesSidebar nav-link text-white text-opacity-75"
             onClick={closeMenu}

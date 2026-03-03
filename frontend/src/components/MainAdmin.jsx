@@ -54,6 +54,13 @@ const MainAdmin = () => {
       backgroundImage:
         "https://www.toyotasarthou.com/_red/sarthou/userfiles/images/servicios/service-posventa.jpg",
     },
+    {
+      title: "Pedidos",
+      icon: "bi-cart-check-fill",
+      path: "/admin/pedidos",
+      backgroundImage:
+        "https://nextgen-images.cdn.dealersolutions.com.au/modular.multisite.dealer.solutions/wp-content/uploads/sites/2209/2020/03/12090400/080926rm039lr-720x405.jpg?format=webp&width=720",
+    },
   ];
 
   return (
@@ -63,10 +70,16 @@ const MainAdmin = () => {
           <h1>Bienvenido {user?.nombre || "Administrador"}</h1>
           <p>Panel de Control - Yu Motors</p>
         </div>
-        <button onClick={handleLogout} className="btn-logout">
-          <i className="bi bi-box-arrow-right me-2"></i>
-          Cerrar Sesión
-        </button>
+        <div className="d-flex gap-3">
+          <button onClick={() => navigate("/")} className="btn-home">
+            <i className="bi bi-house-fill me-2"></i>
+            Homepage
+          </button>
+          <button onClick={handleLogout} className="btn-logout">
+            <i className="bi bi-box-arrow-right me-2"></i>
+            Cerrar Sesión
+          </button>
+        </div>
       </div>
 
       <div className="d-flex flex-wrap justify-content-center gap-3">
