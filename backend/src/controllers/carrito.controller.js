@@ -117,7 +117,7 @@ const obtenerTodosPedidos = (req, res) => {
 const actualizarEstadoPedido = (req, res) => {
   const { idCarrito } = req.params;
   const { estado } = req.body;
-  
+
   if (estado === undefined || estado === null) {
     return res.status(400).json({ error: 'El estado es requerido' });
   }
@@ -130,7 +130,7 @@ const actualizarEstadoPedido = (req, res) => {
       FROM carrito_items ci
       WHERE ci.idCarrito = ?
     `;
-    
+
     db.query(queryItems, [idCarrito], (err, items) => {
       if (err) {
         console.error('Error obteniendo items del carrito:', err);
@@ -164,12 +164,12 @@ const actualizarEstadoPedido = (req, res) => {
         }
 
         updateQuery = `UPDATE ${tableName} SET stock = stock - ? WHERE ${idField} = ? AND stock >= ?`;
-        
+
         db.query(updateQuery, [item.cantidad, item.idProducto, item.cantidad], (err, result) => {
           if (err) {
             console.error(`Error actualizando stock de ${item.tipoProducto}:`, err);
           }
-          
+
           if (result && result.affectedRows === 0) {
             console.warn(`Stock insuficiente para ${item.tipoProducto} ID ${item.idProducto}`);
           }
