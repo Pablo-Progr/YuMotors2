@@ -117,16 +117,84 @@ const obtenerTodosPedidos = (req, res) => {
 const actualizarEstadoPedido = (req, res) => {
   const { idCarrito } = req.params;
   const { estado } = req.body;
+  
   if (estado === undefined || estado === null) {
     return res.status(400).json({ error: 'El estado es requerido' });
   }
-  db.query('UPDATE carrito SET estado = ? WHERE idCarrito = ?', [estado, idCarrito], (err) => {
-    if (err) {
-      console.error('Error actualizando estado:', err);
-      return res.status(500).json({ error: 'Error al actualizar el estado' });
-    }
-    res.json({ success: true, message: 'Estado actualizado correctamente' });
-  });
+
+  // Si el estado es 2 (retirado), actualizar stock
+  if (parseInt(estado) === 2) {
+    // Primero obtener todos los items del carrito
+    const queryItems = `
+      SELECT ci.tipoProducto, ci.idProducto, ci.cantidad
+      FROM carrito_items ci
+      WHERE ci.idCarrito = ?
+    `;
+    
+    db.query(queryItems, [idCarrito], (err, items) => {
+      if (err) {
+        console.error('Error obteniendo items del carrito:', err);
+        return res.status(500).json({ error: 'Error al obtener los items del pedido' });
+      }
+
+      // Actualizar stock para cada item
+      let completedUpdates = 0;
+      const totalUpdates = items.length;
+
+      if (totalUpdates === 0) {
+        // Si no hay items, solo actualizar el estado
+        return actualizarEstado();
+      }
+
+      items.forEach(item => {
+        let updateQuery, tableName, idField;
+
+        if (item.tipoProducto === 'accesorio') {
+          tableName = 'accesorios';
+          idField = 'idAccesorio';
+        } else if (item.tipoProducto === 'repuesto') {
+          tableName = 'repuestos';
+          idField = 'idRepuesto';
+        } else {
+          completedUpdates++;
+          if (completedUpdates === totalUpdates) {
+            actualizarEstado();
+          }
+          return;
+        }
+
+        updateQuery = `UPDATE ${tableName} SET stock = stock - ? WHERE ${idField} = ? AND stock >= ?`;
+        
+        db.query(updateQuery, [item.cantidad, item.idProducto, item.cantidad], (err, result) => {
+          if (err) {
+            console.error(`Error actualizando stock de ${item.tipoProducto}:`, err);
+          }
+          
+          if (result && result.affectedRows === 0) {
+            console.warn(`Stock insuficiente para ${item.tipoProducto} ID ${item.idProducto}`);
+          }
+
+          completedUpdates++;
+          if (completedUpdates === totalUpdates) {
+            actualizarEstado();
+          }
+        });
+      });
+    });
+  } else {
+    // Si el estado no es 2, solo actualizar el estado
+    actualizarEstado();
+  }
+
+  function actualizarEstado() {
+    db.query('UPDATE carrito SET estado = ? WHERE idCarrito = ?', [estado, idCarrito], (err) => {
+      if (err) {
+        console.error('Error actualizando estado:', err);
+        return res.status(500).json({ error: 'Error al actualizar el estado' });
+      }
+      res.json({ success: true, message: 'Estado actualizado correctamente' });
+    });
+  }
 };
 
 module.exports = {
