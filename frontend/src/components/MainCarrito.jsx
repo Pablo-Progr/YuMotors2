@@ -14,6 +14,7 @@ import {
 } from "@react-pdf/renderer";
 import { saveAs } from "file-saver";
 import "../css/carrito.css";
+import logo from "../img/toyota-rojo.png";
 
 // Estilos del PDF
 const pdfStyles = StyleSheet.create({
@@ -128,6 +129,11 @@ const pdfStyles = StyleSheet.create({
     color: "#666",
     lineHeight: 1.4,
   },
+  logo: {
+  width: 80,        // ajustar tamaño
+  height: 80,       // ajustar tamaño
+  objectFit: "contain"
+}
 });
 
 // Formato de precio
@@ -143,6 +149,7 @@ const PedidoPDF = ({ items, total, fecha, numeroPedido }) => (
     <Page size="A4" style={pdfStyles.page}>
       <View style={pdfStyles.header}>
         <View>
+          <Image src={logo} style={pdfStyles.logo} />
           <Text style={pdfStyles.headerTitle}>YU MOTORS</Text>
           <Text style={pdfStyles.headerSubtitle}>
             Comprobante de Reserva de Pedido
