@@ -106,6 +106,16 @@ const LoginAdmin = () => {
   // ─── REGISTRO ────────────────────────────────────────────
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
+    if (regNombre.length > 15) {
+      return Swal.fire({ icon: "error", title: "Error", text: "El nombre no puede tener más de 15 caracteres", confirmButtonColor: "#c8102e" });
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(regMail)) {
+      return Swal.fire({ icon: "error", title: "Error", text: "El correo electrónico no tiene un formato válido", confirmButtonColor: "#c8102e" });
+    }
+    if (regPassword.length < 6) {
+      return Swal.fire({ icon: "error", title: "Error", text: "La contraseña debe tener al menos 6 caracteres", confirmButtonColor: "#c8102e" });
+    }
     if (regPassword !== regPassword2) {
       return Swal.fire({ icon: "error", title: "Error", text: "Las contraseñas no coinciden", confirmButtonColor: "#c8102e" });
     }
@@ -140,6 +150,9 @@ const LoginAdmin = () => {
 
   return (
     <div className="background-login d-flex justify-content-center align-items-center vh-100">
+      <button className="btn-back-home" onClick={() => navigate("/")}>
+        ← Volver al inicio
+      </button>
       <div className="login-container d-flex flex-column justify-content-center align-items-center">
         <div className="text-center d-flex flex-column justify-content-start align-items-center mb-4">
           <div className="mb-3">
@@ -220,8 +233,12 @@ const LoginAdmin = () => {
                 placeholder="Nombre de usuario"
                 value={regNombre}
                 onChange={(e) => setRegNombre(e.target.value)}
+                maxLength={15}
                 required
               />
+              <small className="text-secondary d-block mb-2" style={{ marginTop: "-8px", fontSize: "12px" }}>
+                {regNombre.length}/15 caracteres
+              </small>
               <input
                 type="email"
                 className="mb-3 input-custom"
@@ -233,9 +250,10 @@ const LoginAdmin = () => {
               <input
                 type="password"
                 className="mb-3 input-custom"
-                placeholder="Contraseña"
+                placeholder="Contraseña (mínimo 6 caracteres)"
                 value={regPassword}
                 onChange={(e) => setRegPassword(e.target.value)}
+                minLength={6}
                 required
               />
               <input

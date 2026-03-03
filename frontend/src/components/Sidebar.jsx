@@ -100,6 +100,14 @@ const Sidebar = () => {
             Consultas
           </Link>
           <Link
+            to="/admin/pedidos"
+            className="BotonesSidebar nav-link text-white text-opacity-75"
+            onClick={closeMenu}
+          >
+            <i className="bi bi-cart-check-fill me-2"></i>
+            Pedidos
+          </Link>
+          <Link
             to="/admin/metricas"
             className="BotonesSidebar nav-link text-white text-opacity-75"
             onClick={closeMenu}

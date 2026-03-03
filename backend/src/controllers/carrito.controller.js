@@ -95,9 +95,45 @@ const obtenerDetallePedido = (req, res) => {
   });
 };
 
+// Obtener todos los pedidos (admin)
+const obtenerTodosPedidos = (req, res) => {
+  const query = `
+    SELECT c.idCarrito, c.estado, c.fechaCreacion,
+           u.nombre, u.mail
+    FROM carrito c
+    JOIN usuarios u ON c.idUsuario = u.idUsuario
+    ORDER BY c.fechaCreacion DESC
+  `;
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error('Error obteniendo todos los pedidos:', err);
+      return res.status(500).json({ error: 'Error al obtener los pedidos' });
+    }
+    res.json(results);
+  });
+};
+
+// Actualizar estado de un pedido (admin)
+const actualizarEstadoPedido = (req, res) => {
+  const { idCarrito } = req.params;
+  const { estado } = req.body;
+  if (estado === undefined || estado === null) {
+    return res.status(400).json({ error: 'El estado es requerido' });
+  }
+  db.query('UPDATE carrito SET estado = ? WHERE idCarrito = ?', [estado, idCarrito], (err) => {
+    if (err) {
+      console.error('Error actualizando estado:', err);
+      return res.status(500).json({ error: 'Error al actualizar el estado' });
+    }
+    res.json({ success: true, message: 'Estado actualizado correctamente' });
+  });
+};
+
 module.exports = {
   confirmarPedido,
   obtenerPedidos,
   obtenerDetallePedido,
+  obtenerTodosPedidos,
+  actualizarEstadoPedido,
 };
 

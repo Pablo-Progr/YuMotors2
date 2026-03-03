@@ -29,6 +29,8 @@ import VehiculoDetalle from "./pages/VehiculoDetalle";
 import RegistrosPosventaUser from "./pages/RegistrosPosventaUser";
 import Carrito from "./pages/Carrito";
 
+import PedidosAdmin from "./pages/PedidosAdmin";
+
 
 function App() {
   return (
@@ -109,6 +111,14 @@ function App() {
             element={
               <ProtectedRoute requireAdmin={true}>
                 <MetricasAdmin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/pedidos"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <PedidosAdmin />
               </ProtectedRoute>
             }
           />
