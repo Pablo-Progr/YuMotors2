@@ -7,7 +7,6 @@ import useAuthStore from "../store/authStore";
 
 const MainAccesorios = () => {
   const [accesorios, setAccesorios] = useState([]);
-  const [topAccesorios, setTopAccesorios] = useState([]);
   const [selectedAccesorio, setSelectedAccesorio] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [cantidad, setCantidad] = useState(0);
@@ -16,32 +15,38 @@ const MainAccesorios = () => {
   const { isAuthenticated } = useAuthStore();
   const navigate = useNavigate();
 
+  // Estados para filtros
+  const [filtro, setFiltro] = useState("");
+  const [marcaFiltro, setMarcaFiltro] = useState("");
+  const [precioMax, setPrecioMax] = useState(100000000);
+  const [rangosPrecio, setRangosPrecio] = useState({ min: 0, max: 100000000 });
+
+  // Ordenamiento
+  const [ordenamiento, setOrdenamiento] = useState("recientes");
+
+  const fetchAccesorios = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/accesorios/accesorios",
+      );
+      setAccesorios(response.data);
+
+      // Calcular rangos automáticos basados en los datos
+      if (response.data.length > 0) {
+        const precios = response.data.map((a) => parseFloat(a.precio));
+        const minPrecio = Math.min(...precios);
+        const maxPrecio = Math.max(...precios);
+
+        setRangosPrecio({ min: minPrecio, max: maxPrecio });
+        setPrecioMax(maxPrecio);
+      }
+    } catch (error) {
+      console.error("Error fetching accesorios:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchAccesorios = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/api/accesorios/accesorios",
-        );
-        setAccesorios(response.data);
-      } catch (error) {
-        console.error("Error fetching accesorios:", error);
-      }
-    };
-
-    const fetchTopAccesorios = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/api/metricas/productos-mas-vendidos",
-        );
-        // Tomamos solo los 3 primeros accesorios más vendidos
-        setTopAccesorios(response.data.data.slice(0, 3));
-      } catch (error) {
-        console.error("Error fetching top accesorios:", error);
-      }
-    };
-
     fetchAccesorios();
-    fetchTopAccesorios();
   }, []);
 
   // Función para formatear el precio con puntos
@@ -49,6 +54,59 @@ const MainAccesorios = () => {
     return Number(price)
       .toFixed(0)
       .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
+  // Obtener marcas únicas para el filtro
+  const marcasUnicas = [...new Set(accesorios.map((a) => a.marca))].sort();
+
+  // Lógica de filtrado
+  const accesoriosFiltrados = accesorios.filter((accesorio) => {
+    const marca = accesorio.marca || "";
+    const nombre = accesorio.nombre || "";
+    const filtroLower = filtro.toLowerCase();
+    const precio = parseFloat(accesorio.precio);
+    const stock = parseInt(accesorio.stock) || 0;
+
+    // Filtro de stock - excluir productos sin stock
+    const stockDisponible = stock > 0;
+
+    // Filtro de búsqueda por texto (marca o nombre)
+    const marcaNombreMatch =
+      marca.toLowerCase().includes(filtroLower) ||
+      nombre.toLowerCase().includes(filtroLower);
+
+    // Filtro por marca específica (dropdown)
+    const marcaMatch = marcaFiltro === "" || marca === marcaFiltro;
+
+    // Filtro por precio máximo
+    const precioMatch = precio <= precioMax;
+
+    return stockDisponible && marcaNombreMatch && marcaMatch && precioMatch;
+  });
+
+  // Lógica de ordenamiento
+  const accesoriosOrdenados = [...accesoriosFiltrados].sort((a, b) => {
+    switch (ordenamiento) {
+      case "precio-asc":
+        return parseFloat(a.precio) - parseFloat(b.precio);
+      case "precio-desc":
+        return parseFloat(b.precio) - parseFloat(a.precio);
+      case "nombre-asc":
+        return a.nombre.localeCompare(b.nombre);
+      case "nombre-desc":
+        return b.nombre.localeCompare(a.nombre);
+      case "recientes":
+      default:
+        return b.idAccesorio - a.idAccesorio;
+    }
+  });
+
+  // Función para limpiar filtros
+  const limpiarFiltros = () => {
+    setFiltro("");
+    setMarcaFiltro("");
+    setPrecioMax(rangosPrecio.max);
+    setOrdenamiento("recientes");
   };
 
   // Función para abrir el modal
@@ -94,114 +152,144 @@ const MainAccesorios = () => {
       <div className="accesorios-container">
         <h2 className="titulo-accesorios">Accesorios</h2>
 
-        {/* ===== Carousel exclusivo de accesorios ===== */}
-        {/* ===== Carousel exclusivo de accesorios ===== */}
-        <div
-          id="carouselAccesorios"
-          className="carousel slide carousel-accesorios"
-          data-bs-ride="carousel"
-          data-bs-interval="3000"
-        >
-          <div className="carousel-indicators">
-            {topAccesorios.map((_, index) => (
-              <button
-                key={index}
-                type="button"
-                data-bs-target="#carouselAccesorios"
-                data-bs-slide-to={index}
-                className={index === 0 ? "active" : ""}
-                aria-current={index === 0 ? "true" : "false"}
-                aria-label={`Slide ${index + 1}`}
-              ></button>
-            ))}
+        {/* Sección de Filtros */}
+        <div className="filtros-container">
+          <div className="filtros-header">
+            <h3>
+              <i className="bi bi-funnel"></i> Filtros
+            </h3>
+            <button className="btn-limpiar-filtros" onClick={limpiarFiltros}>
+              <i className="bi bi-arrow-counterclockwise"></i> Limpiar
+            </button>
           </div>
 
-          <div className="carousel-inner">
-            {topAccesorios.length > 0 ? (
-              topAccesorios.map((accesorio, index) => (
-                <div
-                  key={accesorio.idAccesorio}
-                  className={`carousel-item ${index === 0 ? "active" : ""}`}
-                >
-                  <img
-                    src={accesorio.imagen}
-                    className="d-block w-100"
-                    alt={accesorio.nombre}
-                  />
-                  <div className="carousel-caption d-none d-md-block">
-                    <h5>{accesorio.nombre}</h5>
-                    <p>{accesorio.descripcion}</p>
-                    <p>
-                      <strong>¡El más vendido!</strong> -{" "}
-                      {accesorio.total_vendido} unidades vendidas
-                    </p>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="carousel-item active">
-                <img
-                  src="https://via.placeholder.com/800x400?text=Cargando..."
-                  className="d-block w-100"
-                  alt="Cargando..."
-                />
-                <div className="carousel-caption d-none d-md-block">
-                  <h5>Cargando productos más vendidos...</h5>
-                </div>
+          <div className="filtros-grid">
+            {/* Búsqueda por texto */}
+            <div className="filtro-item">
+              <label>
+                <i className="bi bi-search"></i> Buscar
+              </label>
+              <input
+                type="text"
+                placeholder="Marca o nombre..."
+                value={filtro}
+                onChange={(e) => setFiltro(e.target.value)}
+                className="filtro-input"
+              />
+            </div>
+
+            {/* Filtro por marca */}
+            <div className="filtro-item">
+              <label>
+                <i className="bi bi-tag"></i> Marca
+              </label>
+              <select
+                value={marcaFiltro}
+                onChange={(e) => setMarcaFiltro(e.target.value)}
+                className="filtro-select"
+              >
+                <option value="">Todas las marcas</option>
+                {marcasUnicas.map((marca) => (
+                  <option key={marca} value={marca}>
+                    {marca}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Filtro por precio */}
+            <div className="filtro-item filtro-range">
+              <label>
+                <i className="bi bi-currency-dollar"></i> Precio máximo:{" "}
+                <span className="filtro-value">ARS ${formatPrice(precioMax)}</span>
+              </label>
+              <input
+                type="range"
+                min={rangosPrecio.min}
+                max={rangosPrecio.max}
+                value={precioMax}
+                onChange={(e) => setPrecioMax(parseFloat(e.target.value))}
+                className="filtro-slider"
+              />
+              <div className="filtro-range-labels">
+                <span>${formatPrice(rangosPrecio.min)}</span>
+                <span>${formatPrice(rangosPrecio.max)}</span>
               </div>
-            )}
+            </div>
+
+            {/* Ordenamiento */}
+            <div className="filtro-item">
+              <label>
+                <i className="bi bi-sort-down"></i> Ordenar por
+              </label>
+              <select
+                value={ordenamiento}
+                onChange={(e) => setOrdenamiento(e.target.value)}
+                className="filtro-select"
+              >
+                <option value="recientes">Más recientes</option>
+                <option value="precio-asc">Precio: menor a mayor</option>
+                <option value="precio-desc">Precio: mayor a menor</option>
+                <option value="nombre-asc">Nombre: A-Z</option>
+                <option value="nombre-desc">Nombre: Z-A</option>
+              </select>
+            </div>
           </div>
 
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselAccesorios"
-            data-bs-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Anterior</span>
-          </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselAccesorios"
-            data-bs-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Siguiente</span>
-          </button>
+          {/* Contador de resultados */}
+          <div className="resultados-count">
+            <i className="bi bi-gear"></i> {accesoriosOrdenados.length}{" "}
+            accesorio{accesoriosOrdenados.length !== 1 ? "s" : ""} encontrado
+            {accesoriosOrdenados.length !== 1 ? "s" : ""}
+          </div>
         </div>
 
         {/* ===== Cards de accesorios ===== */}
-        <div className="card-accesorios-container">
-          {accesorios.map((accesorio) => (
-            <div className="card-accesorios" key={accesorio.idAccesorio}>
-              <img
-                src={accesorio.imagen}
-                className="foto-card-accesorios"
-                alt={accesorio.nombre}
-              />
-              <div className="body-card-accesorios">
-                <h5 className="titulo-card-accesorios">{accesorio.nombre}</h5>
-                <p className="precio-card-accesorios">{`ARS $${formatPrice(
-                  accesorio.precio,
-                )}`}</p>
-                <button
-                  onClick={() => openModal(accesorio)}
-                  className="btn-accesorios"
-                >
-                  Ver Informacion
-                </button>
+        {accesoriosOrdenados.length === 0 ? (
+          <div className="no-results">
+            <i className="bi bi-exclamation-circle"></i>
+            <h3>No se encontraron accesorios</h3>
+            <p>Intenta ajustar los filtros para ver más resultados</p>
+          </div>
+        ) : (
+          <div className="card-accesorios-container">
+            {accesoriosOrdenados.map((accesorio) => (
+              <div className="card-accesorios" key={accesorio.idAccesorio}>
+                <div className="card-image-wrapper">
+                  <img
+                    src={accesorio.imagen}
+                    className="foto-card-accesorios"
+                    alt={accesorio.nombre}
+                    onError={(e) => {
+                      e.currentTarget.src =
+                        "https://placehold.co/400x300/333/fff?text=Sin+Imagen";
+                    }}
+                  />
+                  <div className="card-badge-marca">{accesorio.marca}</div>
+                </div>
+
+                <div className="body-card-accesorios">
+                  <h5 className="titulo-card-accesorios">{accesorio.nombre}</h5>
+
+                  <p className="precio-card-accesorios">
+                    <span className="precio-label">Precio:</span>
+                    <span className="precio-valor">
+                      ARS ${formatPrice(accesorio.precio)}
+                    </span>
+                  </p>
+
+                  <button
+                    onClick={() => openModal(accesorio)}
+                    className="btn-accesorios"
+                  >
+                    <i className="bi bi-info-circle me-2"></i>
+                    Ver Información
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Modal de Accesorios */}

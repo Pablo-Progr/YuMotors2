@@ -1,150 +1,414 @@
-/* === Contenedor principal === */
+/* ======== GENERAL ======== */
 .repuestos-container {
-  padding: 40px 20px;
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 3rem 0;
   min-height: 100vh;
 }
 
-/* === Título principal === */
 .titulo-repuestos {
   text-align: center;
-  font-size: 2rem;
-  color: #c00; /* Rojo Toyota */
-  margin-bottom: 40px;
-  font-weight: 700;
+  font-size: 3rem;
+  font-weight: 900;
+  color: #c00;
   text-transform: uppercase;
+  margin-bottom: 3rem;
+  letter-spacing: 2px;
+  font-family: "Oswald", "Helvetica Neue", sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* === Contenedor de las cards === */
-.card-repuestos-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-  justify-content: center;
-  align-items: stretch;
+/* ======== FILTROS ======== */
+.filtros-container {
+  max-width: 1400px;
+  margin: 0 auto 3rem;
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 }
 
-/* === Cada card individual === */
-.card-repuestos {
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+.filtros-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #c00;
+}
+
+.filtros-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filtros-header h3 i {
+  color: #c00;
+}
+
+.btn-limpiar-filtros {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-limpiar-filtros:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+.filtros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filtro-item {
+  display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 0.5rem;
 }
 
-.card-repuestos:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-}
-
-/* === Imagen del repuesto === */
-.foto-card-repuestos {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-
-/* === Cuerpo de la card === */
-.body-card-repuestos {
-  padding: 20px;
-  text-align: center;
-}
-
-/* === Título del repuesto === */
-.titulo-card-repuestos {
-  font-size: 1.1rem;
+.filtro-item label {
   font-weight: 600;
-  margin-bottom: 5px;
   color: #333;
-}
-
-/* === Texto secundario (categoría) === */
-.texto-card-repuestos {
   font-size: 0.95rem;
-  color: #777;
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* === Precio === */
-.precio-card-repuestos {
-  font-size: 1.1rem;
-  font-weight: bold;
+.filtro-item label i {
   color: #c00;
-  margin-bottom: 15px;
 }
 
-/* === Botón === */
-.btn-repuestos {
-  display: inline-block;
-  background-color: #c00;
-  color: #fff;
-  padding: 8px 16px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
+.filtro-value {
+  color: #c00;
+  font-weight: 700;
+}
+
+.filtro-input,
+.filtro-select {
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1rem;
   transition: all 0.3s ease;
-  border: none;
+  background-color: #f9f9f9;
+}
+
+.filtro-input:focus,
+.filtro-select:focus {
+  outline: none;
+  border-color: #c00;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.1);
+}
+
+.filtro-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 5px;
+  background: linear-gradient(to right, #c00 0%, #a00 100%);
+  outline: none;
+  -webkit-appearance: none;
   cursor: pointer;
 }
 
-.btn-repuestos:hover {
-  background-color: #a00;
-  transform: scale(1.05);
+.filtro-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #c00;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(204, 0, 0, 0.3);
+  transition: all 0.3s ease;
 }
 
-/* === Modal de Repuestos === */
+.filtro-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 12px rgba(204, 0, 0, 0.5);
+}
+
+.filtro-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #c00;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(204, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.filtro-slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 12px rgba(204, 0, 0, 0.5);
+}
+
+.filtro-range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+.resultados-count {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.resultados-count i {
+  color: #c00;
+  font-size: 1.3rem;
+}
+
+/* ======== NO RESULTS ======== */
+.no-results {
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.no-results i {
+  font-size: 5rem;
+  color: #c00;
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+
+.no-results h3 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.no-results p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.card-repuestos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2.5rem;
+  padding: 0 2rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: "Oswald", "Helvetica Neue", sans-serif;
+}
+
+/* ======== TARJETAS ======== */
+.card-repuestos {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-repuestos:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(204, 0, 0, 0.2);
+}
+
+/* ======== IMAGEN ======== */
+.card-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.foto-card-repuestos {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.card-repuestos:hover .foto-card-repuestos {
+  transform: scale(1.1);
+}
+
+.card-badge-marca {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(204, 0, 0, 0.9);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+/* ======== CUERPO ======== */
+.body-card-repuestos {
+  padding: 1.8rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+.titulo-card-repuestos {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.precio-card-repuestos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  border-radius: 12px;
+  margin: 0.5rem 0;
+  font-weight: 600;
+}
+
+.precio-label {
+  font-size: 0.9rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.precio-valor {
+  font-size: 1.5rem;
+  color: #c00;
+  font-weight: 800;
+}
+
+/* ======== BOTÓN ======== */
+.btn-repuestos {
+  width: 100%;
+  background: linear-gradient(135deg, #c00 0%, #a00 100%);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 1rem;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(204, 0, 0, 0.3);
+  margin-top: auto;
+}
+
+.btn-repuestos:hover {
+  background: linear-gradient(135deg, #a00 0%, #800 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(204, 0, 0, 0.4);
+}
+
+
+/* ======== MODAL ======== */
 .modal-overlay-repuestos {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
   padding: 20px;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .modal-content-repuestos {
-  background-color: #fff;
-  border-radius: 16px;
-  max-width: 900px;
+  background: #fff;
+  border-radius: 24px;
+  max-width: 1000px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: modalSlideInRepuestos 0.3s ease-out;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+  animation: modalSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@keyframes modalSlideInRepuestos {
+@keyframes modalSlideIn {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-30px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 .modal-close-repuestos {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  background: rgba(0, 0, 0, 0.6);
+  top: 20px;
+  right: 20px;
+  background: rgba(204, 0, 0, 0.9);
   color: #fff;
   border: none;
   font-size: 2rem;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -153,35 +417,39 @@
   transition: all 0.3s ease;
   z-index: 10;
   line-height: 1;
+  box-shadow: 0 4px 15px rgba(204, 0, 0, 0.4);
 }
 
 .modal-close-repuestos:hover {
-  background: #c00;
-  transform: rotate(90deg);
+  background: #a00;
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 6px 20px rgba(204, 0, 0, 0.6);
 }
 
 .modal-body-repuestos {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  padding: 2rem;
+  gap: 2.5rem;
+  padding: 2.5rem;
 }
 
 .modal-image-section-repuestos {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5f5f5;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  border-radius: 16px;
   overflow: hidden;
-  padding: 1rem;
+  padding: 1.5rem;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .modal-repuesto-imagen {
   width: 100%;
   height: auto;
   object-fit: contain;
-  max-height: 450px;
+  max-height: 500px;
+  border-radius: 12px;
 }
 
 .modal-info-section-repuestos {
@@ -191,135 +459,388 @@
 }
 
 .modal-repuesto-title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: #c00;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 800;
   margin-bottom: 1.5rem;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  font-family: "Oswald", "Helvetica Neue", sans-serif;
+  line-height: 1.2;
 }
 
 .modal-repuesto-details {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.5rem;
   flex: 1;
 }
 
 .detail-item-repuestos {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 1.2rem;
+  background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+  border-radius: 12px;
+  border-left: 4px solid #c00;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.detail-item-repuestos:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .detail-item-repuestos.detail-price-repuestos {
-  border-bottom: none;
-  padding-top: 1rem;
-  margin-top: auto;
+  background: linear-gradient(135deg, #c00 0%, #a00 100%);
+  border-left: none;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.detail-item-repuestos.detail-price-repuestos:hover {
+  background: linear-gradient(135deg, #c00 0%, #a00 100%);
+  transform: none;
+  box-shadow: 0 6px 20px rgba(204, 0, 0, 0.4);
+}
+
+.detail-item-repuestos.detail-price-repuestos .detail-label-repuestos {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.detail-item-repuestos.detail-price-repuestos .detail-value-price-repuestos {
+  color: #fff !important;
 }
 
 .detail-label-repuestos {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #666;
-  font-weight: 500;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
 .detail-value-repuestos {
-  font-size: 1.1rem;
-  color: #222;
-  font-weight: 600;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 700;
+  display: block;
 }
 
 .detail-description-repuestos {
   font-size: 1rem;
   color: #444;
-  line-height: 1.6;
-  margin: 0;
+  line-height: 1.7;
+  margin: 0.5rem 0 0;
+  font-weight: 400;
 }
 
 .detail-value-price-repuestos {
-  font-size: 1.8rem;
-  color: #c00;
-  font-weight: 700;
+  font-size: 2.2rem;
+  color: #fff;
+  font-weight: 900;
+  display: block;
 }
 
-.btn-modal-contacto-repuestos {
+/* === Sección de carrito en modal === */
+.modal-cart-section {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+  border-radius: 12px;
+  border-left: 4px solid #c00;
+}
+
+.cart-section-label {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.modal-cart-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-qty-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.modal-qty-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: #c00;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-qty-btn:hover:not(:disabled) {
+  background: #a00;
+  transform: scale(1.1);
+}
+
+.modal-qty-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.modal-qty-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  min-width: 40px;
+  text-align: center;
+}
+
+.btn-add-cart {
   width: 100%;
-  background-color: #c00;
+  background: linear-gradient(135deg, #333 0%, #111 100%);
   color: #fff;
   border: none;
   padding: 1rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 12px;
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: all 0.3s ease;
-  margin-top: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.btn-modal-contacto-repuestos:hover {
-  background-color: #a00;
+.btn-add-cart:hover:not(:disabled) {
+  background: linear-gradient(135deg, #c00 0%, #a00 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(204, 0, 0, 0.3);
+  box-shadow: 0 6px 20px rgba(204, 0, 0, 0.4);
 }
 
-/* === Responsive tweaks === */
-@media (max-width: 768px) {
+.btn-add-cart:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-add-cart.added {
+  background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+}
+
+/* =========RESPONSIVE ======== */
+@media (max-width: 1200px) {
+  .filtros-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .card-repuestos-container {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 992px) {
   .titulo-repuestos {
-    font-size: 1.8rem;
+    font-size: 2.5rem;
+  }
+
+  .filtros-container {
+    padding: 1.5rem;
+  }
+
+  .filtros-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .card-repuestos-container {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    padding: 0 1.5rem 3rem;
+    gap: 1.5rem;
   }
 
   .modal-body-repuestos {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .modal-repuesto-imagen {
-    max-height: 350px;
+    gap: 2rem;
+    padding: 2rem;
   }
 
   .modal-repuesto-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .titulo-repuestos {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .filtros-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .filtros-header h3 {
+    font-size: 1.3rem;
+  }
+
+  .btn-limpiar-filtros {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .filtros-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-repuestos-container {
+    grid-template-columns: 1fr;
+    padding: 0 1rem 2rem;
+    gap: 2rem;
+  }
+
+  .card-repuestos {
+    max-width: 100%;
+  }
+
+  .card-image-wrapper {
+    height: 220px;
+  }
+
+  .modal-content-repuestos {
+    border-radius: 16px;
+    max-height: 95vh;
+  }
+
+  .modal-body-repuestos {
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .modal-repuesto-title {
+    font-size: 1.5rem;
+  }
+
+  .detail-value-price-repuestos {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .titulo-repuestos {
     font-size: 1.6rem;
+    letter-spacing: 1px;
+  }
+
+  .filtros-container {
+    padding: 1rem;
+    border-radius: 15px;
+  }
+
+  .filtros-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .btn-limpiar-filtros {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .filtro-item label {
+    font-size: 0.85rem;
+  }
+
+  .resultados-count {
+    font-size: 1rem;
+  }
+
+  .titulo-card-repuestos {
+    font-size: 1.3rem;
+  }
+
+  .precio-valor {
+    font-size: 1.3rem;
+  }
+
+  .btn-repuestos {
+    font-size: 0.9rem;
+    padding: 0.85rem;
+  }
+
+  .modal-body-repuestos {
+    padding: 1.5rem 1rem;
+  }
+
+  .modal-repuesto-title {
+    font-size: 1.3rem;
+  }
+
+  .detail-item-repuestos {
+    padding: 1rem;
+  }
+
+  .detail-label-repuestos {
+    font-size: 0.8rem;
+  }
+
+  .detail-value-repuestos {
+    font-size: 1rem;
   }
 
   .detail-value-price-repuestos {
     font-size: 1.5rem;
   }
-}
 
-@media (max-width: 576px) {
-  .titulo-repuestos {
-    font-size: 1.6rem;
+  .no-results i {
+    font-size: 3.5rem;
   }
 
-  .foto-card-repuestos {
-    height: 160px;
-  }
-
-  .modal-content-repuestos {
-    margin: 10px;
-  }
-
-  .modal-body-repuestos {
-    padding: 1rem;
-  }
-
-  .modal-repuesto-title {
+  .no-results h3 {
     font-size: 1.4rem;
   }
 
-  .detail-value-price-repuestos {
-    font-size: 1.3rem;
-  }
-
-  .btn-modal-contacto-repuestos {
+  .no-results p {
     font-size: 1rem;
-    padding: 0.8rem;
   }
+}
+
+/* ======== SCROLL SUAVE ======== */
+.modal-content-repuestos {
+  scrollbar-width: thin;
+  scrollbar-color: #c00 #f0f0f0;
+}
+
+.modal-content-repuestos::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content-repuestos::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.modal-content-repuestos::-webkit-scrollbar-thumb {
+  background: #c00;
+  border-radius: 10px;
+}
+
+.modal-content-repuestos::-webkit-scrollbar-thumb:hover {
+  background: #a00;
 }
