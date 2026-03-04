@@ -2,11 +2,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../css/mainusados.css";
 import { Link } from "react-router-dom";
+import Paginador from "./Paginador";
+
+const VEHICULOS_POR_PAGINA = 12;
 
 const MainUsados = () => {
   const [vehiculos, setVehiculos] = useState([]);
   const [selectedVehiculo, setSelectedVehiculo] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [paginaActual, setPaginaActual] = useState(1);
 
   // Estados para filtros
   const [filtro, setFiltro] = useState("");
@@ -123,6 +127,24 @@ const MainUsados = () => {
     setKilometrajeMax(rangosKilometraje.max);
     setAnioMin(rangosAnio.min);
     setOrdenamiento("recientes");
+    setPaginaActual(1);
+  };
+
+  // Resetear página cuando cambian los filtros
+  useEffect(() => {
+    setPaginaActual(1);
+  }, [filtro, marcaFiltro, precioMax, kilometrajeMax, anioMin, ordenamiento]);
+
+  // Cálculo de paginación
+  const totalPaginas = Math.ceil(vehiculosOrdenados.length / VEHICULOS_POR_PAGINA);
+  const indiceInicio = (paginaActual - 1) * VEHICULOS_POR_PAGINA;
+  const indiceFin = indiceInicio + VEHICULOS_POR_PAGINA;
+  const vehiculosPaginados = vehiculosOrdenados.slice(indiceInicio, indiceFin);
+
+  // Función para cambiar de página
+  const cambiarPagina = (nuevaPagina) => {
+    setPaginaActual(nuevaPagina);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Función para abrir el modal
@@ -140,7 +162,7 @@ const MainUsados = () => {
   return (
     <>
       <div className="usados-main-container">
-        <h2 className="titulo-usados">Vehículos Usados</h2>
+        <h2 className="titulo-usados">Pensalo: ¿En que te gustaria que te vean mañana?</h2>
 
         {/* Sección de Filtros */}
         <div className="filtros-container">
@@ -286,8 +308,9 @@ const MainUsados = () => {
             <p>Intenta ajustar los filtros para ver más resultados</p>
           </div>
         ) : (
-          <div className="card-usados-container">
-            {vehiculosOrdenados.map((vehiculo) => (
+          <>
+            <div className="card-usados-container">
+              {vehiculosPaginados.map((vehiculo) => (
               <div className="card-usados" key={vehiculo.idVehiculoUsado}>
                 <div className="card-image-wrapper">
                   <img
@@ -347,6 +370,16 @@ const MainUsados = () => {
               </div>
             ))}
           </div>
+          
+          {/* Paginador */}
+          {totalPaginas > 1 && (
+            <Paginador
+              paginaActual={paginaActual}
+              totalPaginas={totalPaginas}
+              cambiarPagina={cambiarPagina}
+            />
+          )}
+          </>
         )}
       </div>
 
