@@ -26,7 +26,6 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
     min: 0,
     max: 500000,
   });
-  const [mostrarFiltros, setMostrarFiltros] = useState(false);
 
   // --- FORMATEADOR DE MONEDA ---
   const currencyFormatter = new Intl.NumberFormat("es-AR", {
@@ -210,125 +209,91 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
 
   return (
     <>
-      <div className="mb-3">
-        <Button
-          variant={mostrarFiltros ? "outline-light" : "light"}
-          onClick={() => setMostrarFiltros(!mostrarFiltros)}
-          className="d-flex align-items-center"
-        >
-          <i className={`bi bi-funnel-fill me-2`}></i>
-          {mostrarFiltros ? "Ocultar Filtros" : "Mostrar Filtros"}
-          <i
-            className={`bi bi-chevron-${mostrarFiltros ? "up" : "down"} ms-2`}
-          ></i>
-        </Button>
+      {/* --- FILTROS --- */}
+      <div className="row mb-3">
+        <div className="col-md-3">
+          <Form.Group>
+            <Form.Label className="text-white">
+              <i className="bi bi-search me-2"></i>Buscar
+            </Form.Label>
+
+            <Form.Control
+              type="text"
+              placeholder="Marca o modelo..."
+              value={filtro}
+              onChange={(e) => { setFiltro(e.target.value); setPaginaActual(1); }}
+              className="bg-secondary text-white border-secondary"
+            />
+          </Form.Group>
+        </div>
+        <div className="col-md-2">
+          <Form.Group>
+            <Form.Label className="text-white">
+              <i className="bi bi-tag me-2"></i>Marca
+            </Form.Label>
+            <Form.Select
+              value={marcaFiltro}
+              onChange={(e) => { setMarcaFiltro(e.target.value); setPaginaActual(1); }}
+              className="bg-secondary text-white border-secondary"
+            >
+              <option value="">Todas</option>
+              {marcasUnicas.map((marca) => (
+                <option key={marca} value={marca}>{marca}</option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+        </div>
+        <div className="col-md-2">
+          <Form.Group>
+            <Form.Label className="text-white">
+              <i className="bi bi-currency-dollar me-2"></i>Precio máx.: {currencyFormatter.format(precioMax)}
+            </Form.Label>
+            <Form.Range
+              min={rangosPrecio.min}
+              max={rangosPrecio.max}
+              value={precioMax}
+              onChange={(e) => { setPrecioMax(parseFloat(e.target.value)); setPaginaActual(1); }}
+            />
+            <div className="d-flex justify-content-between text-white-50 small">
+              <span>{currencyFormatter.format(rangosPrecio.min)}</span>
+              <span>{currencyFormatter.format(rangosPrecio.max)}</span>
+            </div>
+          </Form.Group>
+        </div>
+        <div className="col-md-2">
+          <Form.Group>
+            <Form.Label className="text-white">
+              <i className="bi bi-speedometer2 me-2"></i>Km máx.: {kilometrajeMax.toLocaleString()} km
+            </Form.Label>
+            <Form.Range
+              min={rangosKilometraje.min}
+              max={rangosKilometraje.max}
+              value={kilometrajeMax}
+              onChange={(e) => { setKilometrajeMax(parseFloat(e.target.value)); setPaginaActual(1); }}
+            />
+            <div className="d-flex justify-content-between text-white-50 small">
+              <span>{rangosKilometraje.min.toLocaleString()} km</span>
+              <span>{rangosKilometraje.max.toLocaleString()} km</span>
+            </div>
+          </Form.Group>
+        </div>
+        <div className="col-md-2 d-flex align-items-end">
+          <Button
+            variant="outline-light"
+            onClick={() => {
+              setFiltro("");
+              setMarcaFiltro("");
+              setPrecioMax(rangosPrecio.max);
+              setKilometrajeMax(rangosKilometraje.max);
+              setPaginaActual(1);
+            }}
+            className="w-100"
+          >
+            <i className="bi bi-arrow-counterclockwise me-2"></i>Limpiar
+          </Button>
+        </div>
       </div>
 
-      <div className="row">
-        {/* Sidebar de Filtros */}
-        {mostrarFiltros && (
-          <div className="col-lg-3 col-md-4 mb-3">
-            <div className="bg-dark p-3 rounded border border-secondary">
-              <h5 className="text-white mb-3">
-                <i className="bi bi-funnel-fill me-2"></i>Filtros
-              </h5>
-
-              {/* Búsqueda por texto */}
-              <Form.Group className="mb-3">
-                <Form.Label className="text-white">
-                  <i className="bi bi-search me-2"></i>Buscar
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Marca o modelo..."
-                  value={filtro}
-                  onChange={(e) => setFiltro(e.target.value)}
-                  className="bg-secondary text-white border-secondary"
-                />
-              </Form.Group>
-
-              <hr className="text-white-50" />
-
-              {/* Filtro por marca específica */}
-              <Form.Group className="mb-3">
-                <Form.Label className="text-white">
-                  <i className="bi bi-tag me-2"></i>Marca
-                </Form.Label>
-                <Form.Select
-                  value={marcaFiltro}
-                  onChange={(e) => setMarcaFiltro(e.target.value)}
-                  className="bg-secondary text-white border-secondary"
-                >
-                  <option value="">Todas</option>
-                  {marcasUnicas.map((marca) => (
-                    <option key={marca} value={marca}>
-                      {marca}
-                    </option>
-                  ))}
-                </Form.Select>
-              </Form.Group>
-
-              <hr className="text-white-50" />
-
-              {/* Filtro por precio */}
-              <Form.Group className="mb-3">
-                <Form.Label className="text-white">
-                  <i className="bi bi-currency-dollar me-2"></i>Precio máximo
-                </Form.Label>
-                <div className="text-white fw-bold mb-2">
-                  {currencyFormatter.format(precioMax)}
-                </div>
-                <Form.Range
-                  min={rangosPrecio.min}
-                  max={rangosPrecio.max}
-                  value={precioMax}
-                  onChange={(e) => setPrecioMax(parseFloat(e.target.value))}
-                  className="custom-range"
-                />
-                <div className="d-flex justify-content-between text-white-50 small">
-                  <span>{currencyFormatter.format(rangosPrecio.min)}</span>
-                  <span>{currencyFormatter.format(rangosPrecio.max)}</span>
-                </div>
-              </Form.Group>
-
-              <hr className="text-white-50" />
-
-              {/* Filtro por kilometraje */}
-              <Form.Group className="mb-3">
-                <Form.Label className="text-white">
-                  <i className="bi bi-speedometer2 me-2"></i>Kilometraje máx.
-                </Form.Label>
-                <div className="text-white fw-bold mb-2">
-                  {kilometrajeMax.toLocaleString()} km
-                </div>
-                <Form.Range
-                  min={rangosKilometraje.min}
-                  max={rangosKilometraje.max}
-                  value={kilometrajeMax}
-                  onChange={(e) =>
-                    setKilometrajeMax(parseFloat(e.target.value))
-                  }
-                  className="custom-range"
-                />
-                <div className="d-flex justify-content-between text-white-50 small">
-                  <span>{rangosKilometraje.min.toLocaleString()}</span>
-                  <span>{rangosKilometraje.max.toLocaleString()}</span>
-                </div>
-              </Form.Group>
-
-              {/* Contador de resultados */}
-              <div className="mt-3 p-2 bg-secondary rounded text-center">
-                <small className="text-white-50">Resultados encontrados:</small>
-                <div className="text-white fw-bold fs-5">
-                  {vehiculosFiltrados.length}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Tabla de Vehículos */}
-        <div className={mostrarFiltros ? "col-lg-9 col-md-8" : "col-12"}>
           <div className="table-responsive p-3 rounded">
             <table className="table table-dark table-hover align-middle">
               <thead>
@@ -399,20 +364,11 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                     {/* ------------------------- */}
                     <td className="text-end">
                       <button
-                        className="btn btn-sm btn-outline-warning me-2"
+                        className="btn btn-sm btn-outline-warning"
                         onClick={() => abrirModalEditar(vehiculo)}
                         title="Editar"
                       >
                         <i className="bi bi-pencil"></i>
-                      </button>
-                      <button
-                        className="btn btn-sm btn-outline-danger"
-                        onClick={() =>
-                          handleEliminarVehiculo(vehiculo.idVehiculoUsado)
-                        }
-                        title="Eliminar"
-                      >
-                        <i className="bi bi-trash"></i>
                       </button>
                     </td>
                   </tr>
@@ -421,16 +377,14 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
             </table>
           </div>
 
-          {/* Paginador */}
-          {totalPaginas > 1 && (
-            <Paginador
-              paginaActual={paginaActual}
-              totalPaginas={totalPaginas}
-              cambiarPagina={cambiarPagina}
-            />
-          )}
-        </div>
-      </div>
+      {/* Paginador */}
+      {totalPaginas > 1 && (
+        <Paginador
+          paginaActual={paginaActual}
+          totalPaginas={totalPaginas}
+          cambiarPagina={cambiarPagina}
+        />
+      )}
 
       {/* Modal de descripción */}
       {mostrarModalDescripcion && vehiculoSeleccionado && (

@@ -2,8 +2,10 @@ import React from "react";
 import "../css/footer.css";
 import logo from "../img/yumotors-rojo-blanco.png";
 import { FiInstagram, FiFacebook, FiYoutube, FiLinkedin, FiExternalLink } from "react-icons/fi";
+import useAuthStore from "../store/authStore";
 
 const Footer = () => {
+  const { isAdmin } = useAuthStore();
   return (
     <footer className="footer-container">
       <div className="footer-main">
@@ -17,7 +19,7 @@ const Footer = () => {
             Lexus <FiExternalLink />
           </a>
           <a href="/contacto">Términos y condiciones</a>
-          <a href="/login">Administracion</a>
+          <a href={isAdmin ? "/admin" : "/404"}>Administracion</a>
         </nav>
 
         <div className="footer-social">

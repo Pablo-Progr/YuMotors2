@@ -4,14 +4,17 @@ import useAuthStore from "../store/authStore";
 const ProtectedRoute = ({ children, requireAdmin = false }) => {
   const { isAuthenticated, isAdmin } = useAuthStore();
 
-  // Si no está autenticado, redirigir al login
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+  // Rutas de admin: solo permite si el usuario es admin, cualquier otro caso → 404
+  if (requireAdmin) {
+    if (!isAdmin) {
+      return <Navigate to="/404" replace />;
+    }
+    return children;
   }
 
-  // Si la ruta requiere admin y el usuario no es admin, redirigir al home
-  if (requireAdmin && !isAdmin) {
-    return <Navigate to="/" replace />;
+  // Rutas protegidas normales: redirigir al login si no está autenticado
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
   }
 
   // Si pasa todas las validaciones, mostrar el componente

@@ -30,6 +30,7 @@ import RegistrosPosventaUser from "./pages/RegistrosPosventaUser";
 import Carrito from "./pages/Carrito";
 
 import PedidosAdmin from "./pages/PedidosAdmin";
+import NotFound from "./pages/NotFound";
 
 
 function App() {
@@ -138,6 +139,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>

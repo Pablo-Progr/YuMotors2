@@ -10,7 +10,7 @@ const TablaConsultasAdmin = () => {
   const [paginaActual, setPaginaActual] = useState(1);
   const itemsPorPagina = 7;
   const [mensajesExpandidos, setMensajesExpandidos] = useState({});
-  const [filtroEstado, setFiltroEstado] = useState("todos"); // todos, pendientes, atendidas
+  const [filtroEstado, setFiltroEstado] = useState("pendientes"); // todos, pendientes, atendidas
 
   const toggleMensaje = (idConsulta) => {
     setMensajesExpandidos((prev) => ({
