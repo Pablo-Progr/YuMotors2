@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Modal, Button, Form } from "react-bootstrap";
-import Paginador from "./Paginador";
+import PaginadorDarkie from "./PaginadorDarkie";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/modalAdmin.css"; // Import styles
 
@@ -26,6 +26,15 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
     min: 0,
     max: 500000,
   });
+  // Filtro de estado: "disponibles" por defecto (no muestra reservados ni vendidos)
+  const [estadoFiltro, setEstadoFiltro] = useState("disponibles");
+
+  // Mapeo de estados para mostrar
+  const ESTADOS = {
+    0: { nombre: "Disponible", clase: "bg-success", color: "#198754" },
+    1: { nombre: "Reservado", clase: "bg-warning text-dark", color: "#ffc107" },
+    2: { nombre: "Vendido", clase: "bg-danger", color: "#dc3545" },
+  };
 
   // --- FORMATEADOR DE MONEDA ---
   const currencyFormatter = new Intl.NumberFormat("es-AR", {
@@ -91,6 +100,49 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
       } catch (error) {
         console.error("Error eliminando vehiculo:", error);
         Swal.fire("Error", "No se pudo eliminar el vehículo", "error");
+      }
+    }
+  };
+
+  // Función para cambiar el estado de un vehículo
+  const handleCambiarEstado = async (id, nuevoEstado) => {
+    const estadoNombres = { 0: "Disponible", 1: "Reservado", 2: "Vendido" };
+    
+    const result = await Swal.fire({
+      title: "Cambiar estado",
+      text: `¿Cambiar el estado del vehículo a "${estadoNombres[nuevoEstado]}"?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: nuevoEstado === 0 ? "#198754" : nuevoEstado === 1 ? "#ffc107" : "#dc3545",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Sí, cambiar",
+      cancelButtonText: "Cancelar",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await axios.patch(
+          `http://localhost:3000/api/vehiculos-usados/estado/${id}`,
+          { estado: nuevoEstado }
+        );
+        
+        // Actualizar el estado localmente
+        setVehiculos(
+          vehiculos.map((v) =>
+            v.idVehiculoUsado === id ? { ...v, estado: nuevoEstado } : v
+          )
+        );
+        
+        Swal.fire({
+          icon: "success",
+          title: "¡Actualizado!",
+          text: `El vehículo ahora está "${estadoNombres[nuevoEstado]}"`,
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      } catch (error) {
+        console.error("Error cambiando estado:", error);
+        Swal.fire("Error", "No se pudo cambiar el estado del vehículo", "error");
       }
     }
   };
@@ -173,6 +225,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
     const filtroLower = filtro.toLowerCase();
     const precio = parseFloat(vehiculo.precio);
     const kilometraje = parseFloat(vehiculo.kilometraje);
+    const estado = parseInt(vehiculo.estado) || 0;
 
     // Filtro de búsqueda por texto (marca o modelo)
     const marcaModeloMatch =
@@ -188,7 +241,20 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
     // Filtro por kilometraje máximo
     const kilometrajeMatch = kilometraje <= kilometrajeMax;
 
-    return marcaModeloMatch && marcaMatch && precioMatch && kilometrajeMatch;
+    // Filtro por estado
+    let estadoMatch = true;
+    if (estadoFiltro === "disponibles") {
+      estadoMatch = estado === 0; // Solo disponibles
+    } else if (estadoFiltro === "reservados") {
+      estadoMatch = estado === 1; // Solo reservados
+    } else if (estadoFiltro === "vendidos") {
+      estadoMatch = estado === 2; // Solo vendidos
+    } else if (estadoFiltro === "activos") {
+      estadoMatch = estado === 0 || estado === 1; // Disponibles y reservados
+    }
+    // estadoFiltro === "todos" -> estadoMatch = true (muestra todo)
+
+    return marcaModeloMatch && marcaMatch && precioMatch && kilometrajeMatch && estadoMatch;
   });
 
   // --- LÓGICA DE PAGINACIÓN ---
@@ -285,12 +351,61 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
               setMarcaFiltro("");
               setPrecioMax(rangosPrecio.max);
               setKilometrajeMax(rangosKilometraje.max);
+              setEstadoFiltro("disponibles");
               setPaginaActual(1);
             }}
             className="w-100"
           >
             <i className="bi bi-arrow-counterclockwise me-2"></i>Limpiar
           </Button>
+        </div>
+      </div>
+
+      {/* Filtro de estado */}
+      <div className="row mb-3">
+        <div className="col-md-12">
+          <Form.Group>
+            <Form.Label className="text-white">
+              <i className="bi bi-flag me-2"></i>Filtrar por Estado
+            </Form.Label>
+            <div className="d-flex gap-2 flex-wrap">
+              <Button
+                variant={estadoFiltro === "disponibles" ? "success" : "outline-success"}
+                size="sm"
+                onClick={() => { setEstadoFiltro("disponibles"); setPaginaActual(1); }}
+              >
+                <i className="bi bi-check-circle me-1"></i>Disponibles
+              </Button>
+              <Button
+                variant={estadoFiltro === "reservados" ? "warning" : "outline-warning"}
+                size="sm"
+                onClick={() => { setEstadoFiltro("reservados"); setPaginaActual(1); }}
+              >
+                <i className="bi bi-clock me-1"></i>Reservados
+              </Button>
+              <Button
+                variant={estadoFiltro === "vendidos" ? "danger" : "outline-danger"}
+                size="sm"
+                onClick={() => { setEstadoFiltro("vendidos"); setPaginaActual(1); }}
+              >
+                <i className="bi bi-bag-check me-1"></i>Vendidos
+              </Button>
+              <Button
+                variant={estadoFiltro === "activos" ? "info" : "outline-info"}
+                size="sm"
+                onClick={() => { setEstadoFiltro("activos"); setPaginaActual(1); }}
+              >
+                <i className="bi bi-eye me-1"></i>Activos (Disp. + Res.)
+              </Button>
+              <Button
+                variant={estadoFiltro === "todos" ? "light" : "outline-light"}
+                size="sm"
+                onClick={() => { setEstadoFiltro("todos"); setPaginaActual(1); }}
+              >
+                <i className="bi bi-list me-1"></i>Todos
+              </Button>
+            </div>
+          </Form.Group>
         </div>
       </div>
 
@@ -306,6 +421,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                   <th>Kilometraje</th>
                   <th>Descripción</th>
                   <th>Precio</th>
+                  <th className="text-center">Estado</th>
                   <th className="text-end">Acciones</th>
                 </tr>
               </thead>
@@ -361,15 +477,47 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                     <td>
                       {currencyFormatter.format(parseFloat(vehiculo.precio))}
                     </td>
+                    {/* --- ESTADO CON COLOR --- */}
+                    <td className="text-center">
+                      <span className={`badge ${ESTADOS[vehiculo.estado || 0]?.clase || 'bg-secondary'}`}>
+                        {ESTADOS[vehiculo.estado || 0]?.nombre || 'Desconocido'}
+                      </span>
+                    </td>
                     {/* ------------------------- */}
                     <td className="text-end">
-                      <button
-                        className="btn btn-sm btn-outline-warning"
-                        onClick={() => abrirModalEditar(vehiculo)}
-                        title="Editar"
-                      >
-                        <i className="bi bi-pencil"></i>
-                      </button>
+                      <div className="btn-group" role="group">
+                        <button
+                          className="btn btn-sm btn-outline-success"
+                          onClick={() => handleCambiarEstado(vehiculo.idVehiculoUsado, 0)}
+                          title="Marcar como Disponible"
+                          disabled={vehiculo.estado === 0}
+                        >
+                          <i className="bi bi-check-circle"></i>
+                        </button>
+                        <button
+                          className="btn btn-sm btn-outline-warning"
+                          onClick={() => handleCambiarEstado(vehiculo.idVehiculoUsado, 1)}
+                          title="Marcar como Reservado"
+                          disabled={vehiculo.estado === 1}
+                        >
+                          <i className="bi bi-clock"></i>
+                        </button>
+                        <button
+                          className="btn btn-sm btn-outline-danger"
+                          onClick={() => handleCambiarEstado(vehiculo.idVehiculoUsado, 2)}
+                          title="Marcar como Vendido"
+                          disabled={vehiculo.estado === 2}
+                        >
+                          <i className="bi bi-bag-check"></i>
+                        </button>
+                        <button
+                          className="btn btn-sm btn-outline-warning ms-2"
+                          onClick={() => abrirModalEditar(vehiculo)}
+                          title="Editar"
+                        >
+                          <i className="bi bi-pencil"></i>
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -379,7 +527,7 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
 
       {/* Paginador */}
       {totalPaginas > 1 && (
-        <Paginador
+        <PaginadorDarkie
           paginaActual={paginaActual}
           totalPaginas={totalPaginas}
           cambiarPagina={cambiarPagina}
@@ -577,6 +725,25 @@ const TablaVehiculosAdmin = ({ refreshTrigger }) => {
                       value={vehiculoSeleccionado.imagen || ""}
                       onChange={handleChange}
                     />
+                  </Form.Group>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-md-5">
+                  <Form.Group className="mb-3">
+                    <Form.Label>
+                      <i className="bi bi-flag me-2"></i>Estado
+                    </Form.Label>
+                    <Form.Select
+                      name="estado"
+                      value={vehiculoSeleccionado.estado || 0}
+                      onChange={handleChange}
+                    >
+                      <option value={0}>Disponible</option>
+                      <option value={1}>Reservado</option>
+                      <option value={2}>Vendido</option>
+                    </Form.Select>
                   </Form.Group>
                 </div>
               </div>

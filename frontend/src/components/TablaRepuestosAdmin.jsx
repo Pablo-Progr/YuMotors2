@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Modal, Button, Form } from "react-bootstrap";
-import Paginador from "./Paginador";
+import PaginadorDarkie from "./PaginadorDarkie";
 // Importar 'bootstrap.min.css' aquí si es necesario en tu proyecto
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/modalAdmin.css"; // Import styles
@@ -405,7 +405,7 @@ const TablaRepuestosAdmin = () => {
 
       {/* Paginador */}
       {totalPaginas > 1 && (
-        <Paginador
+        <PaginadorDarkie
           paginaActual={paginaActual}
           totalPaginas={totalPaginas}
           cambiarPagina={cambiarPagina}

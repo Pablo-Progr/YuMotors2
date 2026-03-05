@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Form, Button } from "react-bootstrap";
-import Paginador from "./Paginador";
+import PaginadorDarkie from "./PaginadorDarkie";
 import "../css/modalAdmin.css";
 
 const ESTADOS = {
@@ -268,10 +268,10 @@ const TablaPedidos = () => {
           </div>
 
           {totalPaginas > 1 && (
-            <Paginador
+            <PaginadorDarkie
               paginaActual={paginaActual}
               totalPaginas={totalPaginas}
-              onCambiarPagina={setPaginaActual}
+              cambiarPagina={setPaginaActual}
             />
           )}
         </>

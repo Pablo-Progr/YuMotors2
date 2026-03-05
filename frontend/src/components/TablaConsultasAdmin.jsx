@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/modalAdmin.css";
 import Swal from "sweetalert2";
-import Paginador from "./Paginador";
+import PaginadorDarkie from "./PaginadorDarkie";
 import { Form, Button } from "react-bootstrap";
 
 const TablaConsultasAdmin = () => {
@@ -240,7 +240,7 @@ const TablaConsultasAdmin = () => {
 
       {/* Paginador */}
       {totalPaginas > 1 && (
-        <Paginador
+        <PaginadorDarkie
           paginaActual={paginaActual}
           totalPaginas={totalPaginas}
           cambiarPagina={cambiarPagina}

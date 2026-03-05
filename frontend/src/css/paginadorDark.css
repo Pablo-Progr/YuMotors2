@@ -1,0 +1,197 @@
+/* Estilos del Paginador Oscuro para Admin */
+.paginador-dark-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 1.5rem;
+}
+
+.paginador-dark-controles {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-paginador-dark {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid #4db6ac;
+  background: transparent;
+  color: #4db6ac;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: none;
+}
+
+.btn-paginador-dark:hover:not(:disabled) {
+  background: linear-gradient(45deg, #00695c 0%, #00897b 100%);
+  border-color: #00897b;
+  color: #ffffff;
+  transform: none;
+  box-shadow: 0 4px 15px rgba(0, 77, 64, 0.3);
+}
+
+.btn-paginador-dark:active:not(:disabled) {
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-paginador-dark:disabled {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.3);
+  cursor: not-allowed;
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+.btn-paginador-dark i {
+  font-size: 1rem;
+}
+
+/* Botones específicos */
+.btn-inicio-dark,
+.btn-final-dark {
+  font-weight: 600;
+}
+
+.btn-salto-dark {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-salto-dark:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: none;
+}
+
+/* Números de página */
+.numeros-pagina-dark {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-numero-dark {
+  min-width: 38px;
+  height: 38px;
+  padding: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  color: #e0e0e0;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-numero-dark:hover {
+  background: rgba(77, 182, 172, 0.15);
+  border-color: rgba(77, 182, 172, 0.4);
+  color: #4db6ac;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-numero-dark.activo-dark {
+  background: linear-gradient(45deg, #00695c 0%, #00897b 100%);
+  border-color: #00897b;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 77, 64, 0.3);
+  transform: none;
+}
+
+.puntos-suspension-dark {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0 0.4rem;
+  user-select: none;
+}
+
+/* Información de página */
+.paginador-info-dark {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .paginador-dark-container {
+    padding: 1rem;
+  }
+
+  .paginador-dark-controles {
+    gap: 0.3rem;
+  }
+
+  .btn-paginador-dark {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.8rem;
+  }
+
+  .btn-text-dark {
+    display: none;
+  }
+
+  .btn-paginador-dark i {
+    font-size: 0.9rem;
+  }
+
+  .btn-numero-dark {
+    min-width: 35px;
+    height: 35px;
+    font-size: 0.85rem;
+  }
+
+  .paginador-info-dark {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-paginador-dark {
+    padding: 0.4rem 0.6rem;
+  }
+
+  .btn-numero-dark {
+    min-width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+
+  .puntos-suspension-dark {
+    font-size: 1rem;
+    padding: 0 0.3rem;
+  }
+}

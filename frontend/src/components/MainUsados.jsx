@@ -28,7 +28,7 @@ const MainUsados = () => {
   const fetchVehiculos = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/vehiculos-usados",
+        "http://localhost:3000/api/vehiculos-usados/disponibles",
       );
       setVehiculos(response.data);
 
