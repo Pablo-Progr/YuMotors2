@@ -1,6 +1,5 @@
 /* ====== CONTENEDOR PRINCIPAL ====== */
 .posventa-wrapper {
-  
   min-height: 100vh;
   padding: 4rem 2rem;
   display: flex;
@@ -13,7 +12,6 @@
   width: 100%;
   background: rgba(10, 10, 10, 0);
   padding: 1rem;
-  
 }
 
 .posventa-form-container {
@@ -35,7 +33,7 @@
 .posventa-descripcion {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #666;
+  color: #999;
   margin: 0 0 2rem 0;
 }
 
@@ -96,12 +94,11 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  
 }
 
 .form-group label {
   font-weight: 600;
-  color: #1a1a1a;
+  color: #f0f0f0;
   font-size: 0.95rem;
   display: flex;
   align-items: center;
@@ -114,27 +111,36 @@
 }
 
 .form-group input,
-.form-group select {
+.form-group select,
+.form-group textarea {
   padding: 0.9rem 1rem;
-  border: 2px solid #e0e0e0;
+  border: 2px solid #3a3a3a;
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
-  background: white;
-  color: #1a1a1a;
+  background: #2a2a2a;
+  color: #f0f0f0;
   font-family: inherit;
 }
 
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus {
   outline: none;
   border-color: #c8102e;
-  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.1);
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.2);
+  background: #333;
 }
 
 .form-group input:read-only {
-  background-color: #f5f5f5;
+  background-color: #252525;
   cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
 }
 
 /* ====== SPINNER ====== */
@@ -145,6 +151,17 @@
   border-top-color: white;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
+}
+
+
+
+/* ====== LOGO ====== */
+.logo-yu {
+  max-width: 180px; /* Controla el tamaño máximo del logo. Puedes ajustarlo a tu gusto */
+  width: 100%;
+  height: auto; /* Mantiene las proporciones de la imagen */
+  display: block; /* Permite usar margin auto para centrar */
+  margin: 0 auto 1.5rem auto; /* Lo centra horizontalmente y deja espacio hacia abajo */
 }
 
 @keyframes spin {
@@ -170,41 +187,194 @@
 }
 
 /* ====== RESPONSIVE ====== */
-@media (max-width: 768px) {
+
+/* Tablets grandes y laptops pequeñas */
+@media (max-width: 1024px) {
+
+  .logo-yu {
+    max-width: 140px;
+    margin-bottom: 1rem;
+  }
+
+
   .posventa-wrapper {
-    padding: 2rem 1rem;
+    padding: 3rem 1.5rem;
   }
 
   .posventa-container {
-    padding: 1.5rem;
-  }
-
-  .posventa-titulo {
-    font-size: 2rem;
-  }
-
-  .posventa-descripcion {
-    font-size: 1rem;
+    max-width: 550px;
   }
 
   .posventa-form-container {
-    padding: 1.5rem;
+    padding: 2rem;
   }
 
-  .btn-posventa {
-    padding: 0.9rem 1.5rem;
-    font-size: 1rem;
+  .posventa-titulo {
+    font-size: 2.2rem;
+    letter-spacing: 1.5px;
+  }
+
+  .posventa-descripcion {
+    font-size: 1.05rem;
   }
 }
 
-@media (max-width: 480px) {
+/* Tablets */
+@media (max-width: 768px) {
+  .posventa-wrapper {
+    padding: 2rem 1rem;
+    min-height: auto;
+  }
+
+  .posventa-container {
+    max-width: 100%;
+    padding: 0.5rem;
+  }
+
+  .posventa-form-container {
+    padding: 1.8rem 1.5rem;
+    border-radius: 12px;
+  }
+
   .posventa-titulo {
     font-size: 1.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.8rem;
+  }
+
+  .posventa-descripcion {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .posventa-form {
+    gap: 1.2rem;
+  }
+
+  .btn-posventa {
+    padding: 0.85rem 1.5rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
   }
 
   .form-group input,
-  .form-group select {
-    padding: 0.8rem;
+  .form-group select,
+  .form-group textarea {
+    padding: 0.8rem 0.9rem;
     font-size: 0.95rem;
+  }
+
+  .form-group textarea {
+    min-height: 90px;
+  }
+}
+
+/* Móviles grandes */
+@media (max-width: 480px) {
+  .posventa-wrapper {
+    padding: 1.5rem 0.8rem;
+  }
+
+  .posventa-container {
+    padding: 0;
+  }
+
+  .posventa-form-container {
+    padding: 1.5rem 1rem;
+    border-radius: 10px;
+  }
+
+  .posventa-titulo {
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.7rem;
+  }
+
+  .posventa-descripcion {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.3rem;
+  }
+
+  .posventa-form {
+    gap: 1rem;
+  }
+
+  .form-group {
+    gap: 0.4rem;
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+    gap: 0.4rem;
+  }
+
+  .label-icon {
+    font-size: 0.9rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.75rem 0.8rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+  }
+
+  .form-group textarea {
+    min-height: 80px;
+  }
+
+  .btn-posventa {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    gap: 0.5rem;
+  }
+
+  .btn-icon {
+    font-size: 1rem;
+  }
+
+  .spinner {
+    width: 18px;
+    height: 18px;
+    border-width: 2px;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 360px) {
+  .posventa-wrapper {
+    padding: 1rem 0.5rem;
+  }
+
+  .posventa-form-container {
+    padding: 1.2rem 0.8rem;
+  }
+
+  .posventa-titulo {
+    font-size: 1.3rem;
+  }
+
+  .posventa-descripcion {
+    font-size: 0.85rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.7rem;
+    font-size: 0.85rem;
+  }
+
+  .btn-posventa {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
   }
 }

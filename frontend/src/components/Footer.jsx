@@ -42,37 +42,7 @@ const Footer = () => {
         <p>©2025 Yu Motors. Todos los derechos reservados.</p>
       </div>
 
-      <div className="footer-links-section row">
-        <div className="footer-link-group">
-          <a href="#">Libro de quejas</a>
-        </div>
-        <div className="footer-link-group">
-          <a href="#">Política de privacidad</a>
-        </div>
-        <div className="footer-link-group">
-          <a href="#">Botón de arrepentimiento</a>
-        </div>
-        <div className="footer-link-group">
-          <a href="#" className="footer-link-external">
-            Defensa de las y los consumidores. Para reclamos ingrese aquí
-          </a>
-        </div>
-        <div className="footer-link-group">
-          <a href="#" className="footer-link-external">
-            Defensa de las y los consumidores. Alerta de Productos. Ingrese aquí 
-          </a>
-        </div>
-        <div className="footer-link-group">
-          <a href="#" className="footer-link-external">
-            Aprobaciones de Equipos de Radiofrecuencia y Mapas 
-          </a>
-        </div>
-        <div className="footer-link-group">
-          <a href="#" className="footer-link-external">
-            Alerta y retiro de productos
-          </a>
-        </div>
-      </div>
+      
     </footer>
   );
 };

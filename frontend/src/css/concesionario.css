@@ -1,160 +1,284 @@
 /* ===== CONTENEDOR GENERAL ===== */
-.concesionario-container {
+.concesionario-page {
   font-family: 'Oswald', 'Helvetica Neue', sans-serif;
+  background-color: #fcfcfc;
   color: #111;
-  background-color: #fff;
-  padding: 4rem 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ===== HERO BANNER (IMAGEN GIGANTE) ===== */
+.concesionario-hero {
+  width: 100%;
+  height: 70vh; /* Ocupa el 70% del alto de la pantalla */
+  min-height: 500px;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Efecto Parallax suave */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.6); /* Capa oscura para que el texto resalte */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.hero-title {
+  color: #ffffff;
+  font-size: 4rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.hero-subtitle {
+  color: #f0f0f0;
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+/* ===== CONTENEDOR INTERNO ===== */
+.concesionario-container {
+  max-width: 1200px;
+  margin: -50px auto 0; /* Sube un poco sobre el banner */
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  background-color: #ffffff;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
+}
+
+/* ===== ANIMACIONES AL HACER SCROLL ===== */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Añadir un pequeño retraso al subtítulo del hero */
+.hero-subtitle.animate-on-scroll {
+  transition-delay: 0.2s;
+}
+
+/* ===== TITULOS Y SEPARADORES ===== */
+.concesionario-info-section,
+.concesionario-history-section,
+.concesionario-facts-section,
+.concesionario-contact-section {
   text-align: center;
 }
 
-/* ===== LOGO ===== */
-.concesionario-logo-section img {
-  width: 100%;
-  max-width: 500px;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  object-fit: cover;
-}
-
-/* ===== TITULOS ===== */
-.concesionario-info-section h2,
-.concesionario-history-section h2,
-.concesionario-facts-section h2,
-.concesionario-contact-section h2 {
-  color: #e60012;
-  font-size: 2rem;
+.concesionario-container h2 {
+  color: #111;
+  font-size: 2.5rem;
   text-transform: uppercase;
   letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.section-divider {
+  width: 60px;
+  height: 4px;
+  background-color: #c8102e; /* Rojo Toyota */
+  margin: 0 auto 2rem auto;
+  border-radius: 2px;
+}
+
+/* ===== PÁRRAFOS ===== */
+.concesionario-info-section p,
+.concesionario-history-section p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #555;
+  max-width: 800px;
+  margin: 0 auto;
+  font-weight: 300;
+}
+
+/* ===== GRID DE SERVICIOS ===== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.service-card {
+  background-color: #ffffff;
+  padding: 2.5rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(200, 16, 46, 0.15);
+  border-bottom: 3px solid #c8102e;
+}
+
+.service-icon {
+  font-size: 3rem;
   margin-bottom: 1rem;
 }
 
-/* ===== PARÁGRAFOS ===== */
-.concesionario-info-section p,
-.concesionario-history-section p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #333;
-  max-width: 800px;
-  margin: 0 auto;
+.service-card h3 {
+  font-size: 1.3rem;
+  color: #111;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
 }
 
-/* ===== SERVICIOS ===== */
-.concesionario-facts-section ul {
-  list-style-type: none;
-  padding: 0;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.concesionario-facts-section li {
-  font-size: 1.05rem;
-  margin: 0.75rem 0;
-  color: #555;
-  padding: 0.5rem;
-  background-color: #f7f7f7;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.concesionario-facts-section li:hover {
-  background-color: #e60012;
-  color: #fff;
-  transform: translateX(5px);
+.service-card p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
 }
 
 /* ===== CONTACTO ===== */
-.concesionario-contact-section {
-  background-color: #f7f7f7;
-  padding: 2rem;
-  border-radius: 8px;
+.contact-details-card {
+  background-color: #111;
+  color: #fff;
+  padding: 3rem;
+  border-radius: 12px;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
-.contact-details {
-  max-width: 600px;
-  margin: 1rem auto 0;
+.contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.contact-details p {
-  font-size: 1.05rem;
-  color: #333;
-  margin: 0.75rem 0;
-  line-height: 1.6;
+.contact-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
-.contact-details strong {
-  color: #e60012;
-  margin-right: 0.5rem;
+.contact-item strong {
+  color: #c8102e;
+  min-width: 120px;
+  text-align: right;
+}
+
+.contact-item span {
+  font-weight: 300;
+  text-align: left;
+  flex: 1;
 }
 
 /* ===== MAPA ===== */
 .concesionario-map-section {
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.concesionario-map-section iframe {
-  width: 100%;
-  height: 450px;
-  border: 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-top: -2rem;
 }
 
 /* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .contact-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .contact-item strong {
+    text-align: center;
+  }
+  
+  .contact-item span {
+    text-align: center;
+  }
+}
+
 @media (max-width: 768px) {
+  .concesionario-hero {
+    height: 50vh;
+    min-height: 400px;
+    background-attachment: scroll; /* Desactiva parallax en móviles para mejor rendimiento */
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+
   .concesionario-container {
-    padding: 3rem 1rem;
-    gap: 2rem;
+    padding: 3rem 1.5rem;
+    gap: 4rem;
+    margin-top: -30px;
   }
 
-  .concesionario-logo-section img {
-    max-width: 350px;
-  }
-
-  .concesionario-info-section h2,
-  .concesionario-history-section h2,
-  .concesionario-facts-section h2,
-  .concesionario-contact-section h2 {
-    font-size: 1.6rem;
+  .concesionario-container h2 {
+    font-size: 2rem;
   }
 
   .concesionario-info-section p,
   .concesionario-history-section p {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
-  .concesionario-facts-section li,
-  .contact-details p {
-    font-size: 0.95rem;
-  }
-
-  .concesionario-map-section iframe {
-    height: 350px;
+  .contact-details-card {
+    padding: 2rem 1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .concesionario-container {
-    padding: 2rem 1rem;
+  .hero-title {
+    font-size: 2rem;
   }
 
-  .concesionario-logo-section img {
-    max-width: 100%;
-  }
-
-  .concesionario-info-section h2,
-  .concesionario-history-section h2,
-  .concesionario-facts-section h2,
-  .concesionario-contact-section h2 {
-    font-size: 1.4rem;
+  .concesionario-container h2 {
+    font-size: 1.6rem;
   }
 
   .concesionario-map-section iframe {
-    height: 300px;
+    height: 350px;
   }
 }

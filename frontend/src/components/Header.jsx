@@ -15,8 +15,17 @@ const Header = () => {
   const { isAuthenticated, user, logout } = useAuthStore();
   const navigate = useNavigate();
 
-  const toggleModelos = () => { setShowModelos(!showModelos); setShowProductos(false); };
-  const toggleProductos = () => { setShowProductos(!showProductos); setShowModelos(false); };
+ const toggleModelos = () => { 
+    setShowModelos(!showModelos); 
+    setShowProductos(false); 
+    setMenuOpen(false); 
+  };
+  
+  const toggleProductos = () => { 
+    setShowProductos(!showProductos); 
+    setShowModelos(false); 
+  };
+  
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   const handleLogout = () => {
@@ -76,8 +85,8 @@ const Header = () => {
             </button>
             {showProductos && (
               <div className="productos-dropdown-menu">
-                <a href="/repuestos" onClick={() => setShowProductos(false)}>Repuestos</a>
-                <a href="/accesorios" onClick={() => setShowProductos(false)}>Accesorios</a>
+                <a href="/repuestos" className="nav-link-dropdown" onClick={() => setShowProductos(false)}>Repuestos</a>
+                <a href="/accesorios" className="nav-link-dropdown" onClick={() => setShowProductos(false)}>Accesorios</a>
               </div>
             )}
           </div>
@@ -105,7 +114,7 @@ const Header = () => {
               {/* Usuario logueado con dropdown */}
               <div className="user-dropdown-wrapper" ref={userMenuRef}>
                 <button
-                  className="nav-user-info"
+                  className="nav-user-info nav-link"
                   onClick={() => setShowUserMenu(!showUserMenu)}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -118,7 +127,7 @@ const Header = () => {
                 </button>
                 {showUserMenu && (
                   <div className="user-dropdown-menu">
-                    <button className="user-dropdown-item" onClick={handleLogout}>
+                    <button className="user-dropdown-item nav-link-dropdown" onClick={handleLogout}>
                       Salir
                     </button>
                   </div>
@@ -131,7 +140,7 @@ const Header = () => {
               <Link to="/login" className="nav-link nav-link-login">
                 Iniciar Sesión
               </Link>
-              <Link to="/login" state={{ vista: "register" }} className="nav-link-register">
+              <Link to="/login" state={{ vista: "register" }} className="nav-link nav-link-register">
                 Registrarse
               </Link>
             </div>
@@ -162,7 +171,6 @@ const Header = () => {
             <a href="/marcas/gr/yaris">GR Yaris</a>
             <a href="/marcas/gr/gr86">GR 86</a>
             <a href="/marcas/gr/gr86">GR Supra</a>
-            
           </div>
         </div>
       </div>
