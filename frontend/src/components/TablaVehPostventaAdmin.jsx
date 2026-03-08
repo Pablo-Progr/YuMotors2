@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/modalAdmin.css";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Modal, Button, Form } from "react-bootstrap";
 
 const TablaVehPostventaAdmin = () => {
-  const navigate = useNavigate();
   const [vehPostventa, setVehPostVenta] = useState([]);
   const [vehPostventaSeleccionado, setVehPostventaSeleccionado] = useState(
     null
@@ -36,27 +35,6 @@ const TablaVehPostventaAdmin = () => {
   const cerrarModal = () => {
     setVehPostventaSeleccionado(null);
     setMostrarModal(false);
-  };
-
-  const handleEliminarVehiculo = async (id) => {
-    try {
-      await axios.delete(
-        `http://localhost:3000/api/veh-posventa/eliminar/${id}`
-      );
-      setVehPostVenta(
-        vehPostventa.filter(
-          (vehiculo) => vehiculo.idVehiculoPostVenta !== id
-        )
-      );
-      Swal.fire({
-        icon: "success",
-        title: "Vehículo eliminado",
-        timer: 1500,
-        showConfirmButton: false,
-      });
-    } catch (error) {
-      console.error("Error al eliminar el vehículo:", error);
-    }
   };
 
   const handleUpdateVehiculo = async (e) => {
@@ -164,14 +142,6 @@ const TablaVehPostventaAdmin = () => {
                     onClick={() => abrirModal(vehPostventa)}
                   >
                     <i className="bi bi-pencil"></i>
-                  </button>
-                  <button
-                    className="btn btn-sm btn-outline-danger"
-                    onClick={() =>
-                      handleEliminarVehiculo(vehPostventa.idVehiculoPostVenta)
-                    }
-                  >
-                    <i className="bi bi-trash"></i>
                   </button>
                 </td>
               </tr>
