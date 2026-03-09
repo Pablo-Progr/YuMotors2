@@ -266,13 +266,12 @@
   position: absolute;
   top: 15px;
   left: 15px;
-  background: rgba(204, 0, 0, 0.9);
+  background: rgb(204, 0, 0);
   color: #fff;
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 600;
-  backdrop-filter: blur(10px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   z-index: 2;
 }
@@ -643,6 +642,28 @@
 }
 
 /* =========RESPONSIVE ======== */
+
+/* Notebooks ~15'' (1280px - 1920px): 4 cards por fila */
+@media (min-width: 1201px) and (max-width: 1500px) {
+  .card-repuestos-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 0 1.5rem 3rem;
+  }
+
+  .card-image-wrapper {
+    height: 180px;
+  }
+
+  .titulo-card-repuestos {
+    font-size: 0.95rem;
+  }
+
+  .precio-card-repuestos {
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 1200px) {
   .filtros-grid {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

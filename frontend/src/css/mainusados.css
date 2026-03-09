@@ -323,7 +323,6 @@
   border-radius: 4px;
   font-size: 1rem;
   font-weight: 600;
-  backdrop-filter: blur(12px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   letter-spacing: 0.5px;
