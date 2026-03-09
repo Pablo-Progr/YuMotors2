@@ -124,9 +124,23 @@ const Header = () => {
                     <circle cx="12" cy="7" r="4"/>
                   </svg>
                   <span className="nav-user-name">Hola, {user?.nombre}</span>
+                  <svg
+                    className={`nav-chevron ${showUserMenu ? "open" : ""}`}
+                    xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
                 </button>
                 {showUserMenu && (
                   <div className="user-dropdown-menu">
+                    <Link
+                      to="/pedidos"
+                      className="user-dropdown-item nav-link-dropdown"
+                      onClick={() => setShowUserMenu(false)}
+                    >
+                      Mis Pedidos
+                    </Link>
                     <button className="user-dropdown-item nav-link-dropdown" onClick={handleLogout}>
                       Salir
                     </button>

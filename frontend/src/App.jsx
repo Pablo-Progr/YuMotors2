@@ -30,13 +30,16 @@ import RegistrosPosventaUser from "./pages/RegistrosPosventaUser";
 import Carrito from "./pages/Carrito";
 
 import PedidosAdmin from "./pages/PedidosAdmin";
+import PedidosUser from "./pages/PedidosUser";
 import NotFound from "./pages/NotFound";
+import AutoLogout from "./components/AutoLogout";
 
 
 function App() {
   return (
     <>
       <BrowserRouter>
+        <AutoLogout />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/usados" element={<Usados />} />
@@ -62,6 +65,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Carrito />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/pedidos"
+            element={
+              <ProtectedRoute>
+                <PedidosUser />
               </ProtectedRoute>
             }
           />

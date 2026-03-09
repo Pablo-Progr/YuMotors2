@@ -46,12 +46,10 @@ const confirmarPedido = (req, res) => {
 const obtenerPedidos = (req, res) => {
   const { idUsuario } = req.params;
   const query = `
-    SELECT c.idCarrito, c.fechaCreacion, 
-           ci.idItem, ci.tipoProducto, ci.idProducto, ci.cantidad
-    FROM carrito c
-    JOIN carrito_items ci ON c.idCarrito = ci.idCarrito
-    WHERE c.idUsuario = ?
-    ORDER BY c.fechaCreacion DESC
+    SELECT idCarrito, estado, fechaCreacion
+    FROM carrito
+    WHERE idUsuario = ?
+    ORDER BY fechaCreacion DESC
   `;
 
   db.query(query, [idUsuario], (err, results) => {
@@ -60,6 +58,28 @@ const obtenerPedidos = (req, res) => {
       return res.status(500).json({ error: 'Error al obtener los pedidos' });
     }
     res.json(results);
+  });
+};
+
+// Eliminar un pedido (solo si no está retirado)
+const eliminarPedido = (req, res) => {
+  const { idCarrito } = req.params;
+
+  // Verificar que el pedido existe y no está retirado (estado 2)
+  db.query('SELECT estado FROM carrito WHERE idCarrito = ?', [idCarrito], (err, rows) => {
+    if (err) return res.status(500).json({ error: 'Error al verificar el pedido' });
+    if (rows.length === 0) return res.status(404).json({ error: 'Pedido no encontrado' });
+    if (rows[0].estado === 2) return res.status(400).json({ error: 'No se puede eliminar un pedido ya retirado' });
+
+    // Borrar items primero (FK), luego el carrito
+    db.query('DELETE FROM carrito_items WHERE idCarrito = ?', [idCarrito], (err) => {
+      if (err) return res.status(500).json({ error: 'Error al eliminar los items del pedido' });
+
+      db.query('DELETE FROM carrito WHERE idCarrito = ?', [idCarrito], (err) => {
+        if (err) return res.status(500).json({ error: 'Error al eliminar el pedido' });
+        res.json({ success: true, message: 'Pedido eliminado correctamente' });
+      });
+    });
   });
 };
 
@@ -203,5 +223,6 @@ module.exports = {
   obtenerDetallePedido,
   obtenerTodosPedidos,
   actualizarEstadoPedido,
+  eliminarPedido,
 };
 

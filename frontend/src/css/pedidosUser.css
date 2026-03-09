@@ -1,0 +1,187 @@
+.pedidos-user-section {
+  min-height: 60vh;
+  background-color: #f8f9fa;
+  padding: 48px 16px 64px;
+  font-family: "Poppins", sans-serif;
+}
+
+.pedidos-user-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.pedidos-user-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 32px;
+  border-left: 4px solid #e60012;
+  padding-left: 14px;
+}
+
+.pedidos-loading,
+.pedidos-empty {
+  text-align: center;
+  color: #666;
+  font-size: 1rem;
+  padding: 40px 0;
+}
+
+/* Table wrapper */
+.pedidos-table-wrapper {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.pedidos-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.pedidos-table thead tr {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.pedidos-table thead th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.pedidos-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.15s;
+}
+
+.pedidos-table tbody tr:hover {
+  background-color: #fafafa;
+}
+
+.pedidos-table tbody td {
+  padding: 13px 16px;
+  color: #333;
+  vertical-align: middle;
+}
+
+/* Estado badges */
+.pedidos-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pedidos-badge-pendiente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.pedidos-badge-reservado {
+  background-color: #cfe2ff;
+  color: #084298;
+}
+
+.pedidos-badge-retirado {
+  background-color: #d1e7dd;
+  color: #0a3622;
+}
+
+/* Buttons */
+.pedidos-btn-detalle {
+  background: none;
+  border: 1.5px solid #1a1a1a;
+  color: #1a1a1a;
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.pedidos-btn-detalle:hover {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.pedidos-btn-eliminar {
+  background: none;
+  border: 1.5px solid #e60012;
+  color: #e60012;
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.pedidos-btn-eliminar:hover:not(:disabled) {
+  background: #e60012;
+  color: #fff;
+}
+
+.pedidos-btn-eliminar:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Expanded detail row */
+.pedidos-detalle-row td {
+  background-color: #f4f6f9;
+  padding: 16px 20px;
+}
+
+.pedidos-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+}
+
+.pedidos-items-table thead tr {
+  background-color: #e60012;
+  color: #fff;
+}
+
+.pedidos-items-table thead th {
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.pedidos-items-table tbody td {
+  padding: 9px 14px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #444;
+}
+
+.pedidos-items-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 600px) {
+  .pedidos-user-title {
+    font-size: 1.4rem;
+  }
+  .pedidos-table thead th,
+  .pedidos-table tbody td {
+    padding: 10px 10px;
+    font-size: 0.82rem;
+  }
+}

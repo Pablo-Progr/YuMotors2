@@ -34,7 +34,7 @@ const useAuthStore = create(
       },
     }),
     {
-      name: 'auth-storage', // Nombre en localStorage
+      name: 'auth-storage',
     }
   )
 );
