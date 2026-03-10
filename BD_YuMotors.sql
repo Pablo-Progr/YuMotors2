@@ -8,17 +8,18 @@ nombre varchar(10) not null
 );
 
 insert into roles(nombre) value ("admin");
-/* 
-insert into roles(nombre) value ("postVenta"), ("asesor");
- */
+insert into roles(nombre) value ("user");
  
 create table usuarios (
 idUsuario int primary key auto_increment,
 nombre varchar(50) not null,
 pass varchar(250) not null,
+mail varchar(250),
 idRol int not null,
 foreign key (idRol) references roles(idRol)
 );
+
+select * from usuarios;
 
 select * from roles;
 select * from usuarios;
@@ -91,371 +92,6 @@ VALUES
 
 select * from repuestos;
 
-create table ventasAccesorios (
-    idVenta INT AUTO_INCREMENT PRIMARY KEY,
-    fechaVenta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    totalVenta DECIMAL(20, 2) NOT NULL 
-);
-
-CREATE TABLE detalleVentasAccesorios (
-    idDetalle INT AUTO_INCREMENT PRIMARY KEY,
-    idVenta INT NOT NULL,
-    idAccesorio INT NOT NULL, 
-    cantidad INT NOT NULL,
-    precioMomento decimal(20, 2) NOT NULL, 
-    
-    FOREIGN KEY (idVenta) 
-        REFERENCES ventasAccesorios(idVenta) 
-        ON DELETE CASCADE,
-        
-    FOREIGN KEY (idAccesorio) 
-        REFERENCES accesorios(idAccesorio)
-);
-
--- Usamos transacciones para asegurar la integridad de cada venta
-START TRANSACTION;
-
--- Venta 1: (Agosto) Una venta simple de un producto popular
-INSERT INTO ventasAccesorios (fechaVenta, totalVenta) 
-VALUES ('2025-08-15 10:30:00', 41400.00);
-
--- Detalle de la Venta 1
-INSERT INTO detalleVentasAccesorios (idVenta, idAccesorio, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 5, 1, 41400.00); -- 1x Kit de Cera Rápida
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 2: (Septiembre) Una venta con varios artículos de iluminación y mantenimiento
-INSERT INTO ventasAccesorios (fechaVenta, totalVenta) 
-VALUES ('2025-09-02 14:22:00', 167600.00);
-
--- Detalle de la Venta 2
-INSERT INTO detalleVentasAccesorios (idVenta, idAccesorio, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 3, 2, 69600.00),  -- 2x Lámpara H4 Night Breaker
-(LAST_INSERT_ID(), 13, 1, 28400.00); -- 1x Escobillas Limpiaparabrisas
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 3: (Septiembre) Venta de un artículo caro (Thule)
-INSERT INTO ventasAccesorios (fechaVenta, totalVenta) 
-VALUES ('2025-09-20 18:00:00', 400000.00);
-
--- Detalle de la Venta 3
-INSERT INTO detalleVentasAccesorios (idVenta, idAccesorio, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 2, 1, 400000.00); -- 1x Barras de Techo Thule WingBar
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 4: (Octubre) Venta de mantenimiento (aceite y filtro)
-INSERT INTO ventasAccesorios (fechaVenta, totalVenta) 
-VALUES ('2025-10-10 09:15:00', 204115.00);
-
--- Detalle de la Venta 4
-INSERT INTO detalleVentasAccesorios (idVenta, idAccesorio, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 1, 1, 154150.00), -- 1x Filtro de Aire K&N
-(LAST_INSERT_ID(), 17, 1, 49965.00); -- 1x Aceite Sintético 5W-30
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 5: (Octubre) Venta de varios artículos pequeños
-INSERT INTO ventasAccesorios (fechaVenta, totalVenta) 
-VALUES ('2025-10-28 16:45:00', 114499.95);
-
--- Detalle de la Venta 5
-INSERT INTO detalleVentasAccesorios (idVenta, idAccesorio, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 18, 5, 4599.99),  -- 5x Parasol Plegable
-(LAST_INSERT_ID(), 15, 2, 25500.00), -- 2x Líquido Refrigerante Rojo
-(LAST_INSERT_ID(), 9, 1, 40500.00);  -- 1x Funda Cubre Volante
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 6: (Noviembre) Venta grande de equipamiento (Enganche)
-INSERT INTO ventasAccesorios (fechaVenta, totalVenta) 
-VALUES ('2025-11-05 11:10:00', 395000.00);
-
--- Detalle de la Venta 6
-INSERT INTO detalleVentasAccesorios (idVenta, idAccesorio, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 16, 1, 395000.00); -- 1x Enganche de Remolque
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 7: (Noviembre - Reciente) Venta de seguridad y batería
-INSERT INTO ventasAccesorios (fechaVenta, totalVenta) 
-VALUES ('2025-11-12 17:00:00', 159455.00);
-
--- Detalle de la Venta 7
-INSERT INTO detalleVentasAccesorios (idVenta, idAccesorio, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 4, 1, 135000.00), -- 1x Batería 12V 75Ah
-(LAST_INSERT_ID(), 12, 1, 24455.00); -- 1x Kit de Seguridad Vial
-
-COMMIT;
-
-
-
-create table ventasRepuestos (
-    idVenta INT AUTO_INCREMENT PRIMARY KEY,
-    fechaVenta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    totalVenta DECIMAL(10, 2) NOT NULL 
-);
-
-CREATE TABLE detalleVentasRepuestos (
-    idDetalle INT AUTO_INCREMENT PRIMARY KEY,
-    idVenta INT NOT NULL,
-    idRepuesto int NOT NULL, 
-    cantidad INT NOT NULL,
-    precioMomento decimal(15, 2) NOT NULL, 
-    FOREIGN KEY (idVenta) 
-        REFERENCES ventasRepuestos(idVenta) 
-        ON DELETE CASCADE,
-        
-    FOREIGN KEY (idRepuesto) 
-        REFERENCES repuestos(idRepuesto)
-);
-
--- Usamos transacciones para asegurar la integridad de cada venta
-START TRANSACTION;
-
--- Venta 1: (Agosto) Servicio básico
-INSERT INTO ventasRepuestos (fechaVenta, totalVenta) 
-VALUES ('2025-08-12 09:15:00', 40000.00);
-
--- Detalle de la Venta 1
-INSERT INTO detalleVentasRepuestos (idVenta, idRepuesto, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 3, 1, 18000.00), -- 1x Filtro de Aceite
-(LAST_INSERT_ID(), 4, 1, 22000.00); -- 1x Filtro de Aire de Motor
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 2: (Agosto) Venta de 4 bujías
-INSERT INTO ventasRepuestos (fechaVenta, totalVenta) 
-VALUES ('2025-08-18 11:00:00', 78400.00);
-
--- Detalle de la Venta 2
-INSERT INTO detalleVentasRepuestos (idVenta, idRepuesto, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 5, 4, 19600.00); -- 4x Bujía de Iridio
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 3: (Agosto) Trabajo grande: Distribución + Bomba de agua (muy común)
-INSERT INTO ventasRepuestos (fechaVenta, totalVenta) 
-VALUES ('2025-08-25 15:30:00', 117800.00);
-
--- Detalle de la Venta 3
-INSERT INTO detalleVentasRepuestos (idVenta, idRepuesto, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 7, 1, 55000.00), -- 1x Kit de Distribución
-(LAST_INSERT_ID(), 8, 1, 62800.00); -- 1x Bomba de Agua
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 4: (Septiembre) Trabajo de frenos (delanteros)
-INSERT INTO ventasRepuestos (fechaVenta, totalVenta) 
-VALUES ('2025-09-03 10:05:00', 93700.00);
-
--- Detalle de la Venta 4
-INSERT INTO detalleVentasRepuestos (idVenta, idRepuesto, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 1, 1, 63700.00), -- 1x Pastillas de Freno Delanteras
-(LAST_INSERT_ID(), 2, 2, 15000.00); -- 2x Disco de Freno Delantero
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 5: (Septiembre) Cambio de amortiguadores (par)
-INSERT INTO ventasRepuestos (fechaVenta, totalVenta) 
-VALUES ('2025-09-10 16:20:00', 220000.00);
-
--- Detalle de la Venta 5
-INSERT INTO detalleVentasRepuestos (idVenta, idRepuesto, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 6, 2, 110000.00); -- 2x Amortiguador Delantero
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 6: (Septiembre) Falla de encendido
-INSERT INTO ventasRepuestos (fechaVenta, totalVenta) 
-VALUES ('2025-09-22 08:30:00', 146155.00);
-
--- Detalle de la Venta 6
-INSERT INTO detalleVentasRepuestos (idVenta, idRepuesto, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 9, 1, 146155.00); -- 1x Bobina de Encendido
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 7: (Septiembre) Venta de mostrador simple
-INSERT INTO ventasRepuestos (fechaVenta, totalVenta) 
-VALUES ('2025-09-28 14:00:00', 35000.00);
-
--- Detalle de la Venta 7
-INSERT INTO detalleVentasRepuestos (idVenta, idRepuesto, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 15, 1, 35000.00); -- 1x Bomba de Combustible
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 8: (Octubre) Tren delantero
-INSERT INTO ventasRepuestos (fechaVenta, totalVenta) 
-VALUES ('2025-10-02 11:10:00', 64700.00);
-
--- Detalle de la Venta 8
-INSERT INTO detalleVentasRepuestos (idVenta, idRepuesto, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 10, 2, 32350.00); -- 2x Extremo de Dirección
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 9: (Octubre) Servicio completo
-INSERT INTO ventasRepuestos (fechaVenta, totalVenta) 
-VALUES ('2025-10-11 09:30:00', 118400.00);
-
--- Detalle de la Venta 9
-INSERT INTO detalleVentasRepuestos (idVenta, idRepuesto, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 3, 1, 18000.00), -- 1x Filtro de Aceite
-(LAST_INSERT_ID(), 4, 1, 22000.00), -- 1x Filtro de Aire
-(LAST_INSERT_ID(), 5, 4, 19600.00); -- 4x Bujía de Iridio
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 10: (Octubre) Problema de refrigeración
-INSERT INTO ventasRepuestos (fechaVenta, totalVenta) 
-VALUES ('2025-10-19 17:00:00', 64000.00);
-
--- Detalle de la Venta 10
-INSERT INTO detalleVentasRepuestos (idVenta, idRepuesto, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 11, 1, 16100.00), -- 1x Radiador de Motor
-(LAST_INSERT_ID(), 13, 1, 47900.00); -- 1x Termostato Completo
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 11: (Octubre) Trabajo grande: Embrague
-INSERT INTO ventasRepuestos (fechaVenta, totalVenta) 
-VALUES ('2025-10-25 14:15:00', 165000.00);
-
--- Detalle de la Venta 11
-INSERT INTO detalleVentasRepuestos (idVenta, idRepuesto, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 14, 1, 165000.00); -- 1x Embrague (Kit 3 piezas)
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 12: (Noviembre) Falla de sensor (Check Engine)
-INSERT INTO ventasRepuestos (fechaVenta, totalVenta) 
-VALUES ('2025-11-04 10:20:00', 160000.00);
-
--- Detalle de la Venta 12
-INSERT INTO detalleVentasRepuestos (idVenta, idRepuesto, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 12, 1, 160000.00); -- 1x Sensor de Oxígeno
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 13: (Noviembre) Solo pastillas
-INSERT INTO ventasRepuestos (fechaVenta, totalVenta) 
-VALUES ('2025-11-08 12:00:00', 63700.00);
-
--- Detalle de la Venta 13
-INSERT INTO detalleVentasRepuestos (idVenta, idRepuesto, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 1, 1, 63700.00); -- 1x Pastillas de Freno
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 14: (Noviembre) Venta grande a un taller (filtros)
-INSERT INTO ventasRepuestos (fechaVenta, totalVenta) 
-VALUES ('2025-11-10 09:00:00', 400000.00);
-
--- Detalle de la Venta 14
-INSERT INTO detalleVentasRepuestos (idVenta, idRepuesto, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 3, 10, 18000.00), -- 10x Filtro de Aceite
-(LAST_INSERT_ID(), 4, 10, 22000.00); -- 10x Filtro de Aire
-
-COMMIT;
-
--- ----------------------------------------------------
-START TRANSACTION;
-
--- Venta 15: (Noviembre - Reciente) Servicio simple
-INSERT INTO ventasRepuestos (fechaVenta, totalVenta) 
-VALUES ('2025-11-13 11:30:00', 57200.00);
-
--- Detalle de la Venta 15
-INSERT INTO detalleVentasRepuestos (idVenta, idRepuesto, cantidad, precioMomento) 
-VALUES 
-(LAST_INSERT_ID(), 3, 1, 18000.00), -- 1x Filtro de Aceite
-(LAST_INSERT_ID(), 5, 2, 19600.00); -- 2x Bujía de Iridio
-
-COMMIT;
-
-
 create table consultas(
 idConsulta int primary key auto_increment,
 nombre varchar(50) not null,
@@ -491,15 +127,17 @@ VALUES
 ('Gabriela Sosa', 'gaby.sosa@example.com', '+543816555001', 'Sensor de Estacionamiento', '¿Ustedes instalan el kit de sensor de estacionamiento? ¿Cuánto demora?', 'telefono', 0),
 ('Ricardo Vega', 'ricardo.vega@hotmail.com', '+541145553344', '¿Compran usados?', 'Tengo un VW Voyage 2014, ¿ustedes compran autos usados o solo venden?', 'email', 1);
 
+
 create table vehiculosUsados(
 idVehiculoUsado int primary key auto_increment,
 marca varchar(50) not null,
 modelo varchar(50) not null,
 anio int not null,
-kilometraje varchar(15) not null,
+kilometraje varchar(10) not null,
 descripcion varchar(500) not null,
-precio double(20,2) not null,
-imagen varchar(150)
+precio double(10,2) not null,
+imagen varchar(150),
+estado int default 0
 );
 
 INSERT INTO vehiculosUsados 
@@ -571,13 +209,32 @@ VALUES
 ('2025-11-09', '11:00:00', '41.000', 'Reparación', 'Alineación y balanceo por desgaste desparejo de cubiertas.', 1, 8),
 ('2025-11-09', '15:00:00', '72.000', 'Control', 'Revisión general de luces y fluidos para VTV.', 2, 7);
 
+ALTER TABLE vehiculosPostVenta
+ADD COLUMN idUsuario INT,
+ADD CONSTRAINT fk_vehiculo_usuario
+FOREIGN KEY (idUsuario)
+REFERENCES usuarios(idUsuario)
+ON DELETE SET NULL
+ON UPDATE CASCADE;
 
+create table carrito (
+    idCarrito int primary key auto_increment,
+    idUsuario int not null,
+	estado int default 0,
+    fechaCreacion timestamp default current_timestamp,
+    foreign key (idUsuario) references usuarios(idUsuario)
+);
 
+create table carrito_items (
+    idItem int primary key auto_increment,
+    idCarrito int not null,
+    tipoProducto enum('repuesto', 'accesorio') not null, -- Para saber a qué tabla mirar
+    idProducto int not null, -- Aquí guardas el idRepuesto o el idAccesorio
+    cantidad int not null default 1,
+    foreign key (idCarrito) references carrito(idCarrito)
+);
 
-
-
-
-
+select * from carrito
 
 
 

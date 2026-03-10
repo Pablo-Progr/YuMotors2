@@ -77,6 +77,7 @@ const TablaRegistrosPosventa = (props) => {
       if (n === 0) return <span className="badge bg-danger">Pendiente</span>;
       if (n === 1) return <span className="badge bg-warning text-dark">En proceso</span>;
       if (n === 2) return <span className="badge bg-success">Completado</span>;
+      if (n === 3) return <span className="badge bg-secondary">Cancelado</span>;
       // fallback: if it's already a string label
       return <span>{estado}</span>;
     };
@@ -117,7 +118,7 @@ const TablaRegistrosPosventa = (props) => {
 
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/reg-posventa/editar/${registroSeleccionado.idRegistroPostVenta}`,
+        `http://localhost:3000/api/reg-posventa/admin-editar/${registroSeleccionado.idRegistroPostVenta}`,
         registroSeleccionado
       );
 
@@ -376,6 +377,7 @@ const TablaRegistrosPosventa = (props) => {
                   <option value="0">Pendiente</option>
                   <option value="1">En proceso</option>
                   <option value="2">Completado</option>
+                  <option value="3">Cancelado</option>
                 </Form.Select>
               </Form.Group>
               <div className="d-grid">

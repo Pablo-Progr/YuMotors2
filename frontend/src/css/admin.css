@@ -3,6 +3,12 @@
     color:aliceblue;
 }
 
+/* Evitar que el contenido principal empuje al sidebar */
+main.flex-grow-1 {
+  min-width: 0;
+  overflow: hidden;
+}
+
 /* Ajustes responsive para el contenido principal del admin */
 @media (max-width: 991px) {
   .main-metricas-admin,

@@ -36,6 +36,7 @@ import MiPosventa from "./pages/MiPosventa";
 import MiPosventaHistorial from "./pages/MiPosventaHistorial";
 import MiPosventaAgendar from "./pages/MiPosventaAgendar";
 import MiPosventaRegistrar from "./pages/MiPosventaRegistrar";
+import MiPosventaEditar from "./pages/MiPosventaEditar";
 
 
 function App() {
@@ -107,6 +108,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <MiPosventaRegistrar />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/mi-posventa/editar/:idRegistro"
+            element={
+              <ProtectedRoute>
+                <MiPosventaEditar />
               </ProtectedRoute>
             }
           />

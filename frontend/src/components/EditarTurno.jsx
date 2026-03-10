@@ -2,35 +2,32 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { 
-  FaCar, 
-  FaArrowLeft, 
-  FaCalendar, 
-  FaClock, 
-  FaTachometerAlt, 
-  FaTools, 
+import {
+  FaCar,
+  FaArrowLeft,
+  FaCalendar,
+  FaClock,
+  FaTachometerAlt,
+  FaTools,
   FaFileAlt,
   FaCheckCircle,
-  FaExclamationTriangle,
-  FaEdit
+  FaSave,
 } from "react-icons/fa";
 import "../css/miPosventa.css";
 
-// Horarios disponibles de 08:00 a 18:00
 const HORARIOS_DISPONIBLES = [
   "08:00", "09:00", "10:00", "11:00", "12:00",
-  "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"
+  "13:00", "14:00", "15:00", "16:00", "17:00", "18:00",
 ];
 
-const AgendarTurno = () => {
-  const { id } = useParams();
+const EditarTurno = () => {
+  const { idRegistro } = useParams();
   const navigate = useNavigate();
   const [vehiculo, setVehiculo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [horariosOcupados, setHorariosOcupados] = useState([]);
   const [cargandoHorarios, setCargandoHorarios] = useState(false);
-  const [turnoActivo, setTurnoActivo] = useState(null);
   const [formData, setFormData] = useState({
     fecha: "",
     hora: "",
@@ -40,36 +37,58 @@ const AgendarTurno = () => {
   });
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchRegistro = async () => {
       try {
-        const [vehRes, turnoRes] = await Promise.all([
-          axios.get(`http://localhost:3000/api/veh-posventa/${id}`),
-          axios.get(`http://localhost:3000/api/reg-posventa/turno-activo/${id}`),
-        ]);
+        const regRes = await axios.get(
+          `http://localhost:3000/api/reg-posventa/registro/${idRegistro}`
+        );
+        const reg = regRes.data;
+
+        if (reg.estado !== 0) {
+          Swal.fire("Error", "Solo se pueden editar turnos en estado Pendiente.", "error");
+          navigate("/mi-posventa");
+          return;
+        }
+
+        const vehRes = await axios.get(
+          `http://localhost:3000/api/veh-posventa/${reg.idVehiculoPostVenta}`
+        );
         setVehiculo(vehRes.data);
-        setTurnoActivo(turnoRes.data);
+
+        const fechaStr = reg.fecha
+          ? new Date(reg.fecha).toISOString().split("T")[0]
+          : "";
+        const horaStr = typeof reg.hora === "string" ? reg.hora.substring(0, 5) : "";
+
+        setFormData({
+          fecha: fechaStr,
+          hora: horaStr,
+          kilometraje: reg.kilometraje || "",
+          tipoPostVent: reg.tipoPostVent || "",
+          descripcion: reg.descripcion || "",
+        });
       } catch (err) {
-        console.error("Error al obtener datos:", err);
+        console.error("Error al cargar registro:", err);
+        Swal.fire("Error", "No se pudo cargar el turno.", "error");
+        navigate("/mi-posventa");
       } finally {
         setLoading(false);
       }
     };
 
-    if (id) fetchData();
-  }, [id]);
+    if (idRegistro) fetchRegistro();
+  }, [idRegistro, navigate]);
 
-  // Cargar horarios ocupados cuando cambia la fecha
   useEffect(() => {
     const cargarHorariosOcupados = async () => {
       if (!formData.fecha) {
         setHorariosOcupados([]);
         return;
       }
-
       setCargandoHorarios(true);
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/reg-posventa/horarios-ocupados/${formData.fecha}`
+          `http://localhost:3000/api/reg-posventa/horarios-ocupados/${formData.fecha}?excludeId=${idRegistro}`
         );
         setHorariosOcupados(response.data.horariosOcupados || []);
       } catch (error) {
@@ -81,34 +100,28 @@ const AgendarTurno = () => {
     };
 
     cargarHorariosOcupados();
-  }, [formData.fecha]);
+  }, [formData.fecha, idRegistro]);
 
-  // Función para verificar si es fin de semana
   const esFinDeSemana = (fechaStr) => {
     const fecha = new Date(fechaStr + "T00:00:00");
     const dia = fecha.getDay();
     return dia === 0 || dia === 6;
   };
 
-  // Obtener próxima fecha laboral
   const getProximaFechaLaboral = () => {
     const hoy = new Date();
     let fecha = new Date(hoy);
-    
     if (hoy.getHours() >= 18) {
       fecha.setDate(fecha.getDate() + 1);
     }
-    
     while (fecha.getDay() === 0 || fecha.getDay() === 6) {
       fecha.setDate(fecha.getDate() + 1);
     }
-    
     return fecha.toISOString().split("T")[0];
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    
     if (name === "fecha" && value) {
       if (esFinDeSemana(value)) {
         Swal.fire({
@@ -120,7 +133,6 @@ const AgendarTurno = () => {
         return;
       }
     }
-
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -135,7 +147,6 @@ const AgendarTurno = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     if (!formData.hora) {
       Swal.fire({
         icon: "warning",
@@ -146,62 +157,53 @@ const AgendarTurno = () => {
     }
 
     setSubmitting(true);
-
     try {
-      const nuevoRegistro = {
-        idVehiculoPostVenta: parseInt(id),
-        fecha: formData.fecha,
-        hora: formData.hora,
-        kilometraje: formData.kilometraje,
-        tipoPostVent: formData.tipoPostVent,
-        descripcion: formData.descripcion,
-        estado: 0,
-      };
-
-      const response = await axios.post(
-        "http://localhost:3000/api/reg-posventa/crear",
-        nuevoRegistro
+      await axios.put(
+        `http://localhost:3000/api/reg-posventa/editar/${idRegistro}`,
+        {
+          fecha: formData.fecha,
+          hora: formData.hora,
+          kilometraje: formData.kilometraje,
+          tipoPostVent: formData.tipoPostVent,
+          descripcion: formData.descripcion,
+        }
       );
 
-      if (response.status === 201) {
-        Swal.fire({
-          icon: "success",
-          title: "¡Turno agendado!",
-          html: `
-            <p>Tu turno ha sido agendado exitosamente.</p>
-            <p><strong>Fecha:</strong> ${formData.fecha}</p>
-            <p><strong>Hora:</strong> ${formData.hora}</p>
-            <p><strong>Servicio:</strong> ${formData.tipoPostVent}</p>
-          `,
-          confirmButtonText: "Entendido",
-        }).then(() => {
-          navigate(`/mi-posventa/vehiculo/${id}`);
-        });
-      }
+      Swal.fire({
+        icon: "success",
+        title: "¡Turno actualizado!",
+        html: `
+          <p>Tu turno ha sido modificado exitosamente.</p>
+          <p><strong>Fecha:</strong> ${formData.fecha}</p>
+          <p><strong>Hora:</strong> ${formData.hora}</p>
+          <p><strong>Servicio:</strong> ${formData.tipoPostVent}</p>
+        `,
+        confirmButtonText: "Entendido",
+      }).then(() => {
+        navigate("/mi-posventa");
+      });
     } catch (error) {
-      console.error("Error al agendar turno:", error);
-      
+      console.error("Error al actualizar turno:", error);
       if (error.response?.status === 409) {
         Swal.fire({
           icon: "error",
           title: "Turno no disponible",
-          text: error.response.data.error || "El turno seleccionado ya fue tomado. Por favor, elija otro horario.",
+          text: error.response.data.error || "El turno seleccionado ya fue tomado.",
         });
         setFormData((prev) => ({ ...prev, hora: "" }));
-        // Recargar horarios
         try {
           const resp = await axios.get(
-            `http://localhost:3000/api/reg-posventa/horarios-ocupados/${formData.fecha}`
+            `http://localhost:3000/api/reg-posventa/horarios-ocupados/${formData.fecha}?excludeId=${idRegistro}`
           );
           setHorariosOcupados(resp.data.horariosOcupados || []);
-        } catch (e) {
-          console.error("Error recargando horarios:", e);
+        } catch {
+          /* error al recargar horarios */
         }
       } else {
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: "No se pudo agendar el turno. Inténtalo de nuevo.",
+          text: error.response?.data?.error || "No se pudo actualizar el turno.",
         });
       }
     } finally {
@@ -227,22 +229,6 @@ const AgendarTurno = () => {
     );
   }
 
-  if (!vehiculo) {
-    return (
-      <section className="agendar-section">
-        <div className="agendar-container">
-          <button className="agendar-back-btn" onClick={handleVolver}>
-            <FaArrowLeft />
-            Volver
-          </button>
-          <div className="historial-empty">
-            <h4>Vehículo no encontrado</h4>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section className="agendar-section">
       <div className="agendar-container">
@@ -251,37 +237,17 @@ const AgendarTurno = () => {
           Volver a Mis Vehículos
         </button>
 
-        <div className="agendar-vehiculo-badge">
-          <FaCar />
-          <span>{vehiculo.marca} {vehiculo.modelo} - {vehiculo.patente}</span>
-        </div>
-
-        {turnoActivo ? (
-          <div className="agendar-turno-bloqueado">
-            <FaExclamationTriangle className="agendar-turno-bloqueado-icon" />
-            <h3>Ya tenés un turno activo para este vehículo</h3>
-            <p>
-              Tu turno está en estado{" "}
-              <span className={`turno-badge ${turnoActivo.estado === 0 ? "turno-badge-pendiente" : "turno-badge-proceso"}`}>
-                {turnoActivo.estado === 0 ? "Pendiente" : "En Proceso"}
-              </span>
-            </p>
-            <p>No podés agendar otro turno hasta que se complete o cancele el actual.</p>
-            {turnoActivo.estado === 0 && (
-              <button
-                className="mi-posventa-btn mi-posventa-btn-editar"
-                onClick={() => navigate(`/mi-posventa/editar/${turnoActivo.idRegistroPostVenta}`)}
-              >
-                <FaEdit />
-                Modificar turno existente
-              </button>
-            )}
+        {vehiculo && (
+          <div className="agendar-vehiculo-badge">
+            <FaCar />
+            <span>{vehiculo.marca} {vehiculo.modelo} - {vehiculo.patente}</span>
           </div>
-        ) : (
+        )}
+
         <div className="agendar-form-container">
           <h2 className="agendar-titulo">
             <FaCalendar className="agendar-label-icon" />
-            Agendar Turno
+            Modificar Turno
           </h2>
 
           <form onSubmit={handleSubmit} className="agendar-form">
@@ -307,7 +273,7 @@ const AgendarTurno = () => {
                 Hora del servicio
                 <span className="agendar-label-hint">08:00 - 18:00</span>
               </label>
-              
+
               {!formData.fecha ? (
                 <div className="agendar-horarios-placeholder">
                   Seleccione primero una fecha
@@ -401,29 +367,28 @@ const AgendarTurno = () => {
               />
             </div>
 
-            <button 
-              type="submit" 
-              className="agendar-btn-submit" 
+            <button
+              type="submit"
+              className="agendar-btn-submit"
               disabled={submitting || !formData.hora}
             >
               {submitting ? (
                 <>
                   <div className="registro-spinner"></div>
-                  Agendando...
+                  Guardando...
                 </>
               ) : (
                 <>
-                  <FaCalendar />
-                  Confirmar Turno
+                  <FaSave />
+                  Guardar Cambios
                 </>
               )}
             </button>
           </form>
         </div>
-        )}
       </div>
     </section>
   );
 };
 
-export default AgendarTurno;
+export default EditarTurno;

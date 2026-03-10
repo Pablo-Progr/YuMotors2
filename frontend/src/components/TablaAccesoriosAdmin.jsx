@@ -177,6 +177,20 @@ const TablaAccesoriosAdmin = () => {
   return (
     <>
       <div className="table-responsive p-3 rounded">
+        {/* --- ALERTA DE STOCK BAJO --- */}
+        {accesorios.filter((a) => a.stock >= 0 && a.stock <= 5).length > 0 && (
+          <div className="alert alert-danger d-flex align-items-start gap-2 mb-3" role="alert" style={{ maxHeight: "120px", overflowY: "auto" }}>
+            <i className="bi bi-exclamation-triangle-fill fs-5 mt-1"></i>
+            <div>
+              <strong>Revisá el stock de los siguientes productos:</strong>{" "}
+              {accesorios
+                .filter((a) => a.stock >= 0 && a.stock <= 5)
+                .map((a) => a.nombre)
+                .join(", ")}
+            </div>
+          </div>
+        )}
+
         {/* --- FILTROS --- */}
         <div className="row mb-3">
           <div className="col-md-3">

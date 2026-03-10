@@ -859,3 +859,147 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* ====== TURNO ACTIVO EN CARD ====== */
+.mi-posventa-card-turno-activo {
+  border-top: 3px solid #e60012;
+}
+
+.mi-posventa-turno-activo-info {
+  padding: 12px 20px;
+  border-left: 4px solid #e60012;
+  margin: 0 20px 8px;
+  background: #fef2f2;
+  border-radius: 6px;
+}
+
+.mi-posventa-turno-activo-header {
+  margin-bottom: 6px;
+}
+
+.mi-posventa-turno-datos {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.mi-posventa-turno-datos span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.turno-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.turno-badge-pendiente {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.turno-badge-proceso {
+  background: #cfe2ff;
+  color: #084298;
+}
+
+.mi-posventa-btn-editar {
+  background: none;
+  border: 1.5px solid #0d6efd;
+  color: #0d6efd;
+}
+
+.mi-posventa-btn-editar:hover {
+  background: #0d6efd;
+  color: #fff;
+}
+
+.mi-posventa-btn-cancelar-card {
+  background: none;
+  border: 1.5px solid #dc3545;
+  color: #dc3545;
+}
+
+.mi-posventa-btn-cancelar-card:hover {
+  background: #dc3545;
+  color: #fff;
+}
+
+/* ====== BLOQUEO EN AGENDAR TURNO ====== */
+.agendar-turno-bloqueado {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.agendar-turno-bloqueado-icon {
+  font-size: 3rem;
+  color: #e60012;
+  margin-bottom: 16px;
+}
+
+.agendar-turno-bloqueado h3 {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.4rem;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+}
+
+.agendar-turno-bloqueado p {
+  color: #666;
+  margin-bottom: 8px;
+}
+
+/* ====== ACCIONES EN HISTORIAL ====== */
+.historial-acciones {
+  display: flex;
+  gap: 6px;
+}
+
+.historial-btn-accion {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.85rem;
+}
+
+.historial-btn-editar-row {
+  background: #e7f1ff;
+  color: #0d6efd;
+}
+
+.historial-btn-editar-row:hover {
+  background: #0d6efd;
+  color: #fff;
+}
+
+.historial-btn-cancelar-row {
+  background: #fde8ea;
+  color: #dc3545;
+}
+
+.historial-btn-cancelar-row:hover {
+  background: #dc3545;
+  color: #fff;
+}
+
+.historial-badge-cancelado {
+  background-color: #f8d7da;
+  color: #842029;
+}

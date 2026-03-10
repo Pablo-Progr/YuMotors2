@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useAuthStore from "../store/authStore";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { FaCar, FaPlus, FaHistory, FaCalendarPlus } from "react-icons/fa";
+import { FaCar, FaPlus, FaHistory, FaCalendarPlus, FaEdit, FaTimes, FaClock, FaTools } from "react-icons/fa";
 import "../css/miPosventa.css";
 
 const MainMiPosventa = () => {
@@ -11,6 +11,7 @@ const MainMiPosventa = () => {
   const navigate = useNavigate();
   const [vehiculos, setVehiculos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [turnosActivos, setTurnosActivos] = useState({});
 
   useEffect(() => {
     const fetchVehiculos = async () => {
@@ -19,6 +20,19 @@ const MainMiPosventa = () => {
           `http://localhost:3000/api/veh-posventa/usuario/${user.idUsuario}`
         );
         setVehiculos(res.data);
+
+        // Fetch turno activo for each vehicle concurrently
+        const turnoPromises = res.data.map((v) =>
+          axios.get(`http://localhost:3000/api/reg-posventa/turno-activo/${v.idVehiculoPostVenta}`)
+            .then((r) => ({ id: v.idVehiculoPostVenta, turno: r.data }))
+            .catch(() => ({ id: v.idVehiculoPostVenta, turno: null }))
+        );
+        const turnoResults = await Promise.all(turnoPromises);
+        const turnosMap = {};
+        turnoResults.forEach(({ id, turno }) => {
+          if (turno) turnosMap[id] = turno;
+        });
+        setTurnosActivos(turnosMap);
       } catch (err) {
         console.error("Error al obtener vehículos:", err);
       } finally {
@@ -41,8 +55,51 @@ const MainMiPosventa = () => {
     navigate("/mi-posventa/registrar");
   };
 
+  const handleCancelarTurno = async (idRegistro, idVehiculo) => {
+    const result = await Swal.fire({
+      title: "¿Cancelar turno?",
+      text: "Esta acción no se puede deshacer.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e60012",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Sí, cancelar",
+      cancelButtonText: "No",
+    });
+    if (!result.isConfirmed) return;
 
+    try {
+      await axios.put(`http://localhost:3000/api/reg-posventa/cancelar/${idRegistro}`);
+      Swal.fire("Cancelado", "El turno fue cancelado exitosamente.", "success");
+      setTurnosActivos((prev) => {
+        const copy = { ...prev };
+        delete copy[idVehiculo];
+        return copy;
+      });
+    } catch (err) {
+      console.error("Error al cancelar turno:", err);
+      Swal.fire("Error", "No se pudo cancelar el turno.", "error");
+    }
+  };
 
+  const formatDate = (value) => {
+    if (!value) return "";
+    const d = new Date(value);
+    if (!isNaN(d)) {
+      const day = String(d.getDate()).padStart(2, "0");
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const year = d.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+    return value;
+  };
+
+  const formatTime = (value) => {
+    if (!value) return "";
+    const m = String(value).match(/(\d{1,2}):(\d{2})/);
+    if (m) return `${String(m[1]).padStart(2, "0")}:${m[2]}`;
+    return value;
+  };
   return (
     <section className="mi-posventa-section">
       <div className="mi-posventa-container">
@@ -68,8 +125,10 @@ const MainMiPosventa = () => {
           </div>
         ) : (
           <div className="mi-posventa-grid">
-            {vehiculos.map((vehiculo) => (
-              <div key={vehiculo.idVehiculoPostVenta} className="mi-posventa-card">
+            {vehiculos.map((vehiculo) => {
+              const turno = turnosActivos[vehiculo.idVehiculoPostVenta];
+              return (
+              <div key={vehiculo.idVehiculoPostVenta} className={`mi-posventa-card ${turno ? "mi-posventa-card-turno-activo" : ""}`}>
                 <div className="mi-posventa-card-header">
                   <FaCar className="mi-posventa-card-icon" />
                   <div className="mi-posventa-card-title">
@@ -89,6 +148,20 @@ const MainMiPosventa = () => {
                   </div>
                 </div>
 
+                {turno && (
+                  <div className="mi-posventa-turno-activo-info">
+                    <div className="mi-posventa-turno-activo-header">
+                      <span className={`turno-badge ${turno.estado === 0 ? "turno-badge-pendiente" : "turno-badge-proceso"}`}>
+                        {turno.estado === 0 ? "Pendiente" : "En Proceso"}
+                      </span>
+                    </div>
+                    <div className="mi-posventa-turno-datos">
+                      <span><FaClock /> {formatDate(turno.fecha)} - {formatTime(turno.hora)}</span>
+                      <span><FaTools /> {turno.tipoPostVent}</span>
+                    </div>
+                  </div>
+                )}
+
                 <div className="mi-posventa-card-actions">
                   <button 
                     className="mi-posventa-btn mi-posventa-btn-historial"
@@ -97,16 +170,38 @@ const MainMiPosventa = () => {
                     <FaHistory />
                     Ver Historial
                   </button>
-                  <button 
-                    className="mi-posventa-btn mi-posventa-btn-agendar"
-                    onClick={() => handleAgendarTurno(vehiculo)}
-                  >
-                    <FaCalendarPlus />
-                    Agendar Turno
-                  </button>
+                  {turno ? (
+                    turno.estado === 0 && (
+                      <>
+                        <button 
+                          className="mi-posventa-btn mi-posventa-btn-editar"
+                          onClick={() => navigate(`/mi-posventa/editar/${turno.idRegistroPostVenta}`)}
+                        >
+                          <FaEdit />
+                          Modificar
+                        </button>
+                        <button 
+                          className="mi-posventa-btn mi-posventa-btn-cancelar-card"
+                          onClick={() => handleCancelarTurno(turno.idRegistroPostVenta, vehiculo.idVehiculoPostVenta)}
+                        >
+                          <FaTimes />
+                          Cancelar
+                        </button>
+                      </>
+                    )
+                  ) : (
+                    <button 
+                      className="mi-posventa-btn mi-posventa-btn-agendar"
+                      onClick={() => handleAgendarTurno(vehiculo)}
+                    >
+                      <FaCalendarPlus />
+                      Agendar Turno
+                    </button>
+                  )}
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

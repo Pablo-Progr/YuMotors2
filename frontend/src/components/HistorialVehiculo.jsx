@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaCar, FaArrowLeft, FaCalendarPlus, FaHistory, FaEye } from "react-icons/fa";
+import { FaCar, FaArrowLeft, FaCalendarPlus, FaHistory, FaEye, FaEdit, FaTimes } from "react-icons/fa";
 import { Modal, Button } from "react-bootstrap";
+import Swal from "sweetalert2";
 import "../css/miPosventa.css";
 
 const HistorialVehiculo = () => {
@@ -64,6 +65,7 @@ const HistorialVehiculo = () => {
     if (n === 0) return <span className="historial-badge historial-badge-pendiente">Pendiente</span>;
     if (n === 1) return <span className="historial-badge historial-badge-proceso">En proceso</span>;
     if (n === 2) return <span className="historial-badge historial-badge-completado">Completado</span>;
+    if (n === 3) return <span className="historial-badge historial-badge-cancelado">Cancelado</span>;
     return <span>{estado}</span>;
   };
 
@@ -83,6 +85,37 @@ const HistorialVehiculo = () => {
   const cerrarModal = () => {
     setDescripcionSeleccionada(null);
     setMostrarModal(false);
+  };
+
+  const handleEditarTurno = (idRegistro) => {
+    navigate(`/mi-posventa/editar/${idRegistro}`);
+  };
+
+  const handleCancelarTurno = async (idRegistro) => {
+    const result = await Swal.fire({
+      title: "¿Cancelar turno?",
+      text: "Esta acción no se puede deshacer.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e60012",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Sí, cancelar",
+      cancelButtonText: "No",
+    });
+    if (!result.isConfirmed) return;
+
+    try {
+      await axios.put(`http://localhost:3000/api/reg-posventa/cancelar/${idRegistro}`);
+      Swal.fire("Cancelado", "El turno fue cancelado exitosamente.", "success");
+      setRegistros((prev) =>
+        prev.map((r) =>
+          r.idRegistroPostVenta === idRegistro ? { ...r, estado: 3 } : r
+        )
+      );
+    } catch (err) {
+      console.error("Error al cancelar turno:", err);
+      Swal.fire("Error", "No se pudo cancelar el turno.", "error");
+    }
   };
 
   if (loading) {
@@ -161,6 +194,7 @@ const HistorialVehiculo = () => {
                   <th>Tipo de Servicio</th>
                   <th>Descripción</th>
                   <th>Estado</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -180,6 +214,26 @@ const HistorialVehiculo = () => {
                       </button>
                     </td>
                     <td>{renderEstado(reg.estado)}</td>
+                    <td>
+                      {Number(reg.estado) === 0 && (
+                        <div className="historial-acciones">
+                          <button
+                            className="historial-btn-accion historial-btn-editar-row"
+                            onClick={() => handleEditarTurno(reg.idRegistroPostVenta)}
+                            title="Modificar turno"
+                          >
+                            <FaEdit />
+                          </button>
+                          <button
+                            className="historial-btn-accion historial-btn-cancelar-row"
+                            onClick={() => handleCancelarTurno(reg.idRegistroPostVenta)}
+                            title="Cancelar turno"
+                          >
+                            <FaTimes />
+                          </button>
+                        </div>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
