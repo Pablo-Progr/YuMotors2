@@ -34,6 +34,12 @@ import PedidosUser from "./pages/PedidosUser";
 import NotFound from "./pages/NotFound";
 import AutoLogout from "./components/AutoLogout";
 
+// Nuevas páginas de Mi Posventa
+import MiPosventa from "./pages/MiPosventa";
+import MiPosventaHistorial from "./pages/MiPosventaHistorial";
+import MiPosventaAgendar from "./pages/MiPosventaAgendar";
+import MiPosventaRegistrar from "./pages/MiPosventaRegistrar";
+
 
 function App() {
   return (
@@ -73,6 +79,40 @@ function App() {
             element={
               <ProtectedRoute>
                 <PedidosUser />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Rutas protegidas para Mi Posventa (usuarios logueados) */}
+          <Route
+            path="/mi-posventa"
+            element={
+              <ProtectedRoute>
+                <MiPosventa />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/mi-posventa/vehiculo/:id"
+            element={
+              <ProtectedRoute>
+                <MiPosventaHistorial />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/mi-posventa/agendar/:id"
+            element={
+              <ProtectedRoute>
+                <MiPosventaAgendar />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/mi-posventa/registrar"
+            element={
+              <ProtectedRoute>
+                <MiPosventaRegistrar />
               </ProtectedRoute>
             }
           />

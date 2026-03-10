@@ -1,0 +1,861 @@
+/* ====== MI POSVENTA - ESTILOS CLAROS ====== */
+
+.mi-posventa-section {
+  min-height: 60vh;
+  background-color: #f8f9fa;
+  padding: 48px 16px 64px;
+  font-family: "Poppins", sans-serif;
+}
+
+.mi-posventa-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mi-posventa-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.mi-posventa-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+  border-left: 4px solid #e60012;
+  padding-left: 14px;
+}
+
+.mi-posventa-btn-agregar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #e60012 0%, #c8102e 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mi-posventa-btn-agregar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(200, 16, 46, 0.3);
+}
+
+/* Loading y Empty States */
+.mi-posventa-loading,
+.mi-posventa-empty {
+  text-align: center;
+  color: #666;
+  padding: 60px 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.mi-posventa-empty-icon {
+  font-size: 4rem;
+  color: #ddd;
+  margin-bottom: 16px;
+}
+
+.mi-posventa-empty h4 {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.mi-posventa-empty p {
+  color: #777;
+  margin-bottom: 24px;
+}
+
+.mi-posventa-btn-first {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #e60012 0%, #c8102e 100%);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mi-posventa-btn-first:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(200, 16, 46, 0.3);
+}
+
+/* Grid de Vehículos */
+.mi-posventa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+/* Card de Vehículo */
+.mi-posventa-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.mi-posventa-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.mi-posventa-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: white;
+}
+
+.mi-posventa-card-icon {
+  font-size: 2rem;
+  color: #e60012;
+}
+
+.mi-posventa-card-title h3 {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.3rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.mi-posventa-patente {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 4px 12px;
+  background: rgba(230, 0, 18, 0.2);
+  border: 1px solid rgba(230, 0, 18, 0.4);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.mi-posventa-card-info {
+  display: flex;
+  padding: 16px 20px;
+  gap: 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.mi-posventa-info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.mi-posventa-info-label {
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.mi-posventa-info-value {
+  font-size: 0.95rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.mi-posventa-card-actions {
+  display: flex;
+  gap: 8px;
+  padding: 16px 20px;
+  flex-wrap: wrap;
+}
+
+.mi-posventa-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.mi-posventa-btn-historial {
+  background: none;
+  border: 1.5px solid #1a1a1a;
+  color: #1a1a1a;
+  flex: 1;
+}
+
+.mi-posventa-btn-historial:hover {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.mi-posventa-btn-agendar {
+  background: linear-gradient(135deg, #e60012 0%, #c8102e 100%);
+  color: white;
+  flex: 1;
+}
+
+.mi-posventa-btn-agendar:hover {
+  box-shadow: 0 4px 12px rgba(200, 16, 46, 0.3);
+}
+
+.mi-posventa-btn-eliminar {
+  background: none;
+  border: 1.5px solid #dc3545;
+  color: #dc3545;
+  padding: 10px 12px;
+}
+
+.mi-posventa-btn-eliminar:hover {
+  background: #dc3545;
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mi-posventa-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mi-posventa-title {
+    font-size: 1.6rem;
+  }
+
+  .mi-posventa-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mi-posventa-card-actions {
+    flex-direction: column;
+  }
+
+  .mi-posventa-btn {
+    justify-content: center;
+  }
+
+  .mi-posventa-btn-eliminar {
+    flex: 1;
+  }
+}
+
+/* ====== PÁGINA DE HISTORIAL DE VEHÍCULO ====== */
+.historial-section {
+  min-height: 60vh;
+  background-color: #f8f9fa;
+  padding: 48px 16px 64px;
+  font-family: "Poppins", sans-serif;
+}
+
+.historial-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.historial-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.historial-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 1.5px solid #1a1a1a;
+  color: #1a1a1a;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.historial-back-btn:hover {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.historial-vehiculo-info {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 300px;
+}
+
+.historial-vehiculo-icon {
+  font-size: 2rem;
+  color: #e60012;
+}
+
+.historial-vehiculo-details h3 {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.4rem;
+  margin: 0 0 4px 0;
+  color: #1a1a1a;
+}
+
+.historial-vehiculo-details .patente {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  display: inline-block;
+}
+
+.historial-btn-agendar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #e60012 0%, #c8102e 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.historial-btn-agendar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(200, 16, 46, 0.3);
+}
+
+.historial-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5rem;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+  border-left: 4px solid #e60012;
+  padding-left: 14px;
+}
+
+/* Tabla de Historial con tema claro */
+.historial-table-wrapper {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.historial-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.historial-table thead tr {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.historial-table thead th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.historial-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.15s;
+}
+
+.historial-table tbody tr:hover {
+  background-color: #fafafa;
+}
+
+.historial-table tbody td {
+  padding: 13px 16px;
+  color: #333;
+  vertical-align: middle;
+}
+
+/* Badges de Estado */
+.historial-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.historial-badge-pendiente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.historial-badge-proceso {
+  background-color: #cfe2ff;
+  color: #084298;
+}
+
+.historial-badge-completado {
+  background-color: #d1e7dd;
+  color: #0a3622;
+}
+
+.historial-empty {
+  text-align: center;
+  padding: 60px 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  color: #666;
+}
+
+.historial-empty-icon {
+  font-size: 3rem;
+  color: #ddd;
+  margin-bottom: 16px;
+}
+
+.historial-btn-descripcion {
+  background: #f0f0f0;
+  border: none;
+  color: #333;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.historial-btn-descripcion:hover {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+/* ====== FORMULARIO DE REGISTRO (TEMA CLARO) ====== */
+.registro-section {
+  min-height: 60vh;
+  background-color: #f8f9fa;
+  padding: 48px 16px 64px;
+  font-family: "Poppins", sans-serif;
+}
+
+.registro-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.registro-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 1.5px solid #1a1a1a;
+  color: #1a1a1a;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 24px;
+}
+
+.registro-back-btn:hover {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.registro-form-container {
+  background: #fff;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.registro-titulo {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+
+.registro-descripcion {
+  font-size: 1rem;
+  color: #666;
+  margin: 0 0 24px 0;
+  text-align: center;
+}
+
+.registro-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.registro-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.registro-form-group label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.registro-label-icon {
+  color: #e60012;
+  font-size: 1rem;
+}
+
+.registro-form-group input {
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #fafafa;
+  color: #333;
+  font-family: inherit;
+}
+
+.registro-form-group input:focus {
+  outline: none;
+  border-color: #e60012;
+  box-shadow: 0 0 0 3px rgba(230, 0, 18, 0.1);
+  background: #fff;
+}
+
+.registro-btn-submit {
+  background: linear-gradient(135deg, #e60012 0%, #c8102e 100%);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.registro-btn-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(200, 16, 46, 0.3);
+}
+
+.registro-btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.registro-spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ====== FORMULARIO DE AGENDAR TURNO (TEMA CLARO) ====== */
+.agendar-section {
+  min-height: 60vh;
+  background-color: #f8f9fa;
+  padding: 48px 16px 64px;
+  font-family: "Poppins", sans-serif;
+}
+
+.agendar-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.agendar-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 1.5px solid #1a1a1a;
+  color: #1a1a1a;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 24px;
+}
+
+.agendar-back-btn:hover {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.agendar-vehiculo-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+}
+
+.agendar-vehiculo-badge svg {
+  font-size: 1.5rem;
+  color: #e60012;
+}
+
+.agendar-vehiculo-badge span {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.agendar-form-container {
+  background: #fff;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.agendar-titulo {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 24px 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.agendar-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.agendar-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.agendar-form-group label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.agendar-label-icon {
+  color: #e60012;
+  font-size: 1rem;
+}
+
+.agendar-label-hint {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: #888;
+  font-weight: 400;
+}
+
+.agendar-form-group input,
+.agendar-form-group select,
+.agendar-form-group textarea {
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #fafafa;
+  color: #333;
+  font-family: inherit;
+}
+
+.agendar-form-group input:focus,
+.agendar-form-group select:focus,
+.agendar-form-group textarea:focus {
+  outline: none;
+  border-color: #e60012;
+  box-shadow: 0 0 0 3px rgba(230, 0, 18, 0.1);
+  background: #fff;
+}
+
+.agendar-form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Grid de Horarios */
+.agendar-horarios-placeholder {
+  padding: 20px;
+  text-align: center;
+  background: #f5f5f5;
+  border-radius: 8px;
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.agendar-horarios-loading {
+  color: #e60012;
+}
+
+.agendar-horarios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.agendar-horario-btn {
+  padding: 12px 8px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fafafa;
+  color: #333;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.agendar-horario-btn:hover:not(:disabled) {
+  border-color: #e60012;
+  background: #fff;
+}
+
+.agendar-horario-btn.seleccionado {
+  background: #e60012;
+  border-color: #e60012;
+  color: #fff;
+}
+
+.agendar-horario-btn.ocupado {
+  background: #f0f0f0;
+  border-color: #ddd;
+  color: #aaa;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.agendar-disponibilidad-info {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 0.85rem;
+}
+
+.agendar-disponibilidad-info .disponibles {
+  color: #28a745;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.agendar-disponibilidad-info .ocupados {
+  color: #888;
+}
+
+.agendar-btn-submit {
+  background: linear-gradient(135deg, #e60012 0%, #c8102e 100%);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.agendar-btn-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(200, 16, 46, 0.3);
+}
+
+.agendar-btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .registro-form-container,
+  .agendar-form-container {
+    padding: 24px 16px;
+  }
+
+  .registro-titulo,
+  .agendar-titulo {
+    font-size: 1.5rem;
+  }
+
+  .agendar-horarios-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

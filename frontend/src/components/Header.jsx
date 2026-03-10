@@ -141,6 +141,13 @@ const Header = () => {
                     >
                       Mis Pedidos
                     </Link>
+                    <Link
+                      to="/mi-posventa"
+                      className="user-dropdown-item nav-link-dropdown"
+                      onClick={() => setShowUserMenu(false)}
+                    >
+                      Mi Posventa
+                    </Link>
                     <button className="user-dropdown-item nav-link-dropdown" onClick={handleLogout}>
                       Salir
                     </button>

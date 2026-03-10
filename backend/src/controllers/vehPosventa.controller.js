@@ -12,6 +12,45 @@ const obtenerVehPostventa = (req, res) => {
     });
 };
 
+// Obtener vehículos por idUsuario
+const obtenerVehiculosPorUsuario = (req, res) => {
+    const { idUsuario } = req.params;
+
+    if (!idUsuario) {
+        return res.status(400).json({ error: 'Se requiere el ID del usuario' });
+    }
+
+    const query = 'SELECT * FROM vehiculospostventa WHERE idUsuario = ?';
+    db.query(query, [idUsuario], (error, results) => {
+        if (error) {
+            console.error('Error al obtener vehículos del usuario:', error);
+            return res.status(500).json({ error: 'Error al obtener vehículos del usuario' });
+        }
+        res.json(results);
+    });
+};
+
+// Obtener un vehículo específico por ID
+const obtenerVehiculoPorId = (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({ error: 'Se requiere el ID del vehículo' });
+    }
+
+    const query = 'SELECT * FROM vehiculospostventa WHERE idVehiculoPostVenta = ?';
+    db.query(query, [id], (error, results) => {
+        if (error) {
+            console.error('Error al obtener vehículo:', error);
+            return res.status(500).json({ error: 'Error al obtener vehículo' });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ error: 'Vehículo no encontrado' });
+        }
+        res.json(results[0]);
+    });
+};
+
 const eliminarVehiculoPostventa = (req, res) => {
     const { id } = req.params;
 
@@ -49,19 +88,27 @@ const editarVehiculoPostventa = (req, res) => {
 };
 
 const crearVehiculoPostventa = (req, res) => {
-    const { patente, marca, modelo, anio, telefono, codigo } = req.body;
-    const query = 'INSERT INTO vehiculospostventa (patente, marca, modelo, anio, telefono, codigo) VALUES (?, ?, ?, ?, ?, ?)';
-    db.query(query, [patente, marca, modelo, anio, telefono, codigo], (err, results) => {
+    const { patente, marca, modelo, anio, telefono, codigo, idUsuario } = req.body;
+    
+    console.log('=== DEBUG CREAR VEHICULO ===');
+    console.log('Body recibido:', req.body);
+    console.log('idUsuario recibido:', idUsuario);
+    
+    const query = 'INSERT INTO vehiculospostventa (patente, marca, modelo, anio, telefono, codigo, idUsuario) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    db.query(query, [patente, marca, modelo, anio, telefono, codigo, idUsuario], (err, results) => {
         if (err) {
             console.error('Error al crear el vehículo postventa:', err);
             return res.status(500).json({ error: 'Error interno del servidor' });
         }
+        console.log('Vehículo creado con ID:', results.insertId);
         res.status(201).json({ message: 'Vehículo postventa creado exitosamente', id: results.insertId, codigo });
     });
 };
 
 module.exports = {
     obtenerVehPostventa,
+    obtenerVehiculosPorUsuario,
+    obtenerVehiculoPorId,
     eliminarVehiculoPostventa,
     editarVehiculoPostventa,
     crearVehiculoPostventa,

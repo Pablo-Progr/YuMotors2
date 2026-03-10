@@ -348,6 +348,136 @@
   }
 }
 
+/* ====== FORMULARIO TURNOS ====== */
+.turnos-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.turnos-header .posventa-titulo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.vehiculo-info-badge {
+  background: linear-gradient(135deg, #c8102e 0%, #a00d25 100%);
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 0.5rem;
+}
+
+.label-hint {
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: normal;
+  margin-left: auto;
+}
+
+/* Grilla de horarios */
+.horarios-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.horario-btn {
+  padding: 12px 8px;
+  border: 2px solid #3a3a3a;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #2a2a2a;
+  color: #f0f0f0;
+}
+
+.horario-btn:hover:not(:disabled) {
+  border-color: #c8102e;
+  background: #333;
+}
+
+.horario-btn.seleccionado {
+  border-color: #c8102e;
+  background: linear-gradient(135deg, #c8102e 0%, #a00d25 100%);
+  color: white;
+}
+
+.horario-btn.ocupado {
+  border-color: #2a2a2a;
+  background: #1a1a1a;
+  color: #555;
+  text-decoration: line-through;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.horarios-placeholder {
+  padding: 0.9rem 1rem;
+  border: 2px solid #3a3a3a;
+  border-radius: 8px;
+  background: #2a2a2a;
+  color: #666;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.horarios-placeholder.horarios-loading {
+  color: #c8102e;
+}
+
+/* Info de disponibilidad */
+.disponibilidad-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #252525;
+  border-radius: 8px;
+}
+
+.disponibilidad-info .disponibles {
+  color: #4caf50;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.disponibilidad-info .ocupados {
+  color: #f44336;
+}
+
+/* Responsive para grilla de horarios */
+@media (max-width: 480px) {
+  .horarios-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  
+  .horario-btn {
+    padding: 10px 6px;
+    font-size: 0.85rem;
+  }
+
+  .vehiculo-info-badge {
+    font-size: 0.85rem;
+    padding: 0.7rem 1rem;
+    flex-wrap: wrap;
+  }
+}
+
 /* Móviles pequeños */
 @media (max-width: 360px) {
   .posventa-wrapper {
