@@ -92,7 +92,6 @@ const Header = () => {
           </div>
 
           <a className="nav-link" href="/concesionario">Concesionario</a>
-          <a className="nav-link" href="/posventa">Post Venta</a>
 
           {isAuthenticated ? (
             <>

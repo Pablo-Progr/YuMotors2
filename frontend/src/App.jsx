@@ -24,9 +24,6 @@ import Corolla from "./pages/Corolla"
 import HiluxSR from "./pages/HiluxSR";
 import SW4 from "./pages/SW4";
 import Contanto from "./pages/Contanto";
-import PosventaUser from "./pages/PosventaUser";
-import VehiculoDetalle from "./pages/VehiculoDetalle";
-import RegistrosPosventaUser from "./pages/RegistrosPosventaUser";
 import Carrito from "./pages/Carrito";
 
 import PedidosAdmin from "./pages/PedidosAdmin";
@@ -63,9 +60,6 @@ function App() {
           <Route path="/loginadmin" element={<AdminLogin />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/contacto" element={<Contanto />} />
-          <Route path="/posventa" element={<PosventaUser />} />
-          <Route path="/posventa/vehiculo/:id" element={<VehiculoDetalle />} />
-          <Route path="/posventa/registros/:id" element={<RegistrosPosventaUser />} />
           <Route
             path="/carrito"
             element={
