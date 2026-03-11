@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "../css/repuestos.css";
 import { useNavigate } from "react-router-dom";
 import useCartStore from "../store/cartStore";
 import useAuthStore from "../store/authStore";
+import Paginador from "./Paginador";
+
+const ITEMS_POR_PAGINA = 12;
 
 const MainRepuestos = () => {
   const [repuestos, setRepuestos] = useState([]);
@@ -101,6 +104,32 @@ const MainRepuestos = () => {
     }
   });
 
+  // Paginación
+  const [paginaActual, setPaginaActual] = useState(1);
+  const cardsRef = useRef(null);
+  const scrollPendienteRef = useRef(false);
+
+  useEffect(() => {
+    setPaginaActual(1);
+  }, [filtro, marcaFiltro, precioMax, ordenamiento]);
+
+  useEffect(() => {
+    if (!scrollPendienteRef.current) return;
+    scrollPendienteRef.current = false;
+    cardsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [paginaActual]);
+
+  const cambiarPagina = (nuevaPagina) => {
+    scrollPendienteRef.current = true;
+    setPaginaActual(nuevaPagina);
+  };
+
+  const totalPaginas = Math.ceil(repuestosOrdenados.length / ITEMS_POR_PAGINA);
+  const repuestosPaginados = repuestosOrdenados.slice(
+    (paginaActual - 1) * ITEMS_POR_PAGINA,
+    paginaActual * ITEMS_POR_PAGINA
+  );
+
   // Función para limpiar filtros
   const limpiarFiltros = () => {
     setFiltro("");
@@ -152,7 +181,7 @@ const MainRepuestos = () => {
       <h2 className="titulo-repuestos">Repuestos</h2>
 
       {/* Sección de Filtros */}
-      <div className="filtros-container">
+      <div className="filtros-container" ref={cardsRef}>
         <div className="filtros-header">
           <h3>
             <i className="bi bi-funnel"></i> Filtros
@@ -251,8 +280,9 @@ const MainRepuestos = () => {
           <p>Intenta ajustar los filtros para ver más resultados</p>
         </div>
       ) : (
+        <>
         <div className="card-repuestos-container">
-          {repuestosOrdenados.map((repuesto) => (
+          {repuestosPaginados.map((repuesto) => (
             <div className="card-repuestos" key={repuesto.idRepuesto}>
               <div className="card-image-wrapper">
                 <img
@@ -287,8 +317,12 @@ const MainRepuestos = () => {
               </div>
             </div>
           ))}
-        </div>
-      )}
+        </div>        <Paginador
+          paginaActual={paginaActual}
+          totalPaginas={totalPaginas}
+          cambiarPagina={cambiarPagina}
+        />
+        </>      )}
 
 
       {/* Modal de Repuestos */}

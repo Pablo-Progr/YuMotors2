@@ -5,9 +5,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Modal, Button, Form } from "react-bootstrap";
+import PaginadorDarkie from "./PaginadorDarkie";
+
+const ITEMS_POR_PAGINA = 10;
 
 const TablaVehPostventaAdmin = () => {
   const [vehPostventa, setVehPostVenta] = useState([]);
+  const [paginaActual, setPaginaActual] = useState(1);
   const [vehPostventaSeleccionado, setVehPostventaSeleccionado] = useState(
     null
   );
@@ -106,6 +110,12 @@ const TablaVehPostventaAdmin = () => {
     }));
   };
 
+  const totalPaginas = Math.ceil(vehPostventa.length / ITEMS_POR_PAGINA);
+  const vehPostventaPaginada = vehPostventa.slice(
+    (paginaActual - 1) * ITEMS_POR_PAGINA,
+    paginaActual * ITEMS_POR_PAGINA
+  );
+
   return (
     <>
       <div className="table-responsive p-3 rounded">
@@ -122,7 +132,7 @@ const TablaVehPostventaAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {vehPostventa.map((vehPostventa) => (
+            {vehPostventaPaginada.map((vehPostventa) => (
               <tr key={vehPostventa.idVehiculoPostVenta}>
                 <td>{vehPostventa.patente}</td>
                 <td>{vehPostventa.marca}</td>
@@ -149,6 +159,11 @@ const TablaVehPostventaAdmin = () => {
           </tbody>
         </table>
       </div>
+      <PaginadorDarkie
+        paginaActual={paginaActual}
+        totalPaginas={totalPaginas}
+        cambiarPagina={setPaginaActual}
+      />
 
       {/* Modal de edición */}
       {mostrarModal && vehPostventaSeleccionado && (

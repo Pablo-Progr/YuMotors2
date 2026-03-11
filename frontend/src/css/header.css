@@ -10,7 +10,7 @@ header, nav {
   background-color: #000;
   color: white;
   width: 100%;
-  padding: 1rem 3rem;
+  padding: 1.4rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,7 +19,7 @@ header, nav {
 }
 
 .nav-logo {
-  height: 45px;
+  height: 56px;
 }
 
 /* Enlaces principales */
@@ -35,7 +35,7 @@ header, nav {
   text-decoration: none;
   background: none;
   border: none;
-  font-size: 1rem;
+  font-size: 1.15rem;
   cursor: pointer;
   transition: color 0.3s, transform 0.3s;
   font-family: "Oswald", sans-serif;

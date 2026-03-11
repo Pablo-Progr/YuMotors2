@@ -4,11 +4,11 @@ import Footer from "../components/Footer";
 
 const PedidosUser = () => {
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Header />
       <MainPedidosUser />
       <Footer />
-    </>
+    </div>
   );
 };
 

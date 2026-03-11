@@ -1,9 +1,12 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../css/accesorios.css";
 import { useNavigate } from "react-router-dom";
 import useCartStore from "../store/cartStore";
 import useAuthStore from "../store/authStore";
+import Paginador from "./Paginador";
+
+const ITEMS_POR_PAGINA = 12;
 
 const MainAccesorios = () => {
   const [accesorios, setAccesorios] = useState([]);
@@ -101,6 +104,32 @@ const MainAccesorios = () => {
     }
   });
 
+  // Paginación
+  const [paginaActual, setPaginaActual] = useState(1);
+  const cardsRef = useRef(null);
+  const scrollPendienteRef = useRef(false);
+
+  useEffect(() => {
+    setPaginaActual(1);
+  }, [filtro, marcaFiltro, precioMax, ordenamiento]);
+
+  useEffect(() => {
+    if (!scrollPendienteRef.current) return;
+    scrollPendienteRef.current = false;
+    cardsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [paginaActual]);
+
+  const cambiarPagina = (nuevaPagina) => {
+    scrollPendienteRef.current = true;
+    setPaginaActual(nuevaPagina);
+  };
+
+  const totalPaginas = Math.ceil(accesoriosOrdenados.length / ITEMS_POR_PAGINA);
+  const accesoriosPaginados = accesoriosOrdenados.slice(
+    (paginaActual - 1) * ITEMS_POR_PAGINA,
+    paginaActual * ITEMS_POR_PAGINA
+  );
+
   // Función para limpiar filtros
   const limpiarFiltros = () => {
     setFiltro("");
@@ -153,7 +182,7 @@ const MainAccesorios = () => {
         <h2 className="titulo-accesorios">Accesorios</h2>
 
         {/* Sección de Filtros */}
-        <div className="filtros-container">
+        <div className="filtros-container" ref={cardsRef}>
           <div className="filtros-header">
             <h3>
               <i className="bi bi-funnel"></i> Filtros
@@ -252,8 +281,9 @@ const MainAccesorios = () => {
             <p>Intenta ajustar los filtros para ver más resultados</p>
           </div>
         ) : (
+          <>
           <div className="card-accesorios-container">
-            {accesoriosOrdenados.map((accesorio) => (
+            {accesoriosPaginados.map((accesorio) => (
               <div className="card-accesorios" key={accesorio.idAccesorio}>
                 <div className="card-image-wrapper">
                   <img
@@ -289,6 +319,12 @@ const MainAccesorios = () => {
               </div>
             ))}
           </div>
+          <Paginador
+            paginaActual={paginaActual}
+            totalPaginas={totalPaginas}
+            cambiarPagina={cambiarPagina}
+          />
+          </>
         )}
       </div>
 

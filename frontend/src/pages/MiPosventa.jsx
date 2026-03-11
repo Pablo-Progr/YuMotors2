@@ -6,7 +6,7 @@ import BotonWhatsapp from '../components/BotonWhatsapp';
 
 const MiPosventa = () => {
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Header />
       <MainMiPosventa />
       <Footer />

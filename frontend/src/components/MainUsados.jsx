@@ -4,7 +4,7 @@ import "../css/mainusados.css";
 import { Link } from "react-router-dom";
 import Paginador from "./Paginador";
 
-const VEHICULOS_POR_PAGINA = 12;
+const VEHICULOS_POR_PAGINA = 9;
 
 const MainUsados = () => {
   const [vehiculos, setVehiculos] = useState([]);
@@ -177,7 +177,7 @@ const MainUsados = () => {
 
           <div className="filtros-grid">
             {/* Búsqueda por texto */}
-            <div className="filtro-item">
+            <div className="filtro-item filtro-buscar">
               <label>
                 <i className="bi bi-search"></i> Buscar
               </label>
@@ -191,7 +191,7 @@ const MainUsados = () => {
             </div>
 
             {/* Filtro por marca */}
-            <div className="filtro-item">
+            <div className="filtro-item filtro-marca">
               <label>
                 <i className="bi bi-tag"></i> Marca
               </label>
@@ -209,8 +209,28 @@ const MainUsados = () => {
               </select>
             </div>
 
+            {/* Ordenamiento */}
+            <div className="filtro-item filtro-ordenar">
+              <label>
+                <i className="bi bi-sort-down"></i> Ordenar por
+              </label>
+              <select
+                value={ordenamiento}
+                onChange={(e) => setOrdenamiento(e.target.value)}
+                className="filtro-select"
+              >
+                <option value="recientes">Más recientes</option>
+                <option value="precio-asc">Precio: menor a mayor</option>
+                <option value="precio-desc">Precio: mayor a menor</option>
+                <option value="km-asc">Kilometraje: menor a mayor</option>
+                <option value="km-desc">Kilometraje: mayor a menor</option>
+                <option value="anio-asc">Año: más antiguos</option>
+                <option value="anio-desc">Año: más recientes</option>
+              </select>
+            </div>
+
             {/* Filtro por precio */}
-            <div className="filtro-item filtro-range">
+            <div className="filtro-item filtro-range filtro-precio">
               <label>
                 <i className="bi bi-currency-dollar"></i> Precio máximo:{" "}
                 <span className="filtro-value">ARS ${formatPrice(precioMax)}</span>
@@ -230,7 +250,7 @@ const MainUsados = () => {
             </div>
 
             {/* Filtro por kilometraje */}
-            <div className="filtro-item filtro-range">
+            <div className="filtro-item filtro-range filtro-km">
               <label>
                 <i className="bi bi-speedometer2"></i> Kilometraje máximo:{" "}
                 <span className="filtro-value">
@@ -252,7 +272,7 @@ const MainUsados = () => {
             </div>
 
             {/* Filtro por año */}
-            <div className="filtro-item filtro-range">
+            <div className="filtro-item filtro-range filtro-anio">
               <label>
                 <i className="bi bi-calendar"></i> Año mínimo:{" "}
                 <span className="filtro-value">{anioMin}</span>
@@ -269,26 +289,6 @@ const MainUsados = () => {
                 <span>{rangosAnio.min}</span>
                 <span>{rangosAnio.max}</span>
               </div>
-            </div>
-
-            {/* Ordenamiento */}
-            <div className="filtro-item">
-              <label>
-                <i className="bi bi-sort-down"></i> Ordenar por
-              </label>
-              <select
-                value={ordenamiento}
-                onChange={(e) => setOrdenamiento(e.target.value)}
-                className="filtro-select"
-              >
-                <option value="recientes">Más recientes</option>
-                <option value="precio-asc">Precio: menor a mayor</option>
-                <option value="precio-desc">Precio: mayor a menor</option>
-                <option value="km-asc">Kilometraje: menor a mayor</option>
-                <option value="km-desc">Kilometraje: mayor a menor</option>
-                <option value="anio-asc">Año: más antiguos</option>
-                <option value="anio-desc">Año: más recientes</option>
-              </select>
             </div>
           </div>
 

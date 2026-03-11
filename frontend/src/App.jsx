@@ -37,6 +37,7 @@ import MiPosventaHistorial from "./pages/MiPosventaHistorial";
 import MiPosventaAgendar from "./pages/MiPosventaAgendar";
 import MiPosventaRegistrar from "./pages/MiPosventaRegistrar";
 import MiPosventaEditar from "./pages/MiPosventaEditar";
+import VerifyEmail from "./pages/VerifyEmail";
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
           <Route path="/login" element={<AdminLogin />} />
           <Route path="/loginadmin" element={<AdminLogin />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/verify-email/:token" element={<VerifyEmail />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/posventa" element={<Posventa/>} />
           <Route

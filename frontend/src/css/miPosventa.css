@@ -1,7 +1,7 @@
 /* ====== MI POSVENTA - ESTILOS CLAROS ====== */
 
 .mi-posventa-section {
-  min-height: 60vh;
+  flex: 1;
   background-color: #f8f9fa;
   padding: 48px 16px 64px;
   font-family: "Poppins", sans-serif;

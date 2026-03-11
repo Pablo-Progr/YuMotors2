@@ -217,7 +217,7 @@
 
 .card-repuestos-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 2.5rem;
   padding: 0 2rem 4rem;
   max-width: 1400px;
@@ -670,7 +670,7 @@
   }
 
   .card-repuestos-container {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
   }
 }
@@ -690,7 +690,7 @@
   }
 
   .card-repuestos-container {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     padding: 0 1.5rem 3rem;
     gap: 1.5rem;
   }
@@ -732,7 +732,7 @@
   }
 
   .card-repuestos-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     padding: 0 1rem 2rem;
     gap: 2rem;
   }
@@ -786,6 +786,10 @@
 
   .filtro-item label {
     font-size: 0.85rem;
+  }
+
+  .card-repuestos-container {
+    grid-template-columns: 1fr;
   }
 
   .resultados-count {

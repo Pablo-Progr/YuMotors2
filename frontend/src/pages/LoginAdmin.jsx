@@ -128,7 +128,12 @@ const LoginAdmin = () => {
       });
       const data = await response.json();
       if (response.ok && data.success) {
-        await Swal.fire({ icon: "success", title: "¡Cuenta creada!", text: "Ya podés iniciar sesión.", confirmButtonColor: "#c8102e" });
+        await Swal.fire({
+          icon: "success",
+          title: "¡Revisá tu correo!",
+          text: data.message,
+          confirmButtonColor: "#c8102e",
+        });
         setVista("login");
         setRegNombre(""); setRegMail(""); setRegPassword(""); setRegPassword2("");
       } else {

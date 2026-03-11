@@ -21,11 +21,11 @@ const NotFound = () => {
   }, [countdown, navigate]);
 
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Header />
       <div
         style={{
-          minHeight: "70vh",
+          flex: 1,
           background: "#111",
           display: "flex",
           flexDirection: "column",
@@ -106,7 +106,7 @@ const NotFound = () => {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

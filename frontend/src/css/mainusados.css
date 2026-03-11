@@ -88,10 +88,20 @@
 
 .filtros-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-areas:
+    "buscar  marca   ordenar"
+    "precio  km      anio";
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
   margin-bottom: 1.25rem;
 }
+
+.filtro-buscar  { grid-area: buscar; }
+.filtro-marca   { grid-area: marca; }
+.filtro-ordenar { grid-area: ordenar; }
+.filtro-precio  { grid-area: precio; }
+.filtro-km      { grid-area: km; }
+.filtro-anio    { grid-area: anio; }
 
 .filtro-item {
   display: flex;
@@ -671,7 +681,7 @@
 /* ======== RESPONSIVE ======== */
 @media (max-width: 1200px) {
   .filtros-grid {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .card-usados-container {
@@ -696,7 +706,7 @@
   }
 
   .filtros-grid {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
   }
 
@@ -743,7 +753,7 @@
   }
 
   .filtros-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .card-usados-container {
