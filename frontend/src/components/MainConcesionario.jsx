@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import foto from '../img/toyota-prana.jpg';
 import '../css/concesionario.css';
+import { FaCar, FaWrench, FaCog, FaCreditCard, FaMapMarkerAlt, FaPhone, FaClock } from 'react-icons/fa';
 
 const MainConcesionario = () => {
   // Efecto para animar los elementos cuando hacen scroll
@@ -66,22 +67,22 @@ const MainConcesionario = () => {
           <div className="section-divider"></div>
           <div className="services-grid">
             <div className="service-card">
-              <span className="service-icon">🚗</span>
+              <span className="service-icon"><FaCar /></span>
               <h3>Vehículos Nuevos y Usados</h3>
               <p>El mejor catálogo con garantía de calidad.</p>
             </div>
             <div className="service-card">
-              <span className="service-icon">🔧</span>
+              <span className="service-icon"><FaWrench /></span>
               <h3>Servicio Técnico</h3>
               <p>Mantenimiento especializado por expertos.</p>
             </div>
             <div className="service-card">
-              <span className="service-icon">⚙️</span>
+              <span className="service-icon"><FaCog /></span>
               <h3>Repuestos Originales</h3>
               <p>Piezas y accesorios genuinos para tu Toyota.</p>
             </div>
             <div className="service-card">
-              <span className="service-icon">💳</span>
+              <span className="service-icon"><FaCreditCard /></span>
               <h3>Financiación</h3>
               <p>Planes a tu medida y asesoramiento financiero.</p>
             </div>
@@ -94,15 +95,15 @@ const MainConcesionario = () => {
           <div className="section-divider"></div>
           <div className="contact-details-card">
             <div className="contact-item">
-              <strong>📍 Dirección:</strong> 
+              <strong><FaMapMarkerAlt /> Dirección:</strong> 
               <span>Av. Siempre Viva 123, San Miguel de Tucumán</span>
             </div>
             <div className="contact-item">
-              <strong>📞 Teléfono:</strong> 
+              <strong><FaPhone /> Teléfono:</strong> 
               <span>+54 9 381 217-3556</span>
             </div>
             <div className="contact-item">
-              <strong>🕒 Horario:</strong> 
+              <strong><FaClock /> Horario:</strong> 
               <span>Lun a Vie 9:00 - 18:00hs | Sáb 9:00 - 13:00hs</span>
             </div>
           </div>

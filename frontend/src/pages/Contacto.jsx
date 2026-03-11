@@ -1,17 +1,17 @@
 import Header from "../components/Header"
 import Footer from "../components/Footer"
-import MainContanto from "../components/MainContanto"
+import MainContacto from "../components/MainContacto"
 import BotonWhatsapp from "../components/BotonWhatsapp"
 
-const Contanto = () => {
+const Contacto = () => {
   return (
     <>
         <Header />
-          <MainContanto />
+          <MainContacto />
         <Footer/>
         <BotonWhatsapp />
     </>
   )
 }
 
-export default Contanto
+export default Contacto

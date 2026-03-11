@@ -1,20 +1,37 @@
+import { useEffect } from "react";
 import { MdAttachMoney } from "react-icons/md";
 import { GiCarKey, GiSteeringWheel, GiCarWheel } from "react-icons/gi";
 import { BiSolidCheckShield } from "react-icons/bi";
 import { FaMapMarkerAlt, FaCalendarAlt, FaTools } from "react-icons/fa";
-import {Link} from "react-router-dom" 
+import {Link} from "react-router-dom"
 import wall2 from "../img/autosnuevos/toyota/hilux/hiluxint3.png";
 import wall4 from "../img/camry-tc-2024.jpg";
 import wall5 from "../img/Supras.png";
-import wall6 from "../img/gr-yaris-wrc.jpg";
-import wall8 from "../img/wall8.jpg";
+import wall6 from "../img/gr-haas.jpg";
+import wall8 from "../img/usados.jpg";
 import accesorios from "../img/accesorios.webp";
-import repuestos from "../img/repuestos.jpg";
+import repuestos from "../img/repuestos.webp";
 import home from "../img/toyota-main-home.jpg";
 
 import "../css/mainhome.css";
 
 const MainHome = () => {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    const elements = document.querySelectorAll('.animate-on-scroll');
+    elements.forEach((el) => observer.observe(el));
+    return () => elements.forEach((el) => observer.unobserve(el));
+  }, []);
+
   return (
     <div className="main-home">
       <div
@@ -103,8 +120,8 @@ const MainHome = () => {
           <div className="carousel-item">
             <img src={wall6} className="d-block w-100" alt="Slide 4" />
             <div className="carousel-caption d-none d-md-block">
-              <h2 className="titulo-carousel">Autos de competición</h2>
-              <p className="subtitulo-carousel">Domina todos los circuitos</p>
+              <h2 className="titulo-carousel">Toyota Gazoo Racing</h2>
+              <p className="subtitulo-carousel">Hate to lose</p>
             </div>
           </div>
 
@@ -189,10 +206,10 @@ const MainHome = () => {
               <p className="texto-menu">Accesorios</p>
             </div>
           </Link>
-          <Link to={"/postventa"} className="menu-item light">
+          <Link to={"/posventa"} className="menu-item light">
             <div className="icono-menu-container">
               <FaTools size={40} />
-              <p>Post Venta</p>
+              <p>Posventa</p>
             </div>
           </Link>
           <Link to={"/repuestos"} className="menu-item medium">
@@ -206,31 +223,30 @@ const MainHome = () => {
 
       {/* Sobre Nosotos */}
       {/* Servicios */}
-      <div className="servicios-wrapper">
-        <h3 className="servicios-titulo">Nuestros Servicios</h3>
-
-        <div className="servicios-container">
-          <div className="servicio">
-            <MdAttachMoney className="servicio-icono" />
-            <button className="btn-servicios">Financiamiento</button>
+      
+      <div className="home-about-wrapper">
+        <div className="home-about-container">
+          <div className="concesionario-info-section animate-on-scroll">
+            <h2>Financiamiento</h2>
+            <div className="section-divider"></div>
             <p>
               Ofrecemos planes de financiamiento flexibles para ayudarte a
               comprar el auto de tus sueños.
             </p>
           </div>
 
-          <div className="servicio">
-            <GiCarKey className="servicio-icono" />
-            <button className="btn-servicios">Mantenimiento</button>
+          <div className="concesionario-history-section animate-on-scroll">
+            <h2>Mantenimiento</h2>
+            <div className="section-divider"></div>
             <p>
               Nuestro taller cuenta con técnicos certificados para mantener tu
               vehículo en óptimas condiciones.
             </p>
           </div>
 
-          <div className="servicio">
-            <BiSolidCheckShield className="servicio-icono" />
-            <button className="btn-servicios">Garantía extendida</button>
+          <div className="concesionario-history-section animate-on-scroll">
+            <h2>Garantía Extendida</h2>
+            <div className="section-divider"></div>
             <p>
               Protege tu inversión con nuestras opciones de garantía extendida
               para tu tranquilidad.

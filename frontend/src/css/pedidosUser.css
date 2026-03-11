@@ -60,10 +60,6 @@
   transition: background 0.15s;
 }
 
-.pedidos-table tbody tr:hover {
-  background-color: #fafafa;
-}
-
 .pedidos-table tbody td {
   padding: 13px 16px;
   color: #333;

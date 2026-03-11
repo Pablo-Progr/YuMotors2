@@ -435,3 +435,62 @@ html, body, main-home {
     font-size: 2.5rem;
   }
 }
+
+/* ===== SECCIÓN SOBRE NOSOTROS ===== */
+.home-about-wrapper {
+  background-color: #ffffff;
+  padding: 5rem 2rem;
+}
+
+.home-about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.home-about-container .concesionario-info-section,
+.home-about-container .concesionario-history-section {
+  text-align: center;
+}
+
+.home-about-container h2 {
+  color: #111;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  font-family: 'Oswald', 'Helvetica Neue', sans-serif;
+}
+
+.section-divider {
+  width: 60px;
+  height: 4px;
+  background-color: #c8102e;
+  margin: 0 auto 2rem auto;
+  border-radius: 2px;
+}
+
+/* ===== ANIMACIONES AL HACER SCROLL ===== */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== PÁRRAFOS ===== */
+.concesionario-info-section p,
+.concesionario-history-section p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #555;
+  max-width: 800px;
+  margin: 0 auto;
+  font-weight: 300;
+}

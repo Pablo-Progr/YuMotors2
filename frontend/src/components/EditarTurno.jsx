@@ -341,16 +341,16 @@ const EditarTurno = () => {
                 required
               >
                 <option value="">Seleccione un servicio</option>
-                <option value="Mantenimiento Preventivo">🔧 Mantenimiento Preventivo</option>
-                <option value="Cambio de Aceite">🛢️ Cambio de Aceite</option>
-                <option value="Revisión General">🔍 Revisión General</option>
-                <option value="Reparación de Frenos">🛑 Reparación de Frenos</option>
-                <option value="Alineación y Balanceo">⚖️ Alineación y Balanceo</option>
-                <option value="Cambio de Neumáticos">🔘 Cambio de Neumáticos</option>
-                <option value="Diagnóstico Electrónico">💻 Diagnóstico Electrónico</option>
-                <option value="Reparación de Motor">⚙️ Reparación de Motor</option>
-                <option value="Servicio de Aire Acondicionado">❄️ Servicio de Aire Acondicionado</option>
-                <option value="Otros">📝 Otros</option>
+                <option value="Mantenimiento Preventivo">Mantenimiento Preventivo</option>
+                <option value="Cambio de Aceite">Cambio de Aceite</option>
+                <option value="Revisión General">Revisión General</option>
+                <option value="Reparación de Frenos">Reparación de Frenos</option>
+                <option value="Alineación y Balanceo">Alineación y Balanceo</option>
+                <option value="Cambio de Neumáticos">Cambio de Neumáticos</option>
+                <option value="Diagnóstico Electrónico">Diagnóstico Electrónico</option>
+                <option value="Reparación de Motor">Reparación de Motor</option>
+                <option value="Servicio de Aire Acondicionado">Servicio de Aire Acondicionado</option>
+                <option value="Otros">Otros</option>
               </select>
             </div>
 

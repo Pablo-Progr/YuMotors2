@@ -1,7 +1,9 @@
 .background-login {
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #454545 10%, #b7b6b6 100%);
+  background-image: url("../img/toyota-ciudadela.jpeg");
+  background-size: cover;
+  background-position: center;
 
 }
 

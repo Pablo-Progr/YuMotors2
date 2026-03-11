@@ -143,7 +143,7 @@ const LoginAdmin = () => {
 
   // ─── Títulos según vista ──────────────────────────────────
   const titulos = {
-    login:    { h2: "Iniciar Sesión", sub: "Accedé a tu cuenta para usar el carrito." },
+    login: { h2: "Iniciar Sesión", sub: "Bienvenido de nuevo, ingresa tus datos para continuar." },
     recovery: { h2: "Recuperar Contraseña", sub: "Te enviaremos un enlace a tu correo." },
     register: { h2: "Crear Cuenta", sub: "Completá los datos para registrarte." },
   };
@@ -169,7 +169,7 @@ const LoginAdmin = () => {
               <input
                 type="text"
                 className="mb-3 input-custom"
-                placeholder="Nombre de usuario o Email"
+                placeholder="Correo"
                 value={credencial}
                 onChange={(e) => setCredencial(e.target.value)}
                 required

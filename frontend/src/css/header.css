@@ -39,11 +39,29 @@ header, nav {
   cursor: pointer;
   transition: color 0.3s, transform 0.3s;
   font-family: "Oswald", sans-serif;
+  position: relative; /* Agregado para contener el subrayado animado */
+}
+
+/* Creación de la línea para el subrayado */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px; /* Separación entre el texto y la línea */
+  left: 0;
+  background-color: white;
+  transition: width 0.3s ease; /* Animación suave */
 }
 
 .nav-link:hover {
-  color: #c8102e;
+  color: white; /* Modificado: se mantiene blanco */
   transform: scale(1.05);
+}
+
+/* Al hacer hover, la línea crece al 100% de ancho */
+.nav-link:hover::after {
+  width: 100%;
 }
 
 /* ======= NUEVOS ELEMENTOS (CARRITO, AUTH Y DROPDOWNS SECUNDARIOS) ======= */
@@ -298,7 +316,8 @@ header, nav {
               padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   -webkit-overflow-scrolling: touch;
-  border-bottom: 3px solid #f0f0f0;
+  /* MODIFICADO: Quitamos el borde cuando está cerrado para que no deje la línea blanca */
+  border-bottom: 0px solid #f0f0f0; 
 }
 
 .modelos-dropdown.show {
@@ -308,6 +327,8 @@ header, nav {
   animation: slideDownFade 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: visible;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  /* MODIFICADO: Le ponemos el borde solo cuando se abre */
+  border-bottom: 3px solid #f0f0f0; 
 }
 
 @keyframes slideDownFade {
@@ -366,7 +387,7 @@ header, nav {
 }
 
 
-/* ======= ESTILOS DEL CARRITO (Del código nuevo que me pasaste) ======= */
+/* ======= ESTILOS DEL CARRITO ======= */
 
 .carrito-container {
   padding: 40px 20px;

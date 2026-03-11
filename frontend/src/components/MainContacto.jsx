@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react"; // Cambiamos a useLayoutEffect
 import Swal from "sweetalert2";
 import {
   FaUser,
@@ -11,7 +11,17 @@ import { BsWhatsapp } from "react-icons/bs";
 import { MdSubject } from "react-icons/md";
 import "../css/contacto.css";
 
-const MainContanto = () => {
+const MainContacto = () => {
+  // === SOLUCIÓN DEFINITIVA PARA EL SCROLL DE REACT ROUTER ===
+  useLayoutEffect(() => {
+    // Forzamos el scroll de la ventana
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    // Por si el scroll lo está manejando el body o el HTML directamente en tu CSS
+    document.documentElement.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    document.body.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, []);
+  // ==========================================================
+
   const [formData, setFormData] = useState({
     nombre: "",
     email: "",
@@ -242,4 +252,4 @@ const MainContanto = () => {
   );
 };
 
-export default MainContanto;
+export default MainContacto;

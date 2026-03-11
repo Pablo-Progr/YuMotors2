@@ -122,9 +122,9 @@
 /* ===== GRID DE SERVICIOS ===== */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  max-width: 1000px;
+  grid-template-columns: repeat(4, 1fr); /* MODIFICADO: Fuerza 4 columnas en escritorio */
+  gap: 1.5rem; /* Ajustado levemente para que respiren bien */
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -214,6 +214,14 @@
 }
 
 /* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  /* MODIFICADO: En pantallas medianas (tablets) pasamos a un formato cuadrado 2x2 */
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+  }
+}
+
 @media (max-width: 992px) {
   .hero-title {
     font-size: 3rem;
@@ -266,6 +274,11 @@
 
   .contact-details-card {
     padding: 2rem 1rem;
+  }
+
+  /* MODIFICADO: En celulares bajamos a 1 sola columna para los servicios */
+  .services-grid {
+    grid-template-columns: 1fr;
   }
 }
 

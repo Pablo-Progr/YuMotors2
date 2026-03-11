@@ -23,9 +23,9 @@ import Yaris from "./pages/Yaris";
 import Corolla from "./pages/Corolla"
 import HiluxSR from "./pages/HiluxSR";
 import SW4 from "./pages/SW4";
-import Contanto from "./pages/Contanto";
+import Contacto from "./pages/Contacto";
 import Carrito from "./pages/Carrito";
-
+import Posventa from "./pages/Posventa";
 import PedidosAdmin from "./pages/PedidosAdmin";
 import PedidosUser from "./pages/PedidosUser";
 import NotFound from "./pages/NotFound";
@@ -60,7 +60,8 @@ function App() {
           <Route path="/login" element={<AdminLogin />} />
           <Route path="/loginadmin" element={<AdminLogin />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="/contacto" element={<Contanto />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/posventa" element={<Posventa/>} />
           <Route
             path="/carrito"
             element={
