@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../css/LoginAdmin.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,8 +9,12 @@ const VerifyEmail = () => {
   const navigate = useNavigate();
   const [status, setStatus] = useState("loading"); // "loading" | "success" | "error"
   const [message, setMessage] = useState("");
+  const calledRef = useRef(false);
 
   useEffect(() => {
+    if (calledRef.current) return;
+    calledRef.current = true;
+
     const activate = async () => {
       try {
         const response = await fetch(
