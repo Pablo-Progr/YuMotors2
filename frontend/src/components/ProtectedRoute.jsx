@@ -4,8 +4,11 @@ import useAuthStore from "../store/authStore";
 const ProtectedRoute = ({ children, requireAdmin = false }) => {
   const { isAuthenticated, isAdmin } = useAuthStore();
 
-  // Rutas de admin: solo permite si el usuario es admin, cualquier otro caso → 404
+  // Rutas de admin: si no está autenticado → login, si no es admin → 404
   if (requireAdmin) {
+    if (!isAuthenticated) {
+      return <Navigate to="/login" replace />;
+    }
     if (!isAdmin) {
       return <Navigate to="/404" replace />;
     }
