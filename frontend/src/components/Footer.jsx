@@ -15,7 +15,7 @@ const Footer = () => {
 
         <nav className="footer-nav">
           <a href="/concesionario">Concesionarios</a>
-          <a href="/toyota" className="footer-link-external">
+          <a href="https://www.lexus.com.ar/es.html" className="footer-link-external">
             Lexus <FiExternalLink />
           </a>
           <a href="/contacto">Términos y condiciones</a>

@@ -241,7 +241,7 @@ const LoginAdmin = () => {
                 maxLength={15}
                 required
               />
-              <small className="text-secondary d-block mb-2" style={{ marginTop: "-8px", fontSize: "12px" }}>
+              <small className="cont-caracteres-txt" style={{ marginBottom: "0px", fontSize: "12px" , color: "#ffffff"}}>
                 {regNombre.length}/15 caracteres
               </small>
               <input

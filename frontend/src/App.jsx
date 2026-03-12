@@ -23,6 +23,7 @@ import Yaris from "./pages/Yaris";
 import Corolla from "./pages/Corolla"
 import HiluxSR from "./pages/HiluxSR";
 import SW4 from "./pages/SW4";
+import LS from "./pages/LS";
 import Contacto from "./pages/Contacto";
 import Carrito from "./pages/Carrito";
 import Posventa from "./pages/Posventa";
@@ -58,6 +59,7 @@ function App() {
           <Route path="/marcas/toyota/corolla" element={<Corolla />} />
           <Route path="/marcas/toyota/hiluxsr" element={<HiluxSR />} />
           <Route path="/marcas/toyota/sw4" element={<SW4 />} />
+          <Route path="/marcas/lexus/ls" element={<LS />} />
           <Route path="/login" element={<AdminLogin />} />
           <Route path="/loginadmin" element={<AdminLogin />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
