@@ -1,0 +1,192 @@
+/* LEXUS LS - estilos encapsulados (prefijo: ls-) */
+.ls-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  font-family: "Oswald", "Helvetica Neue", sans-serif;
+  color: #111;
+  overflow-x: hidden;
+  padding-bottom: 3rem;
+}
+
+.ls-section-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  letter-spacing: 2px;
+  margin: 2rem 0 1.5rem;
+}
+
+/* Features / Downloads */
+.ls-features,
+.ls-downloads {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 3rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto 4rem;
+  padding: 0 1rem;
+}
+
+.ls-feature {
+  flex: 1 1 220px;
+  max-width: 260px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-align: left;
+}
+
+.ls-feature-icon {
+  font-size: 3.2rem;
+  color: #c9a84c;
+  margin-bottom: 1rem;
+}
+
+.ls-feature h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+
+.ls-feature p {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.45;
+  max-width: 260px;
+}
+
+.ls-download-box {
+  flex: 1 1 240px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.6rem;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.ls-download-icon { font-size: 2.4rem; color: #c9a84c; margin-bottom: 0.6rem; }
+.ls-download-box h3 { font-size: 1.05rem; color: #c9a84c; margin-bottom: 0.5rem; }
+
+.ls-download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.ls-download-link:hover { color: #c9a84c; }
+.ls-link-icon { font-size: 0.85rem; }
+
+/* Showcase */
+.ls-showcase {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.ls-card {
+  position: relative;
+  width: 500px;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ls-card:hover { transform: scale(1.03); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35); }
+.ls-card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.ls-card:hover .ls-card-img { transform: scale(1.05); }
+
+.ls-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0));
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+}
+
+.ls-card-overlay p { font-size: 1rem; margin: 0; opacity: 0.9; }
+.ls-card-overlay h3 { font-size: 1.8rem; font-weight: 600; color: #c9a84c; margin: 0.3rem 0 0; }
+
+/* Modal */
+.ls-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  animation: ls-fade 0.25s ease;
+}
+@keyframes ls-fade { from { opacity: 0; } to { opacity: 1; } }
+
+.ls-modal-img { max-width: 90%; max-height: 90vh; border-radius: 10px; object-fit: contain; box-shadow: 0 0 25px rgba(0, 0, 0, 0.7); }
+.ls-close-btn { position: absolute; top: 20px; right: 30px; font-size: 2rem; color: #fff; background: none; border: none; cursor: pointer; }
+.ls-close-btn:hover { color: #c9a84c; }
+.ls-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2.6rem; color: #fff; background: rgba(0, 0, 0, 0.4); border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+.ls-nav-btn.prev { left: 30px; } .ls-nav-btn.next { right: 30px; }
+.ls-nav-btn:hover { color: #c9a84c; background: rgba(255, 255, 255, 0.06); }
+
+/* Portada */
+.ls-portada {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto 3rem;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  position: relative;
+  background: #000;
+}
+.ls-portada-img {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  transition: transform 1.2s ease, opacity 1.2s ease;
+}
+.ls-portada-img:hover { transform: scale(1.03); opacity: 0.95; }
+.ls-portada::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .ls-card { width: 420px; height: 260px; }
+  .ls-portada-img { height: 460px; }
+}
+@media (max-width: 768px) {
+  .ls-card { width: 90%; height: 240px; }
+  .ls-section-title { font-size: 1.6rem; }
+  .ls-feature { max-width: 300px; text-align: center; }
+}
+@media (max-width: 480px) {
+  .ls-card { width: 95%; height: 200px; }
+  .ls-section-title { font-size: 1.4rem; }
+  .ls-feature-icon { font-size: 2.4rem; }
+  .ls-download-box { width: 90%; }
+}

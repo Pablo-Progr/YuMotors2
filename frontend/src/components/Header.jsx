@@ -183,9 +183,7 @@ const Header = () => {
           </div>
           <div className="categoria">
             <h4>Lexus</h4>
-            <a href="/marcas/toyota/hilux-srv">LFA</a>
-            <a href="/marcas/toyota/hilux-srv">Ejemplo</a>
-            <a href="/marcas/toyota/hilux-srv">Ejemplo</a>
+            <a href="/marcas/lexus/ls">LS</a>
           </div>
           <div className="categoria">
             <h4>Gazoo Racing</h4>

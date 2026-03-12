@@ -13,9 +13,8 @@
   padding: 30px;
   background-color: #000000e3; /* fallback */
   border: #ffffff  1px solid;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.628);
-
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.628);
 }
 
 .input-custom {
