@@ -59,7 +59,7 @@ const MainLexusLS = () => {
         <img src={portada} alt="Lexus LS Portada" className="ls-portada-img" />
       </section>
 
-      {/* FEATURES */}
+      {/* CARACTERISTICAS */}
       <section className="ls-features">
         <div className="ls-feature">
           <FaCogs className="ls-feature-icon" />
@@ -83,7 +83,7 @@ const MainLexusLS = () => {
         </div>
       </section>
 
-      {/* SHOWCASE */}
+      {/* GALERIA */}
       <section className="ls-showcase">
         <div className="ls-card" onClick={() => openModal(interiorImages, 0)}>
           <img src={lsint1} alt="Interior Lexus LS" className="ls-card-img" />
@@ -102,7 +102,7 @@ const MainLexusLS = () => {
         </div>
       </section>
 
-      {/* MODAL */}
+      {/* VENTANA MODAL */}
       {modalOpen && (
         <div className="ls-modal">
           <button className="ls-close-btn" onClick={closeModal}>×</button>
@@ -112,7 +112,7 @@ const MainLexusLS = () => {
         </div>
       )}
 
-      {/* DOWNLOADS */}
+      {/* DESCARGAS */}
       <section className="ls-downloads">
         <div className="ls-download-box">
           <FaFileAlt className="ls-download-icon" />

@@ -64,7 +64,7 @@ const MainCorolla = () => {
 
       
 
-      {/* FEATURES */}
+      {/* CARACTERISTICAS */}
       <section className="corolla-features">
         <div className="corolla-feature">
           <FaCogs className="corolla-feature-icon" />
@@ -88,7 +88,7 @@ const MainCorolla = () => {
         </div>
       </section>
 
-      {/* SHOWCASE */}
+      {/* GALERIA */}
       <section className="corolla-showcase">
         <div className="corolla-card" onClick={() => openModal(interiorImages, 0)}>
           <img src={corollaint1} alt="Interior Corolla" className="corolla-card-img" />
@@ -107,7 +107,7 @@ const MainCorolla = () => {
         </div>
       </section>
 
-      {/* MODAL */}
+      {/* VENTANA MODAL */}
       {modalOpen && (
         <div className="corolla-modal">
           <button className="corolla-close-btn" onClick={closeModal}>×</button>
@@ -117,7 +117,7 @@ const MainCorolla = () => {
         </div>
       )}
 
-      {/* DOWNLOADS */}
+      {/* DESCARGAS */}
       <section className="corolla-downloads">
         <div className="corolla-download-box">
           <FaFileAlt className="corolla-download-icon" />

@@ -54,7 +54,7 @@ export default function MainSW4() {
         <img src={portada} alt="SW4 Portada" className="sw4-portada-img" />
       </section>
 
-      {/* ===== FEATURES ===== */}
+      {/* ===== CARACTERISTICAS ===== */}
       <section className="sw4-features">
 
         <div className="sw4-features-grid">
@@ -92,7 +92,7 @@ export default function MainSW4() {
         </div>
       </section>
 
-      {/* ===== SHOWCASE ===== */}
+      {/* ===== GALERIA ===== */}
       <div className="sw4-showcase">
         <div className="sw4-card" onClick={() => openModal(sw4int1)}>
           <img src={sw4int1} className="sw4-card-img" alt="" />
@@ -111,7 +111,7 @@ export default function MainSW4() {
         </div>
       </div>
 
-      {/* ===== MODAL ===== */}
+      {/* ===== VENTANA MODAL ===== */}
       {modalOpen && (
         <div className="sw4-modal" onClick={closeModal}>
           <button className="sw4-close-btn" onClick={closeModal}>
@@ -121,8 +121,8 @@ export default function MainSW4() {
         </div>
       )}
 
-      {/* DOWNLOADS */}
-      {/* DOWNLOADS */}
+      {/* DESCARGAS */}
+      {/* DESCARGAS */}
 <section className="sw4-downloads">
   <div className="sw4-download-box">
     <FaFileAlt className="sw4-download-icon" />

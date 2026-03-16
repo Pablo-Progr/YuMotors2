@@ -58,7 +58,7 @@ const MainYaris = () => {
       </section>
 
 
-      {/* FEATURES */}
+      {/* CARACTERISTICAS */}
       <section className="yaris-features">
         <div className="yaris-feature">
           <FaCogs className="yaris-feature-icon" />
@@ -82,7 +82,7 @@ const MainYaris = () => {
         </div>
       </section>
 
-      {/* SHOWCASE */}
+      {/* GALERIA */}
       <section className="yaris-showcase">
         <div className="yaris-card" onClick={() => openModal(interiorImages, 0)}>
           <img src={gryarisint1} alt="Interior GR Yaris" className="yaris-card-img" />
@@ -101,7 +101,7 @@ const MainYaris = () => {
         </div>
       </section>
 
-      {/* MODAL */}
+      {/* VENTANA MODAL */}
       {modalOpen && (
         <div className="yaris-modal">
           <button className="yaris-close-btn" onClick={closeModal}>×</button>
@@ -111,7 +111,7 @@ const MainYaris = () => {
         </div>
       )}
 
-      {/* DOWNLOADS */}
+      {/* DESCARGAS */}
       <section className="yaris-downloads">
         <div className="yaris-download-box">
           <FaFileAlt className="yaris-download-icon" />

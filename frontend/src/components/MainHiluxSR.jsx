@@ -56,7 +56,7 @@ const MainHiluxSR = () => {
       </section>
 
 
-      {/* FEATURES */}
+      {/* CARACTERISTICAS */}
       <section className="hilux-features">
         <div className="hilux-feature">
           <FaCogs className="hilux-feature-icon" />
@@ -80,7 +80,7 @@ const MainHiluxSR = () => {
         </div>
       </section>
 
-      {/* SHOWCASE */}
+      {/* GALERIA */}
       <section className="hilux-showcase">
         <div className="hilux-card" onClick={() => openModal(interiorImages, 0)}>
           <img src={hiluxint1} alt="Interior Hilux" className="hilux-card-img" />
@@ -99,7 +99,7 @@ const MainHiluxSR = () => {
         </div>
       </section>
 
-      {/* MODAL */}
+      {/* VENTANA MODAL */}
       {modalOpen && (
         <div className="hilux-modal">
           <button className="hilux-close-btn" onClick={closeModal}>×</button>
@@ -109,7 +109,7 @@ const MainHiluxSR = () => {
         </div>
       )}
 
-      {/* DOWNLOADS */}
+      {/* DESCARGAS */}
       <section className="hilux-downloads">
         <div className="hilux-download-box">
           <FaFileAlt className="hilux-download-icon" />

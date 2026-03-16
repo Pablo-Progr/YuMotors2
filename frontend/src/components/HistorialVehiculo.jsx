@@ -61,10 +61,10 @@ const HistorialVehiculo = () => {
   };
 
   const renderEstado = (estado) => {
-    const n = Number(estado);
+    const n = Number(estado); //pablo para giuliano: De verda no habra forma de hacer esto MENOS repetitivo? safa pero, bue...
     if (n === 0) return <span className="historial-badge historial-badge-pendiente">Pendiente</span>;
     if (n === 1) return <span className="historial-badge historial-badge-proceso">En proceso</span>;
-    if (n === 2) return <span className="historial-badge historial-badge-completado">Completado</span>;
+    if (n === 2) return <span className="historial-badge historial-badge-completado">Completado</span>; 
     if (n === 3) return <span className="historial-badge historial-badge-cancelado">Cancelado</span>;
     return <span>{estado}</span>;
   };
@@ -242,16 +242,16 @@ const HistorialVehiculo = () => {
         )}
       </div>
 
-      {/* Modal de descripción */}
+      {/* pablo: Este es el modal de la descripocion, que se activa con el boton del ojito. Hay que revisarlo*/}
       <Modal show={mostrarModal} onHide={cerrarModal} centered>
         <Modal.Header closeButton style={{ backgroundColor: "#1a1a1a", color: "#fff" }}>
           <Modal.Title>Descripción del Servicio</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ backgroundColor: "#f8f9fa", padding: "24px" }}>
           <p style={{ margin: 0, color: "#333" }}>
-            {descripcionSeleccionada || "Sin descripción"}
+            {descripcionSeleccionada || "Sin descripción"} 
           </p>
-        </Modal.Body>
+      </Modal.Body> {/* Jeremias para Pablo: REVISAR!!!! SI HAY MUCHO TEXT LOS CARACTERES SE VAN DEL MODAL, DE LA PANTALLA Y HASTA APAGAN LA LUZ ANTES DE IRSE ¿¿¿??? */}
         <Modal.Footer style={{ backgroundColor: "#f8f9fa" }}>
           <Button 
             onClick={cerrarModal}

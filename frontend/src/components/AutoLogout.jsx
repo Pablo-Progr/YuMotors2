@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../store/authStore";
 
-const INACTIVITY_TIMEOUT = 4 * 60 * 60 * 1000; // 4 horas en milisegundos
+const INACTIVITY_TIMEOUT = 4 * 60 * 60 * 1000; // pablo para jere: ¿4 horas? No sera muchacho?
 
 const AutoLogout = () => {
   const { isAuthenticated, logout } = useAuthStore();

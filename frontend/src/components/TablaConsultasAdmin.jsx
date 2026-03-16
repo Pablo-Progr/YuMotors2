@@ -51,7 +51,7 @@ const TablaConsultasAdmin = () => {
     try {
       // Convertir a número para evitar problemas de tipo
       const estadoActual = Number(consulta.estado);
-      const nuevoEstado = estadoActual === 1 ? 0 : 1; // toggle
+      const nuevoEstado = estadoActual === 1 ? 0 : 1; // alternar
 
       const res = await fetch("http://localhost:3000/api/consultas/estado", {
         method: "PUT",

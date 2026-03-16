@@ -16,7 +16,6 @@ import {
 } from "react-icons/fa";
 import "../css/miPosventa.css";
 
-// Horarios disponibles de 08:00 a 18:00
 const HORARIOS_DISPONIBLES = [
   "08:00", "09:00", "10:00", "11:00", "12:00",
   "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"
@@ -58,7 +57,7 @@ const AgendarTurno = () => {
     if (id) fetchData();
   }, [id]);
 
-  // Cargar horarios ocupados cuando cambia la fecha
+  
   useEffect(() => {
     const cargarHorariosOcupados = async () => {
       if (!formData.fecha) {
@@ -83,14 +82,14 @@ const AgendarTurno = () => {
     cargarHorariosOcupados();
   }, [formData.fecha]);
 
-  // Función para verificar si es fin de semana
+  // pablo para jere: esta funcion era necesaria cuando nos pusimos a pensar lo de los fines de semana, con eso evitamos ese error
   const esFinDeSemana = (fechaStr) => {
     const fecha = new Date(fechaStr + "T00:00:00");
     const dia = fecha.getDay();
     return dia === 0 || dia === 6;
   };
 
-  // Obtener próxima fecha laboral
+
   const getProximaFechaLaboral = () => {
     const hoy = new Date();
     let fecha = new Date(hoy);
@@ -188,7 +187,7 @@ const AgendarTurno = () => {
           text: error.response.data.error || "El turno seleccionado ya fue tomado. Por favor, elija otro horario.",
         });
         setFormData((prev) => ({ ...prev, hora: "" }));
-        // Recargar horarios
+        // Recargar horarios ocupados para reflejar el cambio
         try {
           const resp = await axios.get(
             `http://localhost:3000/api/reg-posventa/horarios-ocupados/${formData.fecha}`

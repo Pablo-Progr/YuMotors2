@@ -25,7 +25,7 @@ const MainConcesionario = () => {
 
   return (
     <div className="concesionario-page">
-      {/* ===== HERO BANNER (IMAGEN COMPLETA) ===== */}
+      {/* ===== BANNER PRINCIPAL (IMAGEN COMPLETA) ===== */}
       <div 
         className="concesionario-hero"
         style={{ backgroundImage: `url(${foto})` }}

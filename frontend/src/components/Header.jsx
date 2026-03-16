@@ -52,7 +52,7 @@ const Header = () => {
           <img className="nav-logo" src={logoBlancoRojo} alt="Yu Motors" />
         </a>
 
-        {/* Botón hamburguesa */}
+        {/* Giuliano: Hay que fijarse porque las animaciones del menu hamburguesa en responsive esta medio floja*/}
         <button
           className={`hamburger ${menuOpen ? "active" : ""}`}
           onClick={toggleMenu}
@@ -74,7 +74,6 @@ const Header = () => {
           </button>
           <a className="nav-link" href="/usados">Usados</a>
 
-          {/* Dropdown Productos */}
           <div className="productos-dropdown-wrapper">
             <button
               className="nav-link modelos-btn"
@@ -96,7 +95,7 @@ const Header = () => {
 
           {isAuthenticated ? (
             <>
-              {/* Icono de carrito */}
+              {/* Giuliano: Un lio lo del dibujo SVG, tuve que pedirle ayuda a dios*/}
               <Link to="/carrito" className="nav-link cart-icon-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -111,7 +110,7 @@ const Header = () => {
                 )}
               </Link>
 
-              {/* Usuario logueado con dropdown */}
+              {/* Giuliano: Esta cosa bien infernal es el menu desplegable del usuario logeado, fue un parto */}
               <div className="user-dropdown-wrapper" ref={userMenuRef}>
                 <button
                   className="nav-user-info nav-link"
@@ -156,7 +155,7 @@ const Header = () => {
               </div>
             </>
           ) : (
-            /* No logueado: mostrar links de sesión */
+            /* Giuliano: esto es para que el que NO esta log se le muestren los botones en vez del menu desplegable */
             <div className="nav-auth-links">
               <Link to="/login" className="nav-link nav-link-login">
                 Iniciar Sesión
@@ -169,7 +168,7 @@ const Header = () => {
         </nav>
       </div>
 
-      {/* Dropdown de modelos */}
+      {/* Giuliano: Menu desplegable de modelos, hay que refinarlo bastante, si tenemos tiempo añadamos img, pero dudo */}
       <div
         id="modelos-dropdown"
         className={`modelos-dropdown ${showModelos ? "show" : ""}`}

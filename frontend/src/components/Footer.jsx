@@ -15,7 +15,7 @@ const Footer = () => {
 
         <nav className="footer-nav">
           <a href="/concesionario">Concesionarios</a>
-          <a href="https://www.lexus.com.ar/es.html" className="footer-link-external">
+          <a href="https://www.lexus.com.ar/es.html" className="footer-link-external" > {/*Giuliano: Puse el link de Lexus Argentina, que hasta ahora no tenia nada.*/}
             Lexus <FiExternalLink />
           </a>
           <a href="/contacto">Términos y condiciones</a>
@@ -39,7 +39,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-copyright">
-        <p>©2025 Yu Motors. Todos los derechos reservados.</p>
+        <p>©2025 Yu Motors. Todos los derechos reservados.</p> {/* Pablo para Giuliano: ¿2025? Avispece caballero, estamos en el big 2026 */}
       </div>
 
       

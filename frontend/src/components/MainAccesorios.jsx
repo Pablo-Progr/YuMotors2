@@ -6,7 +6,7 @@ import useCartStore from "../store/cartStore";
 import useAuthStore from "../store/authStore";
 import Paginador from "./Paginador";
 
-const ITEMS_POR_PAGINA = 12;
+const ITEMS_POR_PAGINA = 12; // pablo: creo que 12 esta bien, porque cada card es grande, si fueran 15 o mas el user tendria que escrollear mucho para llegar al final.
 
 const MainAccesorios = () => {
   const [accesorios, setAccesorios] = useState([]);
@@ -18,13 +18,13 @@ const MainAccesorios = () => {
   const { isAuthenticated } = useAuthStore();
   const navigate = useNavigate();
 
-  // Estados para filtros
+  // pablo: estados para los filtros:
   const [filtro, setFiltro] = useState("");
   const [marcaFiltro, setMarcaFiltro] = useState("");
   const [precioMax, setPrecioMax] = useState(100000000);
   const [rangosPrecio, setRangosPrecio] = useState({ min: 0, max: 100000000 });
 
-  // Ordenamiento
+
   const [ordenamiento, setOrdenamiento] = useState("recientes");
 
   const fetchAccesorios = async () => {
@@ -34,7 +34,7 @@ const MainAccesorios = () => {
       );
       setAccesorios(response.data);
 
-      // Calcular rangos automáticos basados en los datos
+      // pablo: esto pone el rango de los filtros segun los datos que ya hay en la base de datos (precio, mas que nada)
       if (response.data.length > 0) {
         const precios = response.data.map((a) => parseFloat(a.precio));
         const minPrecio = Math.min(...precios);
@@ -52,17 +52,17 @@ const MainAccesorios = () => {
     fetchAccesorios();
   }, []);
 
-  // Función para formatear el precio con puntos
+
   const formatPrice = (price) => {
     return Number(price)
       .toFixed(0)
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      .replace(/\B(?=(\d{3})+(?!\d))/g, "."); // Giuliano: ??????
   };
 
-  // Obtener marcas únicas para el filtro
+
   const marcasUnicas = [...new Set(accesorios.map((a) => a.marca))].sort();
 
-  // Lógica de filtrado
+
   const accesoriosFiltrados = accesorios.filter((accesorio) => {
     const marca = accesorio.marca || "";
     const nombre = accesorio.nombre || "";
@@ -70,24 +70,23 @@ const MainAccesorios = () => {
     const precio = parseFloat(accesorio.precio);
     const stock = parseInt(accesorio.stock) || 0;
 
-    // Filtro de stock - excluir productos sin stock
+
     const stockDisponible = stock > 0;
 
-    // Filtro de búsqueda por texto (marca o nombre)
+
     const marcaNombreMatch =
       marca.toLowerCase().includes(filtroLower) ||
       nombre.toLowerCase().includes(filtroLower);
 
-    // Filtro por marca específica (dropdown)
     const marcaMatch = marcaFiltro === "" || marca === marcaFiltro;
 
-    // Filtro por precio máximo
+
     const precioMatch = precio <= precioMax;
 
     return stockDisponible && marcaNombreMatch && marcaMatch && precioMatch;
   });
 
-  // Lógica de ordenamiento
+  // Giuliano para Jeremias: aca hay algo que no esta funcionando  bien, fijate con pablo. | Jeremias: listo.
   const accesoriosOrdenados = [...accesoriosFiltrados].sort((a, b) => {
     switch (ordenamiento) {
       case "precio-asc":
@@ -104,7 +103,7 @@ const MainAccesorios = () => {
     }
   });
 
-  // Paginación
+  // giuliano: esto es para que cuando cambias un filtro, se resetee la pagina de vuelta a la primera en la interfaz, error comun.
   const [paginaActual, setPaginaActual] = useState(1);
   const cardsRef = useRef(null);
   const scrollPendienteRef = useRef(false);
@@ -130,7 +129,7 @@ const MainAccesorios = () => {
     paginaActual * ITEMS_POR_PAGINA
   );
 
-  // Función para limpiar filtros
+
   const limpiarFiltros = () => {
     setFiltro("");
     setMarcaFiltro("");
@@ -138,7 +137,7 @@ const MainAccesorios = () => {
     setOrdenamiento("recientes");
   };
 
-  // Función para abrir el modal
+  // Giuliano: abro modal
   const openModal = (accesorio) => {
     setSelectedAccesorio(accesorio);
     setCantidad(0);
@@ -146,7 +145,7 @@ const MainAccesorios = () => {
     setShowModal(true);
   };
 
-  // Función para cerrar el modal
+  // Giuliano: cierro modal.
   const closeModal = () => {
     setShowModal(false);
     setSelectedAccesorio(null);
@@ -158,7 +157,7 @@ const MainAccesorios = () => {
   const incrementarCantidad = () => setCantidad((prev) => prev + 1);
   const decrementarCantidad = () => setCantidad((prev) => (prev > 0 ? prev - 1 : 0));
 
-  // Agregar al carrito
+  // Pablo: handle de añadir a carrito un producto, si no esta logeado lo mando al login.
   const handleAddToCart = () => {
     if (!isAuthenticated) {
       closeModal();
@@ -181,7 +180,7 @@ const MainAccesorios = () => {
       <div className="accesorios-container">
         <h2 className="titulo-accesorios">Accesorios</h2>
 
-        {/* Sección de Filtros */}
+        {/* FILTROS */}
         <div className="filtros-container" ref={cardsRef}>
           <div className="filtros-header">
             <h3>
@@ -193,7 +192,7 @@ const MainAccesorios = () => {
           </div>
 
           <div className="filtros-grid">
-            {/* Búsqueda por texto */}
+            {/* BUSQUEDA POR TEXTO */}
             <div className="filtro-item">
               <label>
                 <i className="bi bi-search"></i> Buscar
@@ -207,7 +206,7 @@ const MainAccesorios = () => {
               />
             </div>
 
-            {/* Filtro por marca */}
+
             <div className="filtro-item">
               <label>
                 <i className="bi bi-tag"></i> Marca
@@ -226,7 +225,7 @@ const MainAccesorios = () => {
               </select>
             </div>
 
-            {/* Filtro por precio */}
+
             <div className="filtro-item filtro-range">
               <label>
                 <i className="bi bi-currency-dollar"></i> Precio máximo:{" "}
@@ -245,8 +244,6 @@ const MainAccesorios = () => {
                 <span>${formatPrice(rangosPrecio.max)}</span>
               </div>
             </div>
-
-            {/* Ordenamiento */}
             <div className="filtro-item">
               <label>
                 <i className="bi bi-sort-down"></i> Ordenar por
@@ -264,8 +261,6 @@ const MainAccesorios = () => {
               </select>
             </div>
           </div>
-
-          {/* Contador de resultados */}
           <div className="resultados-count">
             <i className="bi bi-gear"></i> {accesoriosOrdenados.length}{" "}
             accesorio{accesoriosOrdenados.length !== 1 ? "s" : ""} encontrado
@@ -273,7 +268,7 @@ const MainAccesorios = () => {
           </div>
         </div>
 
-        {/* ===== Cards de accesorios ===== */}
+        {/* CARDS DE ACCESORIOS */}
         {accesoriosOrdenados.length === 0 ? (
           <div className="no-results">
             <i className="bi bi-exclamation-circle"></i>

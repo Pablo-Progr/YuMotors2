@@ -45,7 +45,7 @@ const MainPosventa = () => {
 
   return (
     <div className="concesionario-page">
-      {/* ===== HERO BANNER ===== */}
+      {/* ===== BANNER PRINCIPAL ===== */}
       <div
         className="concesionario-hero"
         style={{ backgroundImage: `url(${foto})` }}

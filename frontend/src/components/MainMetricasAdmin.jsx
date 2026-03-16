@@ -55,8 +55,8 @@ const MainMetricasAdmin = () => {
     try {
       setLoading(true);
 
-      // ===== FETCH ACCESORIOS =====
-      // Fetch ventas por mes
+      // ===== OBTENER DATOS DE ACCESORIOS =====
+      // Obtener ventas por mes
       const ventasRes = await fetch(
         "http://localhost:3000/api/metricas/ventas-por-mes"
       );
@@ -65,7 +65,7 @@ const MainMetricasAdmin = () => {
         setVentasPorMes(ventasData.data);
       }
 
-      // Fetch productos más vendidos
+      // Obtener productos más vendidos
       const productosRes = await fetch(
         "http://localhost:3000/api/metricas/productos-mas-vendidos"
       );
@@ -74,7 +74,7 @@ const MainMetricasAdmin = () => {
         setProductosMasVendidos(productosData.data);
       }
 
-      // Fetch resumen general
+      // Obtener resumen general
       const resumenRes = await fetch(
         "http://localhost:3000/api/metricas/resumen-general"
       );
@@ -83,7 +83,7 @@ const MainMetricasAdmin = () => {
         setResumenGeneral(resumenData.data);
       }
 
-      // Fetch comparativo mensual
+      // Obtener comparativo mensual
       const comparativoRes = await fetch(
         "http://localhost:3000/api/metricas/comparativo-mensual"
       );
@@ -92,8 +92,8 @@ const MainMetricasAdmin = () => {
         setComparativoMensual(comparativoData.data);
       }
 
-      // ===== FETCH REPUESTOS =====
-      // Fetch ventas de repuestos por mes
+      // ===== OBTENER DATOS DE REPUESTOS =====
+      // Obtener ventas de repuestos por mes
       const ventasRepuestosRes = await fetch(
         "http://localhost:3000/api/metricas/repuestos/ventas-por-mes"
       );
@@ -102,7 +102,7 @@ const MainMetricasAdmin = () => {
         setVentasRepuestosPorMes(ventasRepuestosData.data);
       }
 
-      // Fetch repuestos más vendidos
+      // Obtener repuestos más vendidos
       const repuestosRes = await fetch(
         "http://localhost:3000/api/metricas/repuestos/mas-vendidos"
       );
@@ -111,7 +111,7 @@ const MainMetricasAdmin = () => {
         setRepuestosMasVendidos(repuestosData.data);
       }
 
-      // Fetch resumen general repuestos
+      // Obtener resumen general de repuestos
       const resumenRepuestosRes = await fetch(
         "http://localhost:3000/api/metricas/repuestos/resumen-general"
       );
@@ -120,7 +120,7 @@ const MainMetricasAdmin = () => {
         setResumenGeneralRepuestos(resumenRepuestosData.data);
       }
 
-      // Fetch comparativo mensual repuestos
+      // Obtener comparativo mensual de repuestos
       const comparativoRepuestosRes = await fetch(
         "http://localhost:3000/api/metricas/repuestos/comparativo-mensual"
       );

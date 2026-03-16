@@ -39,7 +39,7 @@ const MainMiPosventa = () => {
         );
         setVehiculos(res.data);
 
-        // Fetch turno activo for each vehicle concurrently
+        // Obtener turno activo para cada vehiculo en paralelo
         const turnoPromises = res.data.map((v) =>
           axios
             .get(
